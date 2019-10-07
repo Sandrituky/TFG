@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan({ "com.project.controllers" })
-@EntityScan("com.project.models")
+@EntityScan("com.project.model")
 @EnableJpaRepositories("com.project.repositories")
 
 public class TfgSvpApplication {
