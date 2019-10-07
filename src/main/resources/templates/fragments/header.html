@@ -1,43 +1,59 @@
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta charset="UTF-8">
 <header th:fragment="header" xmlns:th="http://www.thymeleaf.org">
-	<div align="left">
-		<a href="index.html"><img id="logo"
-			src="Vista/imagenes/header.png" /></a>
-	</div>
 	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Protectora</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="menu-principal">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-perros" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Perros
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">En adopción</a>
+          <a class="dropdown-item" href="#">Reservados</a>
+          <a class="dropdown-item" href="#">Adoptados</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-gatos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gatos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">En adopción</a>
+          <a class="dropdown-item" href="#">Reservados</a>
+          <a class="dropdown-item" href="#">Adoptados</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-gatos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gestión
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="altaAnimal.html">Alta</a>
+          <a class="dropdown-item" href="#">Baja</a>
+          <a class="dropdown-item" href="#">Modificar</a>
+        </div>
+      </li>
+            
+      <li class="nav-item">
+        <a class="nav-link" href="#">Ejemplo</a>
+      </li>
+      
+      
+      </ul>
+  </div>
+</nav>
 	
-
-<div class="dropdown show">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Perros
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">En adopción</a>
-    <a class="dropdown-item" href="#">Reservados</a>
-    <a class="dropdown-item" href="#">Adoptados</a>
-  </div>
-  
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Gatos
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">En adopción</a>
-    <a class="dropdown-item" href="#">Reservados</a>
-    <a class="dropdown-item" href="#">Adoptados</a>
-  </div>
-
-
-<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Gestión
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item" href="#">Añadir</a>
-    <a class="dropdown-item" href="#">Quitar</a>
-    <a class="dropdown-item" href="#">Modificar</a>
-  </div>
-
 </header>
 

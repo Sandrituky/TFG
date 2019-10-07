@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+// probar esto: @ComponentScan(basePackages= {"com.project.controllers"})
+       <h1>Alta de votantes</h1>
+        <div id="caja">
+        
+        <form action="" name="formularioVotantes" id="formularioVotantes" method="post">
+            <table>
+                <tr>
+                    <td>NIF:</td>
+                    <td><input type="text" id="nif" required name="nif" maxlength="9" minlength="9" /></td>
+                </tr>
+                <tr>
+                    <td>Apellidos:</td>
+                    <td><input type="text" id="apellidos" required maxlength="30" name="apellidos"/></td>
+                </tr>
+                <tr>
+                    <td>Nombre:</td>
+                    <td><input type="text" id="nombre" required maxlength="30" name="nombre"/></td>
+                </tr>
+                <tr>
+                    <td>Domicilio:</td>
+                    <td><input type="text" id="domicilio" required maxlength="50" name="domicilio"/></td>
+                </tr>
+                <tr>
+                    <td>Fecha de nacimiento:</td>
+                    <td><input type="date" id="fnac" required maxlength="30" name="fnac" max="2001-01-01"/></td>
+                </tr>
+                <tr>
+                    <td>ContraseÃ±a:</td>
+                    <td><input type="password" required id="password" name="password" minlength="6" maxlength="20"/></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;" colspan="2"><input type="submit" id="botonAlta" name="botonAlta" value="Dar de alta"/></td>
+                </tr>
+
+            </table>
+            
+            
+            <div id="mensajeUsuario"></div>
+        </form>
+        </div>
+
+</body>
+</html>
