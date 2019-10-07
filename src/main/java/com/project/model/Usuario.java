@@ -1,4 +1,4 @@
-package models;
+package com.project.model;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import models.Rol;
+
+import com.project.model.Rol;
 
 @Entity
 public class Usuario {

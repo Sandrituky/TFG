@@ -1,4 +1,4 @@
-package models;
+package com.project.model;
 
 public enum Tipo {
 	PERRO, GATO

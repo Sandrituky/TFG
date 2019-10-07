@@ -1,15 +1,17 @@
-package models;
+package com.project.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
+
+import com.project.model.Estado;
+import com.project.model.Esterilizado;
+import com.project.model.Tipo;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Enumerated;
-import models.Tipo;
-import models.Estado;
-import models.Esterilizado;
 
 
 
