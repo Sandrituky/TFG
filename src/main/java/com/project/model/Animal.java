@@ -1,9 +1,20 @@
 package com.project.model;
 
+
+
+import java.time.LocalDate;
+
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
@@ -15,8 +26,11 @@ import javax.persistence.Enumerated;
 
 
 
+@Table(name="ANIMAL")
 @Entity
 public class Animal {
+	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "ID")
@@ -48,8 +62,10 @@ public class Animal {
 	@Column(name = "POBLACION", length = 50)
 	private String poblacion;
 	
-	@Column(name = "FNAC", length = 80)
-	private String fnac;
+
+	@DateTimeFormat (pattern="dd-MM-YYYY")
+	@Column(name = "FNAC")
+	private LocalDate fnac;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="SEXO")
@@ -60,9 +76,27 @@ public class Animal {
 	private Estado estado;
 	
 	private int owner; // due�o del animal, en caso de estar adoptado
+	
+	public Animal() {
+		super();
+		this.id = 0;
+		this.tipo = Tipo.GATO;
+		this.nombre = "";
+		this.raza = "";
+		this.foto = "default.jpg";
+		this.esterilizado = Esterilizado.SI;
+		this.descripcion = "";
+		this.localidad = "";
+		this.poblacion = "";
+		this.fnac = LocalDate.now();
+		this.sexo = Sexo.MACHO;
+		this.estado = Estado.EN_ADOPCION;
+		this.owner = 0;
+	}
 
+	
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
-			String localidad, String poblacion, Sexo sexo, String fnac, Estado estado, int owner) {
+			String localidad, String poblacion, Sexo sexo, LocalDate fnac, Estado estado, int owner) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -158,11 +192,11 @@ public class Animal {
 		this.sexo = sexo;
 	}
 
-	public String getFnac() {
+	public LocalDate getFnac() {
 		return fnac;
 	}
 
-	public void setFnac(String fnac) {
+	public void setFnac(LocalDate fnac) {
 		this.fnac = fnac;
 	}
 

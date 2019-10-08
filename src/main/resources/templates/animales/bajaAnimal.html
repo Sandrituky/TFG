@@ -17,14 +17,15 @@
 				<tr>
 					<td>Animal:</td>
 					<td><input type="radio" name="animalType" value="perro">
-					<label for="spayedYes">🐕</label>
-						<input type="radio" name="animalType" value="gato">
-						<label for="spayedYes">🐈</label><br></td>
+						<label for="spayedYes">🐕</label> <input type="radio"
+						name="animalType" value="gato"> <label for="spayedYes">🐈</label><br></td>
 				</tr>
 				<tr>
-					<td>Sexo:</td>
-					<td><input type="radio" name="animalGender" value="macho">♂️
-						<input type="radio" name="animalGender" value="hembra">♀️<br></td>
+					<select name="select">
+						<option value="value1">Value 1</option>
+						<option value="value2" selected>Value 2</option>
+						<option value="value3">Value 3</option>
+					</select>
 				</tr>
 				<tr>
 					<td>Nombre:</td>
@@ -54,10 +55,10 @@
 				<tr>
 				<tr>
 					<td>Esterilizado:</td>
-					<td><input type="radio" name="spayed" id="spayedYes" value="spayedYes">
-					<label for="spayedYes">Si</label> 
-					<input type="radio" name="spayed" id="spayedNo" value="spayedNo">
-					<label for="spayedNo">Pendiente</label></td>
+					<td><input type="radio" name="spayed" id="spayedYes"
+						value="spayedYes"> <label for="spayedYes">Si</label> <input
+						type="radio" name="spayed" id="spayedNo" value="spayedNo">
+						<label for="spayedNo">Pendiente</label></td>
 				</tr>
 				</tr>
 				<tr>
@@ -73,7 +74,8 @@
 
 				<tr>
 					<td style="text-align: center;" colspan="2"><input
-						type="submit" id="botonAlta" name="botonAlta" value="Poner en adopción" /></td>
+						type="submit" id="botonAlta" name="botonAlta"
+						value="Poner en adopción" /></td>
 				</tr>
 
 			</table>

@@ -6,22 +6,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.ui.Model;
 
-
-
 @Controller
 public class MainController {
 
-  @GetMapping("/")
-  public String redIndex(Model model) {
-    return "index";
-  }
-  
+	@GetMapping("/")
+	public String redIndex(Model model) {
+		return "index";
+	}
 
+	@GetMapping("altaAnimal.html")
+	public String redAlta(Model alta) {
+		return "animales/altaAnimal";
+	}
+	
+	@GetMapping("bajaAnimal.html")
+	public String redBaja(Model baja) {
+		return "animales/bajaAnimal";
+	}
+	
 
-    @GetMapping("/altaAnimal.html")
-    public String redAlta(Model alta) {
-      return "altaAnimal";
-    }
-  
 
 }
