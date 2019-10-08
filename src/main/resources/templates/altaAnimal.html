@@ -1,51 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
-// probar esto: @ComponentScan(basePackages= {"com.project.controllers"})
-       <h1>Alta de votantes</h1>
-        <div id="caja">
-        
-        <form action="" name="formularioVotantes" id="formularioVotantes" method="post">
-            <table>
-                <tr>
-                    <td>NIF:</td>
-                    <td><input type="text" id="nif" required name="nif" maxlength="9" minlength="9" /></td>
-                </tr>
-                <tr>
-                    <td>Apellidos:</td>
-                    <td><input type="text" id="apellidos" required maxlength="30" name="apellidos"/></td>
-                </tr>
-                <tr>
-                    <td>Nombre:</td>
-                    <td><input type="text" id="nombre" required maxlength="30" name="nombre"/></td>
-                </tr>
-                <tr>
-                    <td>Domicilio:</td>
-                    <td><input type="text" id="domicilio" required maxlength="50" name="domicilio"/></td>
-                </tr>
-                <tr>
-                    <td>Fecha de nacimiento:</td>
-                    <td><input type="date" id="fnac" required maxlength="30" name="fnac" max="2001-01-01"/></td>
-                </tr>
-                <tr>
-                    <td>ContraseÃ±a:</td>
-                    <td><input type="password" required id="password" name="password" minlength="6" maxlength="20"/></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;" colspan="2"><input type="submit" id="botonAlta" name="botonAlta" value="Dar de alta"/></td>
-                </tr>
 
-            </table>
-            
-            
-            <div id="mensajeUsuario"></div>
-        </form>
-        </div>
+
+	<div id="caja" layout:fragment="content" class="container">
+
+		<form action="" name="formularioVotantes" id="formularioVotantes"
+			method="post">
+			<table>
+				<tr>
+					<td>Animal:</td>
+					<td><input type="radio" name="animalType" value="perro">
+					<label for="spayedYes">🐕</label>
+						<input type="radio" name="animalType" value="gato">
+						<label for="spayedYes">🐈</label><br></td>
+				</tr>
+				<tr>
+					<td>Sexo:</td>
+					<td><input type="radio" name="animalGender" value="macho">♂️
+						<input type="radio" name="animalGender" value="hembra">♀️<br></td>
+				</tr>
+				<tr>
+					<td>Nombre:</td>
+					<td><input type="text" id="nombreAnimal" required
+						maxlength="30" name="nombreAnimal" /></td>
+				</tr>
+				<tr>
+					<td>Raza:</td>
+					<td><input type="text" id="raza" required maxlength="60"
+						name="raza" /></td>
+				</tr>
+				<tr>
+					<td>Fecha de nacimiento:</td>
+					<td><input type="date" id="fnacAnimal" required maxlength="30"
+						name="fnacAnimal" /></td>
+				</tr>
+				<tr>
+					<td>Localidad</td>
+					<td><input type="text" required id="localidad"
+						name="localidad" maxlength="30" /></td>
+				</tr>
+				<tr>
+					<td>Población</td>
+					<td><input type="text" required id="poblacion"
+						name="poblacion" maxlength="30" /></td>
+				</tr>
+				<tr>
+				<tr>
+					<td>Esterilizado:</td>
+					<td><input type="radio" name="spayed" id="spayedYes" value="spayedYes">
+					<label for="spayedYes">Si</label> 
+					<input type="radio" name="spayed" id="spayedNo" value="spayedNo">
+					<label for="spayedNo">Pendiente</label></td>
+				</tr>
+				</tr>
+				<tr>
+					<td>Foto:</td>
+					<td><input type="file" name="pic" accept="image/*"></td>
+				</tr>
+				<tr>
+					<td>Información</td>
+					<td><textarea name="infoAnimal" id="infoAnimal" required
+							rows="5" cols="50"></textarea></td>
+				</tr>
+
+
+				<tr>
+					<td style="text-align: center;" colspan="2"><input
+						type="submit" id="botonAlta" name="botonAlta" value="Poner en adopción" /></td>
+				</tr>
+
+			</table>
+
+
+			<div></div>
+		</form>
+	</div>
 
 </body>
 </html>

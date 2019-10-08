@@ -12,8 +12,16 @@ import org.springframework.ui.Model;
 public class MainController {
 
   @GetMapping("/")
-  public String greeting(Model model) {
+  public String redIndex(Model model) {
     return "index";
   }
+  
+
+
+    @GetMapping("/altaAnimal.html")
+    public String redAlta(Model alta) {
+      return "altaAnimal";
+    }
+  
 
 }

@@ -52,13 +52,17 @@ public class Animal {
 	private String fnac;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name="SEXO")
+	private Sexo sexo;
+	
+	@Enumerated(EnumType.STRING)
 	@Column(name="ESTADO")
 	private Estado estado;
 	
 	private int owner; // due�o del animal, en caso de estar adoptado
 
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
-			String localidad, String poblacion, String fnac, Estado estado, int owner) {
+			String localidad, String poblacion, Sexo sexo, String fnac, Estado estado, int owner) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -69,6 +73,7 @@ public class Animal {
 		this.localidad = localidad;
 		this.poblacion = poblacion;
 		this.fnac = fnac;
+		this.sexo = sexo;
 		this.estado = estado;
 		this.owner = owner;
 	}
@@ -143,6 +148,14 @@ public class Animal {
 
 	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
+	}
+	
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
 	}
 
 	public String getFnac() {
