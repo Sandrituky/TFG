@@ -42,8 +42,9 @@ public class AnimalController {
 		 
 		Animal animal = new Animal();
 		
-		Tipo[] opcionesTipo = Tipo.values();
-		Sexo[] opcionesSexo = Sexo.values();
+		//Tipo[] opcionesTipo = Tipo.values();
+		//Sexo[] opcionesSexo = Sexo.values(); No usados
+		
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values(); //esto se envía al foreach de la vista
 	
 		

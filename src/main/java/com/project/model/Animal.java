@@ -1,10 +1,10 @@
 package com.project.model;
+import java.text.ParseException;
 
 
-
-import java.time.LocalDate;
-
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,10 +62,9 @@ public class Animal {
 	@Column(name = "POBLACION", length = 50)
 	private String poblacion;
 	
-
-	@DateTimeFormat (pattern="dd-MM-YYYY")
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "FNAC")
-	private LocalDate fnac;
+	private Date fnac;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="SEXO")
@@ -88,7 +87,7 @@ public class Animal {
 		this.descripcion = "";
 		this.localidad = "";
 		this.poblacion = "";
-		this.fnac = LocalDate.now();
+		this.fnac = new Date();
 		this.sexo = Sexo.MACHO;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = 0;
@@ -96,7 +95,7 @@ public class Animal {
 
 	
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
-			String localidad, String poblacion, Sexo sexo, LocalDate fnac, Estado estado, int owner) {
+			String localidad, String poblacion, Sexo sexo, Date fnac, Estado estado, int owner) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -192,12 +191,22 @@ public class Animal {
 		this.sexo = sexo;
 	}
 
-	public LocalDate getFnac() {
-		return fnac;
+	public String getFnac() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		return format.format(this.fnac);
 	}
 
-	public void setFnac(LocalDate fnac) {
-		this.fnac = fnac;
+	public void setFnac(String fnac) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		this.fnac = format.parse(fnac);
+	}
+	
+	public String fnacSpanish() {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		return format.format(this.fnac);
 	}
 
 	public Estado getEstado() {
