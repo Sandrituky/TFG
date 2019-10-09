@@ -44,47 +44,46 @@ public class Animal {
 	private int id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column (name = "TIPO")
+	@Column (name = "TIPO", nullable = false)
 	private Tipo tipo;
 	
-	@Column(name = "NOMBRE", length = 50)
+	@Column(name = "NOMBRE", length = 50, nullable = false)
 	private String nombre;
 	
-	@Column(name = "RAZA", length = 50)
-	private String raza;
-	
-	@Column(name = "FOTO", length = 150)
-	private String foto;
-	
 	@Enumerated(EnumType.STRING)
-	@Column (name = "ESTERILIZADO")
-	private Esterilizado esterilizado;
+	@Column(name="SEXO", nullable = false)
+	private Sexo sexo;
 	
-	@Column(name = "DESCRIPCION")
-	private String descripcion;
-	
-    //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne @JoinColumn(name="id")
-    private Provincia provincia;
-	
-	@Column(name = "POBLACION", length = 50)
-	private String poblacion;
-	
+	@Column(name = "RAZA", length = 100, nullable = false)
+	private String raza;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "FNAC")
 	private Date fnac;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="SEXO")
-	private Sexo sexo;
+    //CLAVE FORANEA A TABLA PROVINCIA, 1-N
+	@ManyToOne @JoinColumn(name="PROVINCIA_ID", nullable = false)
+    private Provincia provincia;
+	
+	@Column(name = "POBLACION", length = 50, nullable = false)
+	private String poblacion;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name="ESTADO")
+	@Column (name = "ESTERILIZADO", nullable = false)
+	private Esterilizado esterilizado;
+	
+	@Column(name = "FOTO", length = 200, nullable = false)
+	private String foto;
+	
+	@Column(name = "DESCRIPCION", length = 2000, nullable = false)
+	private String descripcion;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="ESTADO", nullable = false)
 	private Estado estado;
 	
-	
 	//CLAVE FORANEA A TABLA USUARIO  (EN CASO DE ANIMAL ADOPTADO)
-	@ManyToOne @JoinColumn(name="id")
+	@ManyToOne @JoinColumn(name="USUARIO_ID", nullable = true)
     private Usuario owner;
 	
 	//CONSTRUCTOR
@@ -126,88 +125,117 @@ public class Animal {
 		this.estado = estado;
 		this.owner = owner;
 	}
-	
+
+
 	//GETTERS & SETTERS
 
 	public int getId() {
 		return id;
 	}
 
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	public Tipo getTipo() {
 		return tipo;
 	}
 
+
+
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
+
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+
 
 	public String getRaza() {
 		return raza;
 	}
 
+
+
 	public void setRaza(String raza) {
 		this.raza = raza;
 	}
+
+
 
 	public String getFoto() {
 		return foto;
 	}
 
+
+
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+
+
 
 	public Esterilizado getEsterilizado() {
 		return esterilizado;
 	}
 
+
+
 	public void setEsterilizado(Esterilizado esterilizado) {
 		this.esterilizado = esterilizado;
 	}
+
+
 
 	public String getDescripcion() {
 		return descripcion;
 	}
 
+
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
 
 	public Provincia getProvincia() {
 		return provincia;
 	}
 
+
+
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
+
+
 
 	public String getPoblacion() {
 		return poblacion;
 	}
 
+
+
 	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
 	}
-	
-	public Sexo getSexo() {
-		return sexo;
-	}
 
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
-	}
+
 
 	public String getFnac() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -227,20 +255,41 @@ public class Animal {
 		return format.format(this.fnac);
 	}
 
+
+
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+
+
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+
+
+
 	public Estado getEstado() {
 		return estado;
 	}
+
+
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
+
+
 	public Usuario getOwner() {
 		return owner;
 	}
 
+
+
 	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
+	
 
 }

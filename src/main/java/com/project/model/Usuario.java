@@ -33,32 +33,32 @@ public class Usuario {
 	private int id;
 	
 	@Enumerated(EnumType.STRING)
-	@Column (name = "ROL")
+	@Column (name = "ROL", nullable = false)
 	private Rol rol;
 	
-	@Column(name = "DNI", length = 9)
+	@Column(name = "DNI", length = 9, unique=true, nullable = false)
 	private String dni;
 	
-	@Column(name = "NOMBRE", length = 50)
+	@Column(name = "NOMBRE", length = 50, nullable = false)
 	private String nombre;
 	
-	@Column(name = "APELLIDOS", length = 50)
+	@Column(name = "APELLIDOS", length = 50, nullable = false)
 	private String apellidos;
 	
-	@Column(name = "EMAIL", length = 50)
+	@Column(name = "EMAIL", length = 50, unique=true, nullable = false)
 	private String email;
 	
-	@Column(name = "FNAC")
+	@Column(name = "FNAC", nullable = false)
 	private Date fnac;
 	
     //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne @JoinColumn(name="id")
+	@ManyToOne @JoinColumn(name="PROVINCIA_ID", nullable = false)
     private Provincia provincia;
 	
-	@Column(name = "POBLACION", length = 50)
+	@Column(name = "POBLACION", length = 50, nullable = false)
 	private String poblacion;
 	
-	@Column(name = "TELEFONO", length = 9)
+	@Column(name = "TELEFONO", length = 9, nullable = false)
 	private String telefono;
 
 	
@@ -99,10 +99,6 @@ public class Usuario {
 		this.telefono = telefono;
 		this.animales = animales;
 	}
-	
-
-	
-	
 	
 	//GETTERS & SETTERS
 
@@ -185,5 +181,21 @@ public class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
+	public List<Animal> getAnimales() {
+		return animales;
+	}
+
+	public void setAnimales(List<Animal> animales) {
+		this.animales = animales;
+	}
+	
+
+	
+	
+	
+
+
+
 
 }

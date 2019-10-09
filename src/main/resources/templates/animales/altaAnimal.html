@@ -11,8 +11,9 @@
 
 	<div id="caja" layout:fragment="content" class="container">
 
-		<form th:action="@{/animales/add-submit}" th:object="${animal}" method="post" enctype="multipart/form-data">
-		<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
+		<form th:action="@{/animales/add-submit}" th:object="${animal}"
+			method="post" enctype="multipart/form-data">
+			<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
 			<table>
 				<tr>
 					<td>Animal:</td>
@@ -45,13 +46,15 @@
 				</tr>
 				<tr>
 					<td>Fecha de nacimiento:</td>
-					<td><input type="date" th:field="*{fnac}" id="fnacAnimal" required maxlength="30"
-						name="fnacAnimal" /></td>
+					<td><input type="date" th:field="*{fnac}" id="fnacAnimal"
+						required maxlength="30" name="fnacAnimal" /></td>
 				</tr>
 				<tr>
 					<td>Provincia</td>
-					<td><input type="text" required id="provincia"
-						name="provincia" maxlength="30" th:field="*{provincia}" /></td>
+					<td><select th:field="*{provincia}">
+							<option th:each="i : ${provincias}"
+								th:text="${i.toString()}" th:value="${i}"></option>
+					</select></td>
 				</tr>
 				<tr>
 					<td>Población</td>

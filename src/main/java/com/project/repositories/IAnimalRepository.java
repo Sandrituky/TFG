@@ -6,4 +6,5 @@ import com.project.model.Animal;
 
 @Repository
 public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
+	
 }

@@ -9,11 +9,13 @@ import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
 import com.project.model.Animal;
+import com.project.model.Provincia;
 import com.project.model.Tipo;
 import com.project.model.Sexo;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.repositories.IAnimalRepository;
+import com.project.repositories.IProvinciaRepository;
 
 import java.util.List;
 
@@ -23,6 +25,9 @@ public class AnimalController {
 
 	@Autowired
 	private IAnimalRepository animalesRepo;
+	
+	@Autowired
+	private IProvinciaRepository provinciasRepo;
 	
 	@GetMapping("/list")
 	public String pageList(Model model) {
@@ -42,19 +47,22 @@ public class AnimalController {
 		 
 		Animal animal = new Animal();
 		
-		//Tipo[] opcionesTipo = Tipo.values();
 		//Sexo[] opcionesSexo = Sexo.values(); No usados
+		//Tipo[] opcionesTipo = Tipo.values();
 		
+	
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values(); //esto se envía al foreach de la vista
 	
+		//List<Provincia> listaProvincias = provinciasRepo.findAll(); <----------
 		
 		//si fuera un select, se pondría de esta forma: 
 		//model.addAttribute("tipos", opcionesTipo);
 		
 	 	model.addAttribute("animal", animal);
-	 	model.addAttribute("enumTipos", Tipo.class);
-	 	model.addAttribute("enumSexo", Sexo.class);
-	 	model.addAttribute("enumEsterilizado", Esterilizado.class);
+	 	//model.addAttribute("tipos", Tipo.class);
+	 	//model.addAttribute("sexos", Sexo.class);
+	 	//model.addAttribute("provincias", listaProvincias); <------------ 
+	 	model.addAttribute("esterilizados", Esterilizado.class);
 	 	
 	      return "animales/altaAnimal";
 	}
