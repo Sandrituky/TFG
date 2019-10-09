@@ -14,10 +14,10 @@ public class MainController {
 		return "index";
 	}
 
-	@GetMapping("altaAnimal.html")
-	public String redAlta(Model alta) {
-		return "animales/altaAnimal";
-	}
+//	@GetMapping("altaAnimal.html")
+//	public String redAlta(Model alta) {
+//		return "animales/altaAnimal";
+//	}
 	
 	@GetMapping("bajaAnimal.html")
 	public String redBaja(Model baja) {

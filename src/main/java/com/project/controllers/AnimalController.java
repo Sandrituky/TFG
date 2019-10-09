@@ -37,7 +37,7 @@ public class AnimalController {
 	    	return "animales/list";
 	}
 	
-	@GetMapping("/altaAnimal")
+	@GetMapping("/altaAnimal")//
 	public String pageAdd(Model model) {
 		 
 		Animal animal = new Animal();
