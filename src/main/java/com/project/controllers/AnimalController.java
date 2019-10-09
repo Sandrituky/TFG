@@ -59,11 +59,17 @@ public class AnimalController {
 	      return "animales/altaAnimal";
 	}
 	
+	
+	@GetMapping("/bajaAnimal")
+	public String redBaja(Model baja) {
+		return "animales/bajaAnimal";
+	}
+	
 	@PostMapping("/add-submit")
 	public RedirectView pageAddSubmit(Animal animal, Model model) {
 	 		
 		animalesRepo.save(animal);
 		
-	 	return new RedirectView("altaAnimal");
+	 	return new RedirectView("animales/add-submit");
 	}
 }

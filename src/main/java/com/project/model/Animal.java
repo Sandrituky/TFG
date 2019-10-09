@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +21,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.model.Tipo;
+import com.project.model.Provincia;
+import com.project.model.Usuario;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,10 +30,13 @@ import javax.persistence.Enumerated;
 
 
 
+
+
 @Table(name="ANIMAL")
 @Entity
 public class Animal {
 	
+	//ATRIBUTOS
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -56,8 +63,9 @@ public class Animal {
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
 	
-	@Column(name = "LOCALIDAD", length = 50)
-	private String localidad;
+    //CLAVE FORANEA A TABLA PROVINCIA, 1-N
+	@ManyToOne @JoinColumn(name="id")
+    private Provincia provincia;
 	
 	@Column(name = "POBLACION", length = 50)
 	private String poblacion;
@@ -74,7 +82,12 @@ public class Animal {
 	@Column(name="ESTADO")
 	private Estado estado;
 	
-	private int owner; // due�o del animal, en caso de estar adoptado
+	
+	//CLAVE FORANEA A TABLA USUARIO  (EN CASO DE ANIMAL ADOPTADO)
+	@ManyToOne @JoinColumn(name="id")
+    private Usuario owner;
+	
+	//CONSTRUCTOR
 	
 	public Animal() {
 		super();
@@ -85,17 +98,20 @@ public class Animal {
 		this.foto = "default.jpg";
 		this.esterilizado = Esterilizado.SI;
 		this.descripcion = "";
-		this.localidad = "";
+		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.fnac = new Date();
 		this.sexo = Sexo.MACHO;
 		this.estado = Estado.EN_ADOPCION;
-		this.owner = 0;
+		this.owner = new Usuario();
 	}
+	
+	
 
+	//CONSTRUCTOR
 	
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
-			String localidad, String poblacion, Sexo sexo, Date fnac, Estado estado, int owner) {
+			Provincia provincia, String poblacion, Sexo sexo, Date fnac, Estado estado, Usuario owner) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -103,13 +119,15 @@ public class Animal {
 		this.foto = foto;
 		this.esterilizado = esterilizado;
 		this.descripcion = descripcion;
-		this.localidad = localidad;
+		this.provincia = provincia;
 		this.poblacion = poblacion;
 		this.fnac = fnac;
 		this.sexo = sexo;
 		this.estado = estado;
 		this.owner = owner;
 	}
+	
+	//GETTERS & SETTERS
 
 	public int getId() {
 		return id;
@@ -167,12 +185,12 @@ public class Animal {
 		this.descripcion = descripcion;
 	}
 
-	public String getLocalidad() {
-		return localidad;
+	public Provincia getProvincia() {
+		return provincia;
 	}
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
 	}
 
 	public String getPoblacion() {
@@ -217,11 +235,11 @@ public class Animal {
 		this.estado = estado;
 	}
 
-	public int getOwner() {
+	public Usuario getOwner() {
 		return owner;
 	}
 
-	public void setOwner(int owner) {
+	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
 

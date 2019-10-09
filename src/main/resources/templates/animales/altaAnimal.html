@@ -11,7 +11,7 @@
 
 	<div id="caja" layout:fragment="content" class="container">
 
-		<form th:action="@{/animales/add-submit}" th:object="${animal}" method="post">
+		<form th:action="@{/animales/add-submit}" th:object="${animal}" method="post" enctype="multipart/form-data">
 		<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
 			<table>
 				<tr>
@@ -49,9 +49,9 @@
 						name="fnacAnimal" /></td>
 				</tr>
 				<tr>
-					<td>Localidad</td>
-					<td><input type="text" required id="localidad"
-						name="localidad" maxlength="30" th:field="*{localidad}" /></td>
+					<td>Provincia</td>
+					<td><input type="text" required id="provincia"
+						name="provincia" maxlength="30" th:field="*{provincia}" /></td>
 				</tr>
 				<tr>
 					<td>Población</td>

@@ -19,10 +19,7 @@ public class MainController {
 //		return "animales/altaAnimal";
 //	}
 	
-	@GetMapping("bajaAnimal.html")
-	public String redBaja(Model baja) {
-		return "animales/bajaAnimal";
-	}
+
 	
 
 
