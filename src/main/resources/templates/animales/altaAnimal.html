@@ -7,93 +7,186 @@
 </head>
 <body>
 
-
-
 	<div id="caja" layout:fragment="content" class="container">
 
-		<form th:action="@{/animales/add-submit}" th:object="${animal}"
-			method="post" enctype="multipart/form-data">
-			<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
-			<table>
-				<tr>
-					<td>Animal:</td>
-					<td><input type="radio" th:field="*{tipo}"
-						th:value="tipo.PERRO" /> 🐕 <input type="radio"
-						th:field="*{tipo}" th:value="tipo.GATO" /> 🐈<br></td>
-					</td>
-					<!-- th:field = name,  th:value = value -->
-					<!-- tipo sería la variable de la clase Animal -->
 
-				</tr>
+		<div class="row">
+			<div class="col-md-6 offset-3">
+				<h2 class="text-center">Registrar Animal</h2>
+				<hr>
+			</div>
+		</div>
 
+		<div class="row">
+			<div class="col-md-6 offset-3">
 
-				<tr>
-					<td>Sexo:</td>
-					<td><input type="radio" th:field="*{sexo}"
-						th:value="sexo.MACHO" /> ♂️ <input type="radio"
-						th:field="*{sexo}" th:value="sexo.HEMBRA" /> ♀️<br></td>
-				</tr>
+				<form th:action="@{/animales/add-submit}" th:object="${animal}"
+					method="post" enctype="multipart/form-data">
+					<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
+					<table>
 
+						<!-- INPUT NOMBRE ANIMAL -->
 
-				<tr>
-					<td>Nombre:</td>
-					<td><input type="text" th:field="*{nombre}" /></td>
-				</tr>
-				<tr>
-					<td>Raza:</td>
-					<td><input type="text" id="raza" required maxlength="60"
-						name="raza" th:field="*{raza}" /></td>
-				</tr>
-				<tr>
-					<td>Fecha de nacimiento:</td>
-					<td><input type="date" th:field="*{fnac}" id="fnacAnimal"
-						required maxlength="30" name="fnacAnimal" /></td>
-				</tr>
-				<tr>
-					<td>Provincia</td>
-					<td><select th:field="*{provincia}">
-							<option th:each="i : ${provincias}"
-								th:text="${i.toString()}" th:value="${i}"></option>
-					</select></td>
-				</tr>
-				<tr>
-					<td>Población</td>
-					<td><input type="text" required id="poblacion"
-						name="poblacion" maxlength="30" th:field="*{poblacion}" /></td>
-				</tr>
-				<tr>
-				<tr>
-					<td>Esterilizado:</td>
-					<!-- este radioButton genera las opciones a partir de la BD -->
-					<td th:each="i : ${opcionesEsterilizado}"><input type="radio"
-						th:field="*{esterilizado}" th:value="${i}" /> <label
-						th:for="${#ids.prev('esterilizado')}"
-						th:text="#{${'animal.esterilizado.' + i}}">Esterilizado</label>
-				</tr>
-				</tr>
-				<tr>
-					<td>Foto:</td>
-					<td><input type="file" name="foto"
-						accept="image/png, image/jpeg, image/jpg, image/gif, image/bmp"></td>
-				</tr>
-				<tr>
-					<td>Descripción</td>
-					<td><textarea name="infoAnimal" id="infoAnimal" required
-							rows="5" cols="50" th:field="*{descripcion}"></textarea></td>
-				</tr>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="nombre">Nombre</label>
+							<div class="col-sm-10">
+								<input type="text" th:field="*{nombre}" class="form-control"
+									placeholder="Nombre animal" />
+							</div>
+						</div>
+
+						<!-- INPUT TIPO ANIMAL -->
 
 
-				<tr>
-					<td style="text-align: center;" colspan="2"><input
-						type="submit" id="botonAlta" name="botonAlta"
-						value="Poner en adopción" /></td>
-				</tr>
+						<!-- th:field = name,  th:value = value -->
+						<!-- tipo sería la variable de la clase Animal -->
 
-			</table>
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Animal</label>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}"
+										class="form-check-input" /> <label class="form-check-label">🐕</label>
+								</div>
+								
+								<div class="form-check">
+									<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}"
+										class="form-check-input" /> <label class="form-check-label">🐈</label>
+								</div>
+								
+							</div>
+						</div>
+						<!-- INPUT SEXO ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Sexo</label>
+							<div class="col-sm-10">
+								<div class="form-check">
+									<input type="radio" th:field="*{sexo}" th:value="*{sexo.MACHO}"
+										class="form-check-input" /> <label class="form-check-label">♂️</label>
+								</div>
+								<div class="form-check">
+									<input type="radio" th:field="*{sexo}"
+										th:value="*{sexo.HEMBRA}" class="form-check-input" /> <label
+										class="form-check-label">♀️</label>
+								</div>
+							</div>
+						</div>
+
+						<!-- INPUT RAZA ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="nombre">Raza</label>
+							<div class="col-sm-10">
+								<input type="text" th:field="*{raza}" class="form-control"
+									placeholder="Raza del animal" />
+							</div>
+						</div>
+
+						<!-- INPUT FECHA NACIMIENTO DEL ANIMAL -->
+
+						<!-- INPUT FECHA -->
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="fnac">Fecha</label>
+							<div class="col-sm-10">
+								<input type="date" th:field="*{fnac}" class="form-control"
+									required />
+							</div>
+						</div>
+
+						<!-- INPUT PROVINCIA ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="provincia.id">Provincia</label>
+							<div class="col-sm-10">
+								<select th:field="*{provincia.id}" class="form-control">
+									<option th:each="i : ${provincias}" th:text="${i.provincia}"
+										th:value="${i.id}"></option>
+								</select>
+							</div>
+						</div>
 
 
-			<div></div>
-		</form>
+						<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
+							<option th:each="i : ${provincias}" th:text="${i.toString()}"
+								th:value="${i}"></option>
+					</select></td>-->
+
+						<!-- INPUT POBLACION ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="fnac">Población</label>
+							<div class="col-sm-10">
+								<input type="text" th:field="*{poblacion}" class="form-control"
+									required />
+							</div>
+						</div>
+
+
+								<!-- INPUT ESTERILIZACION ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label">Esterilizado</label>
+							<div class="col-sm-10">
+								<th:block th:each="i : ${esterilizados}">
+									<div class="form-check">
+										<input type="radio" th:field="*{esterilizado}" th:value="${i}" />
+										<label th:for="${#ids.prev('esterilizado')}" th:text="${i}">Esterilizado</label>
+									</div>
+								</th:block>
+
+							</div>
+						</div>
+
+						<!-- INPUT FOTO ANIMAL -->
+
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="nombre">Foto</label>
+							<div class="col-sm-10">
+								<input type="file" name="foto" accept="image/*"
+									class="form-control" />
+							</div>
+						</div>
+
+									<!-- INPUT POBLACION ANIMAL -->
+									
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" required rows="5" cols="50"
+									th:field="*{descripcion}"
+									placeholder="Historia, personalidad, enfermedades, comportamiento con otras mascotas"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<button type="submit" class="btn btn-success float-right"
+									id="botonAlta">Guardar</button>
+							</div>
+						</div>
+						
+						<div class="row">
+             <div class="col-md-12"> Total de ancho (12 casillas) </div>   
+        </div>
+                
+        <div class="row">
+            <div class="col-md-6"> Mitad de ancho (6 casillas izquierda) </div>  
+            <div class="col-md-6"> Mitad de ancho (6 casillas derecha)</div>   
+        </div>
+                
+        <div class="row">
+            <div class="col-md-3"> Un tercio de ancho (primera parte) </div>  
+            <div class="col-md-3"> Un tercio de ancho (segunda parte) </div>  
+            <div class="col-md-3"> Un tercio de ancho (tercera parte) </div>   
+        </div>
+
+
+					
+				</form>
+			</div>
+		</div>
 	</div>
 
 </body>

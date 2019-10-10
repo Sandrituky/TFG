@@ -11,11 +11,13 @@ import org.springframework.ui.Model;
 import com.project.model.Animal;
 import com.project.model.Provincia;
 import com.project.model.Tipo;
+import com.project.model.Usuario;
 import com.project.model.Sexo;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
+import com.project.repositories.IUsuarioRepository;
 
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class AnimalController {
 	
 	@Autowired
 	private IProvinciaRepository provinciasRepo;
+	
+	@Autowired
+	private IUsuarioRepository usuariosRepo;
 	
 	@GetMapping("/list")
 	public String pageList(Model model) {
@@ -53,7 +58,8 @@ public class AnimalController {
 	
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values(); //esto se envía al foreach de la vista
 	
-		//List<Provincia> listaProvincias = provinciasRepo.findAll(); <----------
+		List<Provincia> listaProvincias = provinciasRepo.findAll();
+		List<Usuario> listaUsuarios = usuariosRepo.findAll();
 		
 		//si fuera un select, se pondría de esta forma: 
 		//model.addAttribute("tipos", opcionesTipo);
@@ -61,8 +67,8 @@ public class AnimalController {
 	 	model.addAttribute("animal", animal);
 	 	//model.addAttribute("tipos", Tipo.class);
 	 	//model.addAttribute("sexos", Sexo.class);
-	 	//model.addAttribute("provincias", listaProvincias); <------------ 
-	 	model.addAttribute("esterilizados", Esterilizado.class);
+	 	model.addAttribute("provincias", listaProvincias); 
+	 	model.addAttribute("esterilizados", opcionesEsterilizado);
 	 	
 	      return "animales/altaAnimal";
 	}
@@ -71,6 +77,11 @@ public class AnimalController {
 	@GetMapping("/bajaAnimal")
 	public String redBaja(Model baja) {
 		return "animales/bajaAnimal";
+	}
+	
+	@GetMapping("/modAnimal")
+	public String redMod(Model mod) {
+		return "animales/modAnimal";
 	}
 	
 	@PostMapping("/add-submit")

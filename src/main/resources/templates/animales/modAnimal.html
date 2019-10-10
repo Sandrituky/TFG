@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+	<div id="caja" layout:fragment="content" class="container">
+
+		<form action="" name="formularioVotantes" id="formularioVotantes"
+			method="post">
+			<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
+			<table>
+				<tr>
+					<td>Animal:</td>
+					<td><input type="radio" th:field="*{tipo}"
+						th:value="*{tipo.PERRO}" /> 🐕 <input type="radio"
+						th:field="*{tipo}" th:value="*{tipo.GATO}" /> 🐈<br></td>
+					</td>
+					<!-- th:field = name,  th:value = value -->
+					<!-- tipo sería la variable de la clase Animal -->
+
+				</tr>
+
+
+				<tr>
+					<td>Sexo:</td>
+					<td><input type="radio" th:field="*{sexo}"
+						th:value="*{sexo.MACHO}" /> ♂️ <input type="radio"
+						th:field="*{sexo}" th:value="*{sexo.HEMBRA}" /> ♀️<br></td>
+				</tr>
+
+
+				<tr>
+					<td>Nombre:</td>
+					<td><input type="text" th:field="*{nombre}" /></td>
+				</tr>
+				<tr>
+					<td>Raza:</td>
+					<td><input type="text" id="raza" required maxlength="60"
+						name="raza" th:field="*{raza}" /></td>
+				</tr>
+				<tr>
+					<td>Fecha de nacimiento:</td>
+					<td><input type="date" th:field="*{fnac}" id="fnacAnimal"
+						required maxlength="30" name="fnacAnimal" /></td>
+				</tr>
+				<tr>
+					<td>Provincia</td>
+					<td><select th:field="*{provincia.id}">
+							<option th:each="i : ${provincias}" th:text="${i.provincia}" th:value="${i.id}"></option>
+					</select></td>
+					
+					<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
+							<option th:each="i : ${provincias}" th:text="${i.toString()}"
+								th:value="${i}"></option>
+					</select></td>-->
+
+				</tr>
+				<tr>
+					<td>Población</td>
+					<td><input type="text"  required id="poblacion"
+						name="poblacion" maxlength="30" th:field="*{poblacion}" /></td>
+				</tr>
+				<tr>
+				<tr>
+					<td>Esterilizado:</td>
+					<!-- este radioButton genera las opciones a partir de la BD -->
+					<td th:each="i : ${opcionesEsterilizado}">
+					<input type="radio" th:field="*{esterilizado}" th:value="${i}" /> 
+					<label th:for="${#ids.prev('esterilizado')}" th:text="#{${'animal.esterilizado.' + i}}">Esterilizado</label>
+				</tr>
+				</tr>
+				<tr>
+					<td>Foto:</td>
+					<td><input type="file" name="foto"
+						accept="image/*"></td>
+				</tr>
+				<tr>
+					<td>Descripción</td>
+					<td><textarea name="infoAnimal" placeholder="Historia, personalidad, enfermedades, 	comportamiento con otras mascotas" id="infoAnimal" required
+							rows="5" cols="50" th:field="*{descripcion}"></textarea></td>
+				</tr>
+
+
+				<tr>
+					<td style="text-align: center;" colspan="2"><input
+						type="submit" id="botonAlta" name="botonAlta"
+						value="Poner en adopción" /></td>
+				</tr>
+
+			</table>
+
+
+			<div></div>
+		</form>
+	</div>
+
+</body>
+</html>
