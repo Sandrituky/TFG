@@ -56,7 +56,7 @@ public class AnimalController {
 		//Tipo[] opcionesTipo = Tipo.values();
 		
 	
-		Esterilizado[] opcionesEsterilizado = Esterilizado.values(); //esto se envía al foreach de la vista
+		Esterilizado[] opcionesEsterilizado = Esterilizado.values(); 
 	
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
 		List<Usuario> listaUsuarios = usuariosRepo.findAll();
@@ -68,14 +68,27 @@ public class AnimalController {
 	 	//model.addAttribute("tipos", Tipo.class);
 	 	//model.addAttribute("sexos", Sexo.class);
 	 	model.addAttribute("provincias", listaProvincias); 
-	 	model.addAttribute("esterilizados", opcionesEsterilizado);
+	 	model.addAttribute("esterilizados", opcionesEsterilizado); //esterilizados se envía al foreach de la vista
 	 	
 	      return "animales/altaAnimal";
 	}
 	
 	
 	@GetMapping("/bajaAnimal")
-	public String redBaja(Model baja) {
+	public String redBaja(Model model) {
+		Animal animal = new Animal();
+		List<Animal> listaAnimales = animalesRepo.findAll();
+		
+		Estado[] opcionesEstado = Estado.values();
+		
+		
+		model.addAttribute("animal", animal);
+		model.addAttribute("estados", opcionesEstado);
+		model.addAttribute("animales", listaAnimales);
+		
+		
+		
+		
 		return "animales/bajaAnimal";
 	}
 	

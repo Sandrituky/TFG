@@ -7,82 +7,100 @@
 </head>
 <body>
 
-
-
 	<div id="caja" layout:fragment="content" class="container">
 
-		<form action="" name="formularioVotantes" id="formularioVotantes"
-			method="post">
-			<table>
-				<tr>
-					<td>Animal:</td>
-					<td><input type="radio" name="animalType" value="perro">
-						<label for="spayedYes">🐕</label> <input type="radio"
-						name="animalType" value="gato"> <label for="spayedYes">🐈</label><br></td>
-				</tr>
-				<tr>
-					<select name="select">
-						<option value="value1">Value 1</option>
-						<option value="value2" selected>Value 2</option>
-						<option value="value3">Value 3</option>
-					</select>
-				</tr>
-				<tr>
-					<td>Nombre:</td>
-					<td><input type="text" id="nombreAnimal" required
-						maxlength="30" name="nombreAnimal" /></td>
-				</tr>
-				<tr>
-					<td>Raza:</td>
-					<td><input type="text" id="raza" required maxlength="60"
-						name="raza" /></td>
-				</tr>
-				<tr>
-					<td>Fecha de nacimiento:</td>
-					<td><input type="date"  id="fnacAnimal" required maxlength="30"
-						name="fnacAnimal" /></td>
-				</tr>
-				<tr>
-					<td>Localidad</td>
-					<td><input type="text" required id="localidad"
-						name="localidad" maxlength="30" /></td>
-				</tr>
-				<tr>
-					<td>Población</td>
-					<td><input type="text" required id="poblacion"
-						name="poblacion" maxlength="30" /></td>
-				</tr>
-				<tr>
-				<tr>
-					<td>Esterilizado:</td>
-					<td><input type="radio" name="spayed" id="spayedYes"
-						value="spayedYes"> <label for="spayedYes">Si</label> <input
-						type="radio" name="spayed" id="spayedNo" value="spayedNo">
-						<label for="spayedNo">Pendiente</label></td>
-				</tr>
-				</tr>
-				<tr>
-					<td>Foto:</td>
-					<td><input type="file" name="pic" accept="image/*"></td>
-				</tr>
-				<tr>
-					<td>Información</td>
-					<td><textarea name="infoAnimal" id="infoAnimal" required
-							rows="5" cols="50"></textarea></td>
-				</tr>
+
+		<div class="row">
+			<div class="col-md-6 offset-3">
+				<h2 class="text-center">Registrar Animal</h2>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 offset-3">
+
+				<form th:action="@{/animales/add-submit}" th:object="${animal}"
+					method="post" enctype="multipart/form-data">
+					<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
 
 
-				<tr>
-					<td style="text-align: center;" colspan="2"><input
-						type="submit" id="botonAlta" name="botonAlta"
-						value="Poner en adopción" /></td>
-				</tr>
-
-			</table>
 
 
-			<div></div>
-		</form>
+					<!-- INPUT TIPO ANIMAL -->
+
+
+					<!-- th:field = name,  th:value = value -->
+					<!-- tipo sería la variable de la clase Animal -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Animal</label>
+						<div class="col-sm-10">
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" required th:value="*{tipo.PERRO}"
+									class="form-check-input" /> <label class="form-check-label">🐕</label>
+							</div>
+
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" required th:value="*{tipo.GATO}"
+									class="form-check-input" /> <label class="form-check-label">🐈</label>
+							</div>
+
+						</div>
+					</div>
+<!-- 
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="animal.id">Animal</label>
+							<div class="col-sm-10">
+								<select th:field="*{animal.id}" class="form-control">
+									<option th:each="i : ${animales}" th:text="${i.nombre}"
+										th:value="${i.id}"></option>
+								</select>
+							</div>
+						</div>
+-->
+					<!-- INPUT CAMBIAR ESTADO DEL ANIMAL -->
+ 
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="estado">Estado</label>
+						<div class="col-sm-10">
+							<select th:field="*{estado}" class="form-control">
+								<option th:each="i : ${estados}" th:text="${i}" th:value="${i}"></option>
+							</select>
+						</div>
+					</div>
+
+
+
+
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success float-right"
+								id="botonAlta">Guardar</button>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">Total de ancho (12 casillas)</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6">Mitad de ancho (6 casillas izquierda)
+						</div>
+						<div class="col-md-6">Mitad de ancho (6 casillas derecha)</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-3">Un tercio de ancho (primera parte)</div>
+						<div class="col-md-3">Un tercio de ancho (segunda parte)</div>
+						<div class="col-md-3">Un tercio de ancho (tercera parte)</div>
+					</div>
+
+
+
+				</form>
+			</div>
+		</div>
 	</div>
 
 </body>

@@ -1,5 +1,5 @@
 package com.project.model;
 
 public enum Tipo {
-	PERRO, GATO
+	PERRO, GATO, NONE
 }

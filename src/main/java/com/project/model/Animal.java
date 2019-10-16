@@ -91,7 +91,7 @@ public class Animal {
 	public Animal() {
 		super();
 		this.id = 0;
-		this.tipo = Tipo.PERRO;
+		this.tipo = Tipo.NONE;
 		this.nombre = "";
 		this.raza = "";
 		this.foto = javax.xml.bind.DatatypeConverter.parseHexBinary("e04fd020ea3a6910a2d808002b30309d");
@@ -100,7 +100,7 @@ public class Animal {
 		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.fnac = new Date();
-		this.sexo = Sexo.MACHO;
+		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = new Usuario();
 	}

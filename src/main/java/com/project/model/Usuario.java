@@ -1,9 +1,12 @@
 package com.project.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,11 +45,14 @@ public class Usuario {
 	@Column(name = "NOMBRE", length = 50, nullable = false)
 	private String nombre;
 	
-	@Column(name = "APELLIDOS", length = 50, nullable = false)
+	@Column(name = "APELLIDOS", length = 80, nullable = false)
 	private String apellidos;
 	
 	@Column(name = "EMAIL", length = 50, unique=true, nullable = false)
 	private String email;
+	
+	@Column(name = "PASSWORD", length = 20, unique=true, nullable = false)
+	private String password;
 	
 	@Column(name = "FNAC", nullable = false)
 	private Date fnac;
@@ -60,6 +66,12 @@ public class Usuario {
 	
 	@Column(name = "TELEFONO", length = 9, nullable = false)
 	private String telefono;
+	
+	@Column(name = "DIRECCION", length = 150, nullable = false)
+	private String direccion;
+	
+	@Column(name = "CP", length = 10, nullable = false)
+	private String cp;
 
 	
 	//ANIMAL TIENE CLAVE FORANEA DE USUARIO
@@ -77,15 +89,18 @@ public class Usuario {
 		this.nombre = "";
 		this.apellidos = "";
 		this.email = "";
+		this.password = "";
 		this.fnac = new Date();
 		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.telefono = "";
+		this.direccion="";
+		this.cp="";
 		this.animales = Arrays.asList();
 	}
 	
-	public Usuario(int id, Rol rol, String dni, String nombre, String apellidos, String email, Date fnac,
-			Provincia provincia, String poblacion, String telefono, List<Animal> animales) {
+	public Usuario(int id, Rol rol, String dni, String nombre, String apellidos, String email, String password, Date fnac,
+			Provincia provincia, String poblacion, String telefono, String direccion, String cp, List<Animal> animales) {
 		super();
 		this.id = id;
 		this.rol = rol;
@@ -97,6 +112,8 @@ public class Usuario {
 		this.provincia = provincia;
 		this.poblacion = poblacion;
 		this.telefono = telefono;
+		this.direccion = direccion;
+		this.cp = cp;
 		this.animales = animales;
 	}
 	
@@ -149,14 +166,33 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Date getFnac() {
-		return fnac;
+	
+	public String getPassword() {
+		return password;
 	}
 
-	public void setFnac(Date fnac) {
-		this.fnac = fnac;
+	public void setPassword(String password) {
+		this.password = password;
 	}
+
+	public String getFnac() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		return format.format(this.fnac);
+	}
+
+	public void setFnac(String fnac) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		this.fnac = format.parse(fnac);
+	}
+	
+	public String fnacSpanish() {
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+		return format.format(this.fnac);
+	}
+
 
 	public Provincia getProvincia() {
 		return provincia;
@@ -181,6 +217,25 @@ public class Usuario {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+	
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
+	public String getCp() {
+		return cp;
+	}
+
+	public void setCp(String cp) {
+		this.cp = cp;
+	}
+	
+	
+	
 
 	public List<Animal> getAnimales() {
 		return animales;
