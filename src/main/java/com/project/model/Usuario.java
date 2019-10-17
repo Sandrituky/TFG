@@ -64,14 +64,18 @@ public class Usuario {
 	@Column(name = "POBLACION", length = 50, nullable = false)
 	private String poblacion;
 	
-	@Column(name = "TELEFONO", length = 9, nullable = false)
-	private String telefono;
+	@Column(name = "CP", length = 10, nullable = false)
+	private String cp;
 	
 	@Column(name = "DIRECCION", length = 150, nullable = false)
 	private String direccion;
 	
-	@Column(name = "CP", length = 10, nullable = false)
-	private String cp;
+	@Column(name = "TELEFONO", length = 9, nullable = false)
+	private String telefono;
+	
+
+	
+
 
 	
 	//ANIMAL TIENE CLAVE FORANEA DE USUARIO

@@ -73,7 +73,7 @@ public class Animal {
 	private Esterilizado esterilizado;
 	
 	@Column(name = "FOTO", length = 200, nullable = false)
-	private byte[] foto;
+	private String foto;
 	
 	@Column(name = "DESCRIPCION", length = 2000, nullable = false)
 	private String descripcion;
@@ -94,7 +94,7 @@ public class Animal {
 		this.tipo = Tipo.NONE;
 		this.nombre = "";
 		this.raza = "";
-		this.foto = javax.xml.bind.DatatypeConverter.parseHexBinary("e04fd020ea3a6910a2d808002b30309d");
+		this.foto = "";
 		this.esterilizado = Esterilizado.SI;
 		this.descripcion = "";
 		this.provincia = new Provincia();
@@ -109,7 +109,7 @@ public class Animal {
 
 	//CONSTRUCTOR
 	
-	public Animal(int id, Tipo tipo, String nombre, String raza, byte[] foto, Esterilizado esterilizado, String descripcion,
+	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
 			Provincia provincia, String poblacion, Sexo sexo, Date fnac, Estado estado, Usuario owner) {
 		this.id = id;
 		this.tipo = tipo;
@@ -177,13 +177,13 @@ public class Animal {
 
 
 
-	public byte[] getFoto() {
+	public String getFoto() {
 		return foto;
 	}
 
 
 
-	public void setFoto(byte[] foto) {
+	public void setFoto(String foto) {
 		this.foto = foto;
 	}
 
