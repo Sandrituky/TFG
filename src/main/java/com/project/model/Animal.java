@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -27,6 +28,7 @@ import com.project.model.Usuario;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 
 
 
@@ -60,9 +62,9 @@ public class Animal {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "FNAC")
 	private Date fnac;
-	
+
     //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne @JoinColumn(name="PROVINCIA_ID", nullable = false)
+	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_animal_provincia"))
     private Provincia provincia;
 	
 	@Column(name = "POBLACION", length = 50, nullable = false)
@@ -83,7 +85,7 @@ public class Animal {
 	private Estado estado;
 	
 	//CLAVE FORANEA A TABLA USUARIO  (EN CASO DE ANIMAL ADOPTADO)
-	@ManyToOne @JoinColumn(name="USUARIO_ID", nullable = true)
+	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
     private Usuario owner;
 	
 	//CONSTRUCTOR
@@ -102,7 +104,7 @@ public class Animal {
 		this.fnac = new Date();
 		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
-		this.owner = new Usuario();
+		this.owner = null;
 	}
 	
 	

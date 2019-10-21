@@ -80,10 +80,10 @@ public class AnimalController {
 		return "animales/altaAnimal";
 	}
 
-	@GetMapping("/altaAnimal-submit") //Lo que ocurre cuando pulsas el botón de guardar
+	@PostMapping("/altaAnimal-submit") //Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView pageAddSubmit(Animal animal, @RequestParam("file") MultipartFile file, Model model)
 			throws IllegalStateException, IOException {
-		
+		//RedirectView redirecciona a la pagina que le digas
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
 		// Guardamos la extension de la imagen
@@ -112,7 +112,7 @@ public class AnimalController {
 		//Y finalmente guardamos el objeto animal en la BD
 		animalesRepo.save(animal);
 
-		return new RedirectView("altaAnimalSubmit");
+		return new RedirectView("altaAnimal");
 	}
 
 	@GetMapping("/bajaAnimal")
