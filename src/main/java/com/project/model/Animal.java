@@ -64,7 +64,7 @@ public class Animal {
 	private Date fnac;
 
     //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_animal_provincia"))
+	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable=false, foreignKey = @ForeignKey(name = "FK_animal_provincia"))
     private Provincia provincia;
 	
 	@Column(name = "POBLACION", length = 50, nullable = false)
@@ -77,7 +77,7 @@ public class Animal {
 	@Column(name = "FOTO", length = 200, nullable = false)
 	private String foto;
 	
-	@Column(name = "DESCRIPCION", length = 2000, nullable = false)
+	@Column(name = "DESCRIPCION", length = 255, nullable = false)
 	private String descripcion;
 	
 	@Enumerated(EnumType.STRING)
@@ -85,7 +85,7 @@ public class Animal {
 	private Estado estado;
 	
 	//CLAVE FORANEA A TABLA USUARIO  (EN CASO DE ANIMAL ADOPTADO)
-	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
+	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="USUARIO_ID", nullable=true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
     private Usuario owner;
 	
 	//CONSTRUCTOR

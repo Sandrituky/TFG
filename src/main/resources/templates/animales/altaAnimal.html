@@ -119,9 +119,10 @@
 
 							<label class="col-sm-2 col-form-label" for="provincia.id">Provincia</label>
 							<div class="col-sm-4">
-								<select th:field="*{provincia.id}" class="form-control">
+								<select id="provincia.id" name="provincia.id"  class="form-control">
+								<option value="0">Selecciona provincia</option>
 									<option th:each="i : ${provincias}" th:text="${i.provincia}"
-										th:value="${i.id}"></option>
+										th:value="${i.id}" th:selected="${i.id==0}"></option>
 								</select>
 
 								<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">

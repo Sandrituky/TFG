@@ -53,14 +53,14 @@ public class Usuario {
 	@Column(name = "EMAIL", length = 50, unique=true, nullable = false)
 	private String email;
 	
-	@Column(name = "PASSWORD", length = 20, unique=true, nullable = false)
+	@Column(name = "PASSWORD", length = 20, nullable = false)
 	private String password;
 	
 	@Column(name = "FNAC", nullable = false)
 	private Date fnac;
 	
     //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_provincia"))
+	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable=false, foreignKey = @ForeignKey(name = "FK_usuario_provincia"))
     private Provincia provincia;
 	
 	@Column(name = "POBLACION", length = 50, nullable = false)
