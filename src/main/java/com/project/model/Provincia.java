@@ -20,8 +20,8 @@ public class Provincia {
 	//ATRIBUTOS
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "ID", nullable = false)
+	//@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "ID")
 	private int id;
 	
 	@Column(name = "COD", length = 2, nullable = false)
@@ -45,7 +45,7 @@ public class Provincia {
 	
 	public Provincia() {
 		super();
-		this.id = 1;
+		this.id = 0;
 		this.cod = 1;
 		this.provincia = "";
 		this.animales = Arrays.asList();

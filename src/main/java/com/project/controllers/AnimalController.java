@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.project.model.Animal;
 import com.project.model.Provincia;
@@ -52,7 +54,7 @@ public class AnimalController {
 		return "animales/list";
 	}
 
-	@GetMapping("/altaAnimal") //
+	@GetMapping("/altaAnimal") // pagina de alta Animal
 	public String pagAlta(Model model) {
 
 		Animal animal = new Animal();
@@ -80,39 +82,57 @@ public class AnimalController {
 		return "animales/altaAnimal";
 	}
 
-	@PostMapping("/altaAnimal-submit") //Lo que ocurre cuando pulsas el botón de guardar, viene del form
-	public RedirectView pageAddSubmit(Animal animal, @RequestParam("file") MultipartFile file, Model model)
-			throws IllegalStateException, IOException {
-		//RedirectView redirecciona a la pagina que le digas
+	@PostMapping("/altaAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
+	public RedirectView pageAddSubmit(Animal animal, @RequestParam("file") MultipartFile file, Model model,
+			BindingResult result, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		// RedirectView redirecciona a la pagina que le digas
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
-		// Guardamos la extension de la imagen
+		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
+		// especificadas
 		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
+		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
+		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
+			
+			// Generamos un nombre random a la imagen y la guardamos junto a la extension.
+			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
-		// Generamos un nombre random a la imagen y la guardamos junto a la extension.
-		String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
+			// Guardamos la imagen en una carpeta del proyecto para imagenes.
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\images\\"
+					+ nombreImagen;
 
-		// Guardamos la imagen en una carpeta del proyecto para imagenes.
-		String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\images\\"
-				+ nombreImagen;
+			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
+			// archivo (path), si no existe la ruta se crea.
+			File dirPath = new File(path);
+			if (!dirPath.exists()) {
+				dirPath.mkdirs();
+			}
 
-		// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
-		// archivo (path), si no existe la ruta se crea.
-		File dirPath = new File(path);
-		if (!dirPath.exists()) {
-			dirPath.mkdirs();
+			// Transferimos la imagen subida en el formulario a la ruta previamente indicada
+			// para guardarla.
+			file.transferTo(dirPath);
+
+			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
+			animal.setFoto(nombreImagen);
+			
+			// Y finalmente guardamos el objeto animal en la BD
+			animalesRepo.save(animal);
+			
+			
+			
+			// CONTROL DE ERRORES CUTRILLO
+			
+			redirectAttributes.addFlashAttribute("message", "Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
+			if (result.hasErrors()) {
+				return new RedirectView("altaAnimal");
+			}
+			redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+			
 		}
-		
-		//Transferimos la imagen subida en el formulario a la ruta previamente indicada para guardarla. 
-		file.transferTo(dirPath);
-		
-		//Debemos asignar la variable foto del animal al nombre de la imagen subida. 
-		animal.setFoto(nombreImagen);
-		
-		//Y finalmente guardamos el objeto animal en la BD
-		animalesRepo.save(animal);
 
 		return new RedirectView("altaAnimal");
+
+		// return new RedirectView("altaAnimal");
 	}
 
 	@GetMapping("/bajaAnimal")

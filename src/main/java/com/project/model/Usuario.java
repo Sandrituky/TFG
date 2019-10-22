@@ -33,7 +33,7 @@ public class Usuario {
 	//ATRIBUTOS
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
 	
@@ -89,7 +89,7 @@ public class Usuario {
 	
 	public Usuario() {
 		super();
-		this.id = 1;
+		this.id = 0;
 		this.rol = Rol.USER;
 		this.dni = "";
 		this.nombre = "";
