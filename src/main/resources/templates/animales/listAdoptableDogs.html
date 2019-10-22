@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="caja" layout:fragment="content" class="container">
+	<hr>
+
+    <h1>Lista animales (ul)</h1>
+    <ul>
+    	<li th:each="animal : ${animales}">
+   			<ul style="margin-top: 15px;">
+   				<li th:text="'ID: '+${animal.id}"></li>
+   				<li th:text="'Nombre: '+${animal.nombre}"></li>
+   				<li th:text="'Localidad: '+${animal.provincia}"></li>
+   				<li th:text="'Foto: '+${animal.foto}"></li>
+   				<li th:text="'Raza: '+${animal.raza}"></li>
+   				<li>
+   					Esterilizado: 
+   					<th:block th:if="${animal.esterilizado} == true">
+   						Sí está esterilizado.
+   					</th:block> 
+   					<th:block th:if="${animal.esterilizado} == false">
+   						No está esterilizado.
+   					</th:block> 
+   				</li>
+   				<li>
+   					Tipo: 
+   					<th:block th:switch="${animal.tipo}"> 
+					  <th:block th:case="${tipos.GATO}">Es un gato</th:block>
+					  <th:block th:case="${tipos.PERRO}">Es un perro</th:block>
+					  <th:block th:case="*">No es ni un gato ni un perro</th:block>
+					</th:block>
+   				</li>
+   				<li th:text="'Descripción: '+${animal.descripcion}"></li>
+   			</ul>
+   		</li>
+    </ul>
+    
+	<h1> Lista animales (table)</h1>
+    	<table border="1" cellspacing="0" cellpadding="9">
+    	
+    		<thead>
+    			<tr>
+    				<th>ID</th>
+    				<th>Nombre</th>
+    				<th>Localidad</th>
+    				<th>Foto</th>
+    				<th>Raza</th>
+    				<th>Esterilizado</th>
+    				<th>Tipo</th>
+    				<th>Descripción</th>
+    			</tr>
+    		</thead>
+    		
+    		<tbody>    		
+    			<tr th:each="animal : ${animales}">
+    				<td th:text="${animal.id}"></td>
+    				<td th:text="${animal.nombre}"></td>
+    				<td th:text="${animal.provincia}"></td>
+    				<td><img th:src="@{'/imagenes/' + ${animal.foto}}"/></td>
+    				<td th:text="${animal.raza}"></td>
+    				<td th:text="${animal.esterilizado} == true ? 'Está esterilizado' : 'No está esterilizado'"></td>
+    				<td th:text="${animal.tipo}"></td>
+    				<td th:text="${animal.descripcion}"></td>
+    			</tr>
+   			</tbody>
+   			
+    	</table>
+    </div>
+</body>
+</html>

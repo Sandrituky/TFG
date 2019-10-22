@@ -23,6 +23,8 @@ import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import java.io.File;
@@ -42,16 +44,18 @@ public class AnimalController {
 	@Autowired
 	private IUsuarioRepository usuariosRepo;
 
-	@GetMapping("/list")
+	@GetMapping("/listAdoptableDogs")
 	public String pageList(Model model) {
+		
+		
 
-		List<Animal> listaAnimales = animalesRepo.findAll();
-		// Tipo[] opcionesTipo = Tipo.values();
+		Collection<Animal> listaAnimales = animalesRepo.findPerritosEnAdopcion();
+		
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 
-		return "animales/list";
+		return "animales/listAdoptableDogs";
 	}
 
 	@GetMapping("/altaAnimal") // pagina de alta Animal
@@ -84,8 +88,10 @@ public class AnimalController {
 
 	@PostMapping("/altaAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView pageAddSubmit(Animal animal, @RequestParam("file") MultipartFile file, Model model,
-			BindingResult result, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		// RedirectView redirecciona a la pagina que le digas
+
+		Boolean result = false;
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
 		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
@@ -93,12 +99,14 @@ public class AnimalController {
 		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
 		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
 		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
-			
+
+			result = true;
+
 			// Generamos un nombre random a la imagen y la guardamos junto a la extension.
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
 			// Guardamos la imagen en una carpeta del proyecto para imagenes.
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\images\\"
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\"
 					+ nombreImagen;
 
 			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
@@ -114,34 +122,38 @@ public class AnimalController {
 
 			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
 			animal.setFoto(nombreImagen);
-			
-			// Y finalmente guardamos el objeto animal en la BD
-			animalesRepo.save(animal);
-			
-			
-			
-			// CONTROL DE ERRORES CUTRILLO
-			
-			redirectAttributes.addFlashAttribute("message", "Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
-			if (result.hasErrors()) {
-				return new RedirectView("altaAnimal");
-			}
-			redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
-			
-		}
 
+			try {
+				// Y finalmente guardamos el objeto animal en la BD
+				animalesRepo.save(animal);
+			} catch (Exception e) {
+				result = false;
+			}
+		}
+		if (!result) {
+			redirectAttributes.addFlashAttribute("message",
+					"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
+		} else {
+			redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+		}
 		return new RedirectView("altaAnimal");
 
 		// return new RedirectView("altaAnimal");
+
 	}
 
 	@GetMapping("/bajaAnimal")
 	public String pagBaja(Model model) {
 		Animal animal = new Animal();
-
+		model.addAttribute("animal", animal);
+		
+		
 		List<Animal> listaAnimales = animalesRepo.findAll();
 		model.addAttribute("animales", listaAnimales);
-		model.addAttribute("animal", animal);
+		
+		List<Usuario> listaUsuarios = usuariosRepo.findAll();
+		model.addAttribute("usuarios", listaUsuarios);
+
 
 		Estado[] opcionesEstado = Estado.values();
 		model.addAttribute("estados", opcionesEstado);
