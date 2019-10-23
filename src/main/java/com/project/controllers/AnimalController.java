@@ -54,6 +54,8 @@ public class AnimalController {
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
 
 		return "animales/listAdoptableDogs";
 	}
@@ -97,6 +99,7 @@ public class AnimalController {
 		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
 		// especificadas
 		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
+		extensionImagen = extensionImagen.toLowerCase();
 		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
 		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
 

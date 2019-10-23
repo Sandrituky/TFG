@@ -3,6 +3,10 @@ import java.text.ParseException;
 
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -59,9 +63,8 @@ public class Animal {
 	@Column(name = "RAZA", length = 100, nullable = false)
 	private String raza;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "FNAC")
-	private Date fnac;
+	private LocalDate fnac;
 
     //CLAVE FORANEA A TABLA PROVINCIA, 1-N
 	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable=false, foreignKey = @ForeignKey(name = "FK_animal_provincia"))
@@ -101,7 +104,7 @@ public class Animal {
 		this.descripcion = "";
 		this.provincia = new Provincia();
 		this.poblacion = "";
-		this.fnac = new Date();
+		this.fnac = LocalDate.now();
 		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
@@ -112,7 +115,7 @@ public class Animal {
 	//CONSTRUCTOR
 	
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado, String descripcion,
-			Provincia provincia, String poblacion, Sexo sexo, Date fnac, Estado estado, Usuario owner) {
+			Provincia provincia, String poblacion, Sexo sexo, LocalDate fnac, Estado estado, Usuario owner) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -236,8 +239,9 @@ public class Animal {
 	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
 	}
+	
 
-
+//		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	public String getFnac() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -256,6 +260,9 @@ public class Animal {
 		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
 		return format.format(this.fnac);
 	}
+
+
+
 
 
 
