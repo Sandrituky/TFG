@@ -20,10 +20,12 @@
 									<div class="card-header">
 										<h5>
 											<th:block th:text="${animal.nombre}"></th:block>
+											
 											<th:block th:switch="${animal.sexo}">
-												<small class="float-right" th:case="${sexos.MACHO}">♂️</small>
-												<small class="float-right" th:case="${sexos.HEMBRA}">♀️</small>
+												<small class="float-right" th:case="${sexos.MACHO}">♂️ </small>
+												<small class="float-right" th:case="${sexos.HEMBRA}">♀️ </small>
 											</th:block>
+											<small class="float-right" th:text="${animal.getEdad()}"></small>
 										</h5>
 
 									</div>
@@ -47,7 +49,7 @@
    										</th:block><br/><br/>
 										<div class="d-flex justify-content-between align-items-center">
 											<p th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
-											<small class="text-muted">9 mins</small>
+											<small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins</small>
 										</div>
 									</div>
 								</div>
