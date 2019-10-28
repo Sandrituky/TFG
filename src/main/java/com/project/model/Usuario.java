@@ -3,10 +3,14 @@ package com.project.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,67 +30,62 @@ import com.project.model.Rol;
 import com.project.model.Provincia;
 import com.project.model.Animal;
 
-@Table(name="USUARIO")
+@Table(name = "USUARIO")
 @Entity
 public class Usuario {
 
-	//ATRIBUTOS
-	
+	// ATRIBUTOS
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	
+
 	@Enumerated(EnumType.STRING)
-	@Column (name = "ROL", nullable = false)
+	@Column(name = "ROL", nullable = false)
 	private Rol rol;
-	
-	@Column(name = "DNI", length = 9, unique=true, nullable = false)
+
+	@Column(name = "DNI", length = 9, unique = true, nullable = false)
 	private String dni;
-	
+
 	@Column(name = "NOMBRE", length = 50, nullable = false)
 	private String nombre;
-	
+
 	@Column(name = "APELLIDOS", length = 80, nullable = false)
 	private String apellidos;
-	
-	@Column(name = "EMAIL", length = 50, unique=true, nullable = false)
+
+	@Column(name = "EMAIL", length = 50, unique = true, nullable = false)
 	private String email;
-	
-	@Column(name = "PASSWORD", length = 20, nullable = false)
+
+	@Column(name = "PASSWORD", length = 60, nullable = false)
 	private String password;
-	
+
 	@Column(name = "FNAC", nullable = false)
-	private Date fnac;
-	
-    //CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne(cascade=CascadeType.MERGE) @JoinColumn(name="PROVINCIA_ID", nullable=false, foreignKey = @ForeignKey(name = "FK_usuario_provincia"))
-    private Provincia provincia;
-	
+	private LocalDate fnac;
+
+	// CLAVE FORANEA A TABLA PROVINCIA, 1-N
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_provincia"))
+	private Provincia provincia;
+
 	@Column(name = "POBLACION", length = 50, nullable = false)
 	private String poblacion;
-	
+
 	@Column(name = "CP", length = 10, nullable = false)
 	private String cp;
-	
+
 	@Column(name = "DIRECCION", length = 150, nullable = false)
 	private String direccion;
-	
+
 	@Column(name = "TELEFONO", length = 9, nullable = false)
 	private String telefono;
-	
 
-	
-
-
-	
-	//ANIMAL TIENE CLAVE FORANEA DE USUARIO
+	// ANIMAL TIENE CLAVE FORANEA DE USUARIO
 	@OneToMany(mappedBy = "owner")
-    private List<Animal> animales;
-	
-	//CONSTRUCTOR
-	
-	
+	private List<Animal> animales;
+
+	// CONSTRUCTOR
+
 	public Usuario() {
 		super();
 		this.id = 0;
@@ -96,17 +95,18 @@ public class Usuario {
 		this.apellidos = "";
 		this.email = "";
 		this.password = "";
-		this.fnac = new Date();
+		this.fnac = LocalDate.now();
 		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.telefono = "";
-		this.direccion="";
-		this.cp="";
+		this.direccion = "";
+		this.cp = "";
 		this.animales = Arrays.asList();
 	}
-	
-	public Usuario(int id, Rol rol, String dni, String nombre, String apellidos, String email, String password, Date fnac,
-			Provincia provincia, String poblacion, String telefono, String direccion, String cp, List<Animal> animales) {
+
+	public Usuario(int id, Rol rol, String dni, String nombre, String apellidos, String email, String password,
+			LocalDate fnac, Provincia provincia, String poblacion, String telefono, String direccion, String cp,
+			List<Animal> animales) {
 		super();
 		this.id = id;
 		this.rol = rol;
@@ -122,8 +122,8 @@ public class Usuario {
 		this.cp = cp;
 		this.animales = animales;
 	}
-	
-	//GETTERS & SETTERS
+
+	// GETTERS & SETTERS
 
 	public int getId() {
 		return id;
@@ -149,6 +149,40 @@ public class Usuario {
 		this.dni = dni;
 	}
 
+	public static boolean checkDNI(String dni) {
+
+		boolean correcto = false;
+
+		Pattern pattern = Pattern.compile("(\\d{1,8})([TRWAGMYFPDXBNJZSQVHLCKEtrwagmyfpdxbnjzsqvhlcke])");
+
+		Matcher matcher = pattern.matcher(dni);
+
+		if (matcher.matches()) {
+
+			String letra = matcher.group(2);
+
+			String letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+
+			int index = Integer.parseInt(matcher.group(1));
+
+			index = index % 23;
+
+			String reference = letras.substring(index, index + 1);
+
+			if (reference.equalsIgnoreCase(letra)) {
+
+				correcto = true;
+
+			} else {
+				correcto = false;
+			}
+			
+		} else {
+			correcto = false;
+		}
+		return correcto;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -172,6 +206,8 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	//________CONTRASEÑAS_______________________
 	
 	public String getPassword() {
 		return password;
@@ -180,25 +216,51 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	//public static boolean passwordMatching(String password) {
+		
+	//}
+	
+	//_____________________________________________
+	
+	//_________FECHAS________________________________
 
-	public String getFnac() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
-		return format.format(this.fnac);
+	public void setFnac(String fnac) { //Convierte String a LocalDate
+		this.fnac = LocalDate.parse(fnac);
 	}
 
-	public void setFnac(String fnac) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
-		this.fnac = format.parse(fnac);
+	public String getFnac() { //Convierte LocalDate a String
+		return fnac.toString();
+	}
+
+	public String getFnacSpanish() { //Convierte LocalDate a String con fecha en formato español
+		String formattedDate = this.fnac.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+		return formattedDate;
 	}
 	
-	public String fnacSpanish() {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		format.setTimeZone(TimeZone.getTimeZone("UTC+2"));
-		return format.format(this.fnac);
+	public static boolean checkFnac(String fnac) { //comprueba que fecha = entre el año 1900 y hoy.
+		LocalDate fecha = LocalDate.parse(fnac);		
+		LocalDate currentDate = LocalDate.now();
+		
+		if ((fecha.getYear() > 1900) && (fecha.isBefore(currentDate))) {  
+			return true;
+        }else return false;
+		
 	}
-
+	
+	public static boolean checkMayorEdad(String fnac) { //comprueba que sea mayor de edad
+		LocalDate fecha = LocalDate.parse(fnac);
+		LocalDate currentDate = LocalDate.now();
+		
+		int edad = Period.between(fecha, currentDate).getYears();
+		
+		if (edad>=18) {
+			return true;
+		}else return false;
+		
+	}
+	
+	//______________________________
 
 	public Provincia getProvincia() {
 		return provincia;
@@ -224,6 +286,11 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 	
+	public static boolean checkTelefono(String telefono) {
+		Pattern pattern = Pattern.compile("^(\\+34|0034|34)?[6|7|9][0-9]{8}$");
+		return pattern.matcher(telefono).matches();
+	}
+
 	public String getDireccion() {
 		return direccion;
 	}
@@ -231,7 +298,7 @@ public class Usuario {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	
+
 	public String getCp() {
 		return cp;
 	}
@@ -240,8 +307,10 @@ public class Usuario {
 		this.cp = cp;
 	}
 	
-	
-	
+	public static boolean checkCP(String CP) {
+		Pattern pattern = Pattern.compile("^(?:0[1-9]|[1-4]\\d|5[0-2])\\d{3}$");
+		return pattern.matcher(CP).matches();
+	}
 
 	public List<Animal> getAnimales() {
 		return animales;
@@ -250,13 +319,5 @@ public class Usuario {
 	public void setAnimales(List<Animal> animales) {
 		this.animales = animales;
 	}
-	
-
-	
-	
-	
-
-
-
 
 }

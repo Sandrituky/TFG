@@ -27,6 +27,7 @@
 											</th:block>
 											<small class="float-right" th:text="${animal.getEdad()}"></small>
 										</h5>
+										<small class="float-right" style="margin-top:-14px;margin-bottom:-5px" th:text="${animal.getFnacSpanish()}"></small>
 
 									</div>
 									<div class="card-body">
@@ -38,13 +39,13 @@
 										</p>
 										<p class="card-text" th:text="${animal.descripcion}"></p>
 
-										<b>Esterilización:</b>
+										
 										<th:block th:if="${animal.esterilizado == esterilizados.SI}">
-											Esterilizado
+											Esterilizado.
    										</th:block>
 										<th:block
 											th:if="${animal.esterilizado == esterilizados.PENDIENTE}">
-   											Pendiente
+   											Esterilización pendiente.
    											
    										</th:block><br/><br/>
 										<div class="d-flex justify-content-between align-items-center">
