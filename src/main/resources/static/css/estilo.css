@@ -11,6 +11,9 @@ body{
         min-width:100%;
 }
 
+#loading{
+  width: 28%;
+}
 
 
 #caja {

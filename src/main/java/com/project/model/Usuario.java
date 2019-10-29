@@ -26,6 +26,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+
 import com.project.model.Rol;
 import com.project.model.Provincia;
 import com.project.model.Animal;
@@ -59,6 +61,8 @@ public class Usuario {
 
 	@Column(name = "PASSWORD", length = 60, nullable = false)
 	private String password;
+	
+	
 
 	@Column(name = "FNAC", nullable = false)
 	private LocalDate fnac;
@@ -77,7 +81,7 @@ public class Usuario {
 	@Column(name = "DIRECCION", length = 150, nullable = false)
 	private String direccion;
 
-	@Column(name = "TELEFONO", length = 9, nullable = false)
+	@Column(name = "TELEFONO", length = 9, unique = true, nullable = false)
 	private String telefono;
 
 	// ANIMAL TIENE CLAVE FORANEA DE USUARIO
@@ -206,6 +210,11 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public static boolean checkEmail(String email) {
+		 String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+	      return email.matches(regex);
+	}
 
 	//________CONTRASEÑAS_______________________
 	
@@ -216,6 +225,8 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+
 	
 	//public static boolean passwordMatching(String password) {
 		

@@ -7,6 +7,7 @@
 <script type="text/javascript" src="../../js/funciones.js">
 	
 </script>
+
 </head>
 <body>
 
@@ -21,10 +22,13 @@
 		<form th:action="@{/usuarios/altaUsuario-submit}"
 			th:object="${usuario}" method="post" class="was-validated">
 			<div class="form-row">
-				<div class="form-group col-md-4">
-					<label for="inputEmail">Correo electrónico</label> <input
-						type="email" class="form-control" th:field="*{email}"
-						id="inputEmail" placeholder="Email" required>
+				<div class="form-group col-md-3">
+					<label for="inputEmail">Correo electrónico</label>
+					<input type="email" class="form-control" th:field="*{email}"
+						id="inputEmail" placeholder="Email" required >
+				</div>
+				
+				<div class="form-group col-md-1" id="status">
 				</div>
 				<div class="form-group col-md-4">
 					<label for="inputPassword">Contraseña</label> <input
@@ -33,8 +37,8 @@
 						placeholder="Contraseña">
 				</div>
 				<div class="form-group col-md-4">
-					<label for="inputPassword">Confirmar contraseña</label> 
-					<input type="password" class="form-control" th:field="*{password}"
+					<label for="inputPassword">Confirmar contraseña</label> <input
+						type="password" class="form-control" th:field="*{password}"
 						id="inputPassword2" minlength=8 maxlength=20 required
 						placeholder="Confirmar contraseña" oninput="check(this)">
 				</div>
@@ -83,7 +87,7 @@
 					</select>
 				</div>
 				<div class="form-group col-md-4">
-					<label for="inputPoblacion">Poblacion</label> <input type="text"
+					<label for="inputPoblacion">Población</label> <input type="text"
 						th:field="*{poblacion}" id="inputPoblacion" class="form-control"
 						minlength=2 maxlength=50 required>
 
@@ -112,15 +116,5 @@
 				th:class="${'alert ' + alertClass}" />
 		</form>
 
-		<script language='javascript' type='text/javascript'>
-			function check(input) {
-				if (input.value != document.getElementById('inputPassword').value) {
-					input.setCustomValidity('Password Must be Matching.');
-				} else {
-					// input is valid -- reset the error message
-					input.setCustomValidity('');
-				}
-			}
-		</script>
 </body>
 </html>

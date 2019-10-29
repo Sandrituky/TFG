@@ -109,7 +109,7 @@ public class AnimalController {
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
 			// Guardamos la imagen en una carpeta del proyecto para imagenes.
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\"
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\animales\\"
 					+ nombreImagen;
 
 			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo

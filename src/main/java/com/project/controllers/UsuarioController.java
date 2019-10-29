@@ -1,6 +1,7 @@
 package com.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,7 +59,11 @@ public class UsuarioController {
 		
 		if ((user.checkDNI(user.getDni())==true)&&(user.checkTelefono(user.getTelefono()) == true)&&(user.checkCP(user.getCp()) == true)
 				&&(user.checkFnac(user.getFnac()) == true) && (user.checkMayorEdad(user.getFnac())==true)) {
+			
+			String enPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			user.setPassword(enPass);
 			usuariosRepo.save(user);
+			
 			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!");
 		}else if(user.checkTelefono(user.getTelefono()) == false){
 			redirectAttributes.addFlashAttribute("message","Teléfono inválido");
@@ -75,6 +80,8 @@ public class UsuarioController {
 				redirectAttributes.addFlashAttribute("message",
 						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
 			}
+		
+		
 		
 		
 		return new RedirectView("altaUsuario");
