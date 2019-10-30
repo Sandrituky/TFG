@@ -6,12 +6,16 @@ $(document).ready(function() { //valida que el correo tenga bien el formato y se
 		var inputEmail = $("#inputEmail")[0];
 		
 		
-		$('#status').html('<img id="loading" src="/imagenes/loading.gif">');
+		//inputEmail.style.backgroundImage = "url('/imagenes/loading.gif')";
+
+		
 		
 		if(email!=''){
 			
 			   //var pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 			   //var hola = pattern.test(email);
+			$(inputEmail).addClass("loading");
+
 			
 			$.ajax({
 			    url: 'http://localhost:8080/json/checkemail/', 
@@ -21,11 +25,14 @@ $(document).ready(function() { //valida que el correo tenga bien el formato y se
 			    success : function(json) {
 			    	if(json.result==true){
 			    		inputEmail.setCustomValidity('Este correo ya está registrado');
-			  			$('#status').html('');
+			    		$(inputEmail).removeClass("loading");
+			    		
 			    		
 			    		}else if(checkEmail(email)==false){
+			    			$(inputEmail).addClass("loading");
 
 			    	}else{
+			    		inputEmail.classList.add("loading");
 
 			    	}
 			    
@@ -42,7 +49,7 @@ $(document).ready(function() { //valida que el correo tenga bien el formato y se
 			
 			
 		}else{
-			$('#status').html('');
+
 
 		}
 		

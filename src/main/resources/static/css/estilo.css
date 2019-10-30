@@ -13,12 +13,15 @@ body{
 
 #loading{
   width: 28%;
-  position: relative;
-   left: -50px;
-    top: 15px;
 }
 
-
+.loading{
+	background-image:url('/imagenes/loading.gif') !important; 
+	padding-right: calc(1.5em + .75rem);
+	background-repeat: no-repeat;
+	background-position: center right calc(.375em + .1875rem);
+	background-size: calc(.75em + .375rem) calc(.75em + .375rem)
+}
 
 
 #caja {
