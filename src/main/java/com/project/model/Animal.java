@@ -214,30 +214,30 @@ public class Animal {
 		int anios = periodo.getYears();
 		int meses = periodo.getMonths();
 		int dias = periodo.getDays();
-		
-		if(anios>1) {
-			if(meses==0) {
+
+		if (anios > 1) {
+			if (meses == 0) {
 				return anios + " años";
-			}else if(meses==1){
+			} else if (meses == 1) {
 				return anios + " años y " + meses + " mes";
-			}else {
+			} else {
 				return anios + " años y " + meses + " meses";
 			}
-		}else if (anios==1) {
-			if(meses==0) {
+		} else if (anios == 1) {
+			if (meses == 0) {
 				return anios + " año";
-			}else if(meses==1){
+			} else if (meses == 1) {
 				return anios + " año y " + meses + " mes";
-			}else {
+			} else {
 				return anios + " año y " + meses + " meses";
 			}
-		}else if (dias==1) {
+		} else if (dias == 1) {
 			return dias + " día";
-		}else if (meses<1) {
+		} else if (meses < 1) {
 			return dias + " días";
-		}else if (meses==1) {
+		} else if (meses == 1) {
 			return meses + " mes";
-		}else if (meses<12) {
+		} else if (meses < 12) {
 			return meses + " meses";
 		}
 		return "afidfdh";

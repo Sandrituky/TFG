@@ -22,11 +22,38 @@ public class JsonController {
 	private IUsuarioRepository usuariosRepo;
 	
 	@GetMapping("/checkemail")
-	public String emailDuplicated(@RequestParam("email") String email){
+	public String duplicatedEmail(@RequestParam("email") String email){
 		
 		List<Usuario> listaUsuarios = usuariosRepo.findAll();
 		
 		boolean isFound = usuariosRepo.existsByEmail(email);
+		
+		//return isFound;
+		
+		return "{\"result\": "+isFound+"}";
+		
+	}
+	
+	
+	@GetMapping("/checkdni")
+	public String duplicatedDNI(@RequestParam("dni") String dni){
+		
+		List<Usuario> listaUsuarios = usuariosRepo.findAll();
+		
+		boolean isFound = usuariosRepo.existsByDni(dni);
+		
+		//return isFound;
+		
+		return "{\"result\": "+isFound+"}";
+		
+	}
+	
+	@GetMapping("/checktelefono")
+	public String duplicatedPhone(@RequestParam("telefono") String telefono){
+		
+		List<Usuario> listaUsuarios = usuariosRepo.findAll();
+		
+		boolean isFound = usuariosRepo.existsByTelefono(telefono);
 		
 		//return isFound;
 		

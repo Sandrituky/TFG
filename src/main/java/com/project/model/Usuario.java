@@ -81,7 +81,7 @@ public class Usuario {
 	@Column(name = "DIRECCION", length = 150, nullable = false)
 	private String direccion;
 
-	@Column(name = "TELEFONO", length = 9, unique = true, nullable = false)
+	@Column(name = "TELEFONO", length = 13, unique = true, nullable = false)
 	private String telefono;
 
 	// ANIMAL TIENE CLAVE FORANEA DE USUARIO
