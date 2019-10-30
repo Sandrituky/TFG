@@ -1,50 +1,58 @@
-$(document).ready(function() { //valida que el correo tenga bien el formato y sea unico
+$(document).ready(function() { // valida que el correo tenga bien el formato y
+																// sea unico
 	$('#inputEmail').keyup(function() {
 		
+	// var inputEmail = $("#inputEmail")[0]; no se porque puse esto
 		
 		var email = $('#inputEmail').val();
-		var inputEmail = $("#inputEmail")[0];
+		var inputEmail = $("#inputEmail");
 		
 		
-		//inputEmail.style.backgroundImage = "url('/imagenes/loading.gif')";
+		
+		
+		// inputEmail.style.backgroundImage = "url('/imagenes/loading.gif')";
 
 		
 		
 		if(email!=''){
 			
-			   //var pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-			   //var hola = pattern.test(email);
-			$(inputEmail).addClass("loading");
+			   // var pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+			   // var hola = pattern.test(email);
+			inputEmail.addClass('loading');
 
 			
 			$.ajax({
-			    url: 'http://localhost:8080/json/checkemail/', 
-			    data: { email : $(this).val() },
-			    type : 'GET',
-			    dataType : 'json',
-			    success : function(json) {
-			    	if(json.result==true){
-			    		inputEmail.setCustomValidity('Este correo ya está registrado');
-			    		$(inputEmail).removeClass("loading");
-			    		
-			    		
-			    		}else if(checkEmail(email)==false){
-			    			$(inputEmail).addClass("loading");
+		    url: 'http://localhost:8080/json/checkemail/', 
+		    data: { email : $(this).val() },
+		    type : 'GET',
+		    dataType : 'json',
+		    success : function(json) {
+		    	
+		    	setTimeout(function(){
+		    		inputEmail.removeClass('loading');
+		    	}, 1000);
+		    	
+		    	
+		    	if(json.result==true){ // DNI registrado
+		    		inputEmail[0].setCustomValidity('Este email ya está registrado');
+		    		
+		    		}else if(checkEmail(email)==false){ //
+		    			
+		    	}else{	
+		    		
+		    	}
+		    	
+		    	
+		    },
+		    error : function(jqXHR, status, error) {
+		    	
+		    },
+		 
+		    complete : function(jqXHR, status) {
+		    	
+		    }
+		});
 
-			    	}else{
-			    		inputEmail.classList.add("loading");
-
-			    	}
-			    
-			    },
-			    error : function(jqXHR, status, error) {
-			    	
-			    },
-			 
-			    complete : function(jqXHR, status) {
-			    	
-			    }
-			});
 			
 			
 			
@@ -57,9 +65,17 @@ $(document).ready(function() { //valida que el correo tenga bien el formato y se
 });
 
 
+$.fn.addClassDelay = function(className,delay) {
+  var $addClassDelayElement = $(this), $addClassName = className;
+  $addClassDelayElement.addClass($addClassName);
+  setTimeout(function(){
+      $addClassDelayElement.removeClass($addClassName);
+  },delay);
+};
 
 
-$(document).ready(function() { //valida que el DNI tenga bien el formato y sea unico
+$(document).ready(function() { // valida que el DNI tenga bien el formato y sea
+																// unico
 	$('#inputDNI').keyup(function() {
 		
 		var dni = $('#inputDNI').val();
@@ -75,7 +91,7 @@ $(document).ready(function() { //valida que el DNI tenga bien el formato y sea u
 			    type : 'GET',
 			    dataType : 'json',
 			    success : function(json) {
-			    	if(json.result==true){ //DNI registrado
+			    	if(json.result==true){ // DNI registrado
 			    		inputDNI.setCustomValidity('Este DNI ya está registrado');
 			    		
 			    		}else if(checkDni(dni)==false){ //
@@ -96,13 +112,14 @@ $(document).ready(function() { //valida que el DNI tenga bien el formato y sea u
 			});
 
 		}else{
-			//$('#status').html('');
+			// $('#status').html('');
 		}
 		
 	});
 });
 
-$(document).ready(function() { //valida que el telefono tenga bien el formato y sea unico
+$(document).ready(function() { // valida que el telefono tenga bien el formato
+																// y sea unico
 	$('#inputTelefono').keyup(function() {
 		
 		var telefono = $('#inputTelefono').val();
@@ -118,7 +135,7 @@ $(document).ready(function() { //valida que el telefono tenga bien el formato y 
 			    type : 'GET',
 			    dataType : 'json',
 			    success : function(json) {
-			    	if(json.result==true){ //Telefono registrado
+			    	if(json.result==true){ // Telefono registrado
 			    		inputTelefono.setCustomValidity('Este telefono ya está registrado');
 			    		
 			    		}else if(checkTelefono(telefono)==false){ //
@@ -139,7 +156,7 @@ $(document).ready(function() { //valida que el telefono tenga bien el formato y 
 			});
 
 		}else{
-			//$('#status').html('');
+			// $('#status').html('');
 		}
 		
 	});

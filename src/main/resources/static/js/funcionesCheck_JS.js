@@ -17,7 +17,7 @@ function checkDni(dni){
      if (letra!=let) {
     	 inputDNI.setCustomValidity('La letra no corresponde con el DNI');      
      }else{
-    	 inputEmail.style.backgroundImage ="none";
+    	 inputDNI.setCustomValidity('')
        return true;
      }
   }else{
@@ -33,12 +33,15 @@ function checkEmail(email){
   
   if(regex.test (email) == true){
   	inputEmail.setCustomValidity('');
-  	inputEmail.classList.remove("loading");
+  	setTimeout(function(){
+  		inputEmail.classList.remove("loading");
+  	}, 1000);
+  	
 
 
   }else{
-  	inputEmail.setCustomValidity('DNI no válido');
-  	inputEmail.classList.remove("loading");
+  	inputEmail.setCustomValidity('Email no válido');
+  	inputEmail.classList.add("loading");
   }
   
 }
