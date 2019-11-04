@@ -87,8 +87,22 @@ public class UsuarioController {
 		return new RedirectView("altaUsuario");
 		
 	}
+	
+	/*@PostMapping("/loginUsuario-submit") // Lo que ocurre cuando pulsas [Iniciar Sesión]
+	public RedirectView pageLoginSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		// RedirectView redirecciona a la pagina que le digas
+		
+		try {
+			
+		}catch(Exception e){
+			
+		}
+		
+		return new RedirectView("altaUsuario");
+	}
+	
 
-	// return new RedirectView("altaAnimal");
+*/
 
 }
 

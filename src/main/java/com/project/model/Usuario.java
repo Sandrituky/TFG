@@ -226,13 +226,6 @@ public class Usuario {
 		this.password = password;
 	}
 	
-
-	
-	//public static boolean passwordMatching(String password) {
-		
-	//}
-	
-	//_____________________________________________
 	
 	//_________FECHAS________________________________
 

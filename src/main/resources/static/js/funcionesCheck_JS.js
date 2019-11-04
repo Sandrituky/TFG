@@ -3,7 +3,7 @@ function checkDni(dni){
   var let;
   var letra;
   var expresion_regular_dni;
-  var inputDNI = document.getElementById("inputDNI");
+  var inputDNI = document.getElementById("dni");
   
   expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
   
@@ -29,7 +29,7 @@ function checkDni(dni){
 function checkEmail(email){
 	
 	var regex =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  var inputEmail = document.getElementById("inputEmail");
+  var inputEmail = document.getElementById("email");
   
   if(regex.test (email) == true){
   	inputEmail.setCustomValidity('');
@@ -48,7 +48,7 @@ function checkEmail(email){
 
 function checkTelefono(telefono){
 	var regex =  /^(\+34|0034|34)?[6|7|9][0-9]{8}$/;
-  var inputTelefono = document.getElementById("inputTelefono");
+  var inputTelefono = document.getElementById("telefono");
   
   if(regex.test (telefono) == true){
   	inputTelefono.setCustomValidity('');
