@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 @Controller
 public class MainController {
 
-	@GetMapping("/")
+	@GetMapping({"/"})
 	public String redIndex(Model model) {
 		return "index";
 	}

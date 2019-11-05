@@ -13,10 +13,13 @@ import com.project.model.Usuario;
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
+	List <Usuario> findByEmail(String email);
 
 	boolean existsByEmail(String email);
 	boolean existsByDni(String dni);
 	boolean existsByTelefono(String telefono);
+	
+	
 }
 
 

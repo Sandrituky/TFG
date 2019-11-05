@@ -1,0 +1,18 @@
+<meta charset="UTF-8">
+<span th:fragment="login" xmlns:th="http://www.thymeleaf.org">
+	
+
+	<a th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
+	<form th:action="@{fragments/login}" method="post" sec:authentication="name"
+		class="form-inline my-2 my-lg-0">
+		<input class="form-control mr-sm-2" type="text" name="loginEmail"
+			placeholder="Usuario" aria-label="Usuario"> 
+			<input class="form-control mr-sm-2" type="password" name="loginPassword"
+			placeholder="Contraseña" aria-label="password">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar
+			sesión</button>
+
+	</form>
+
+</span>
+

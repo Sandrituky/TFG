@@ -1,7 +1,7 @@
 package com.project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import com.project.util.SecurityConfig;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -38,6 +39,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IProvinciaRepository provinciasRepo;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/altaUsuario") //
 	public String pageAdd(Model model) {
@@ -60,8 +64,10 @@ public class UsuarioController {
 		if ((user.checkDNI(user.getDni())==true)&&(user.checkTelefono(user.getTelefono()) == true)&&(user.checkCP(user.getCp()) == true)
 				&&(user.checkFnac(user.getFnac()) == true) && (user.checkMayorEdad(user.getFnac())==true)) {
 			
-			String enPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-			user.setPassword(enPass);
+			//String enPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+		  //user.setPassword(enPass);
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			
 			usuariosRepo.save(user);
 			
 			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!");
@@ -88,7 +94,12 @@ public class UsuarioController {
 		
 	}
 	
-	/*@PostMapping("/loginUsuario-submit") // Lo que ocurre cuando pulsas [Iniciar Sesión]
+	 @GetMapping("/login")
+   public String login(Model model) {
+       return "fragments/login";
+   }
+	
+	@PostMapping("/loginUsuario-submit") // Lo que ocurre cuando pulsas [Iniciar Sesión]
 	public RedirectView pageLoginSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		// RedirectView redirecciona a la pagina que le digas
 		
@@ -102,7 +113,7 @@ public class UsuarioController {
 	}
 	
 
-*/
+
 
 }
 
