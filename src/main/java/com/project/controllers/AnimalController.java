@@ -44,22 +44,6 @@ public class AnimalController {
 	@Autowired
 	private IUsuarioRepository usuariosRepo;
 
-	@GetMapping("/listAdoptableDogs")
-	public String pageList(Model model) {
-		
-		
-
-		Collection<Animal> listaAnimales = animalesRepo.findPerritosEnAdopcion();
-		
-
-		model.addAttribute("animales", listaAnimales);
-		model.addAttribute("tipos", Tipo.class);
-		model.addAttribute("sexos", Sexo.class);
-		model.addAttribute("esterilizados", Esterilizado.class);
-
-		return "animales/listAdoptableDogs";
-	}
-
 	@GetMapping("/altaAnimal") // pagina de alta Animal
 	public String pagAlta(Model model) {
 
@@ -94,6 +78,7 @@ public class AnimalController {
 		// RedirectView redirecciona a la pagina que le digas
 
 		Boolean result = false;
+		
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
 		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
@@ -164,8 +149,25 @@ public class AnimalController {
 		return "animales/bajaAnimal";
 	}
 
-	@GetMapping("/modAnimal")
+	@GetMapping("/modAnimal") // pagina de modificacion de Animal
 	public String pagMod(Model model) {
+
+		Animal animal = new Animal();
+		model.addAttribute("animal", animal);
+		
+		List<Animal> listaAnimales = animalesRepo.findAll();
+		model.addAttribute("animales", listaAnimales);
+
+		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
+		model.addAttribute("esterilizados", opcionesEsterilizado);
+		
+		Sexo[] opcionesSexo = Sexo.values();
+		model.addAttribute("sexos", opcionesSexo);
+
+		List<Provincia> listaProvincias = provinciasRepo.findAll();
+		model.addAttribute("provincias", listaProvincias);
+		
+
 		return "animales/modAnimal";
 	}
 
@@ -176,4 +178,92 @@ public class AnimalController {
 
 		return new RedirectView("animales/add-submit");
 	}
+	
+  //__________LISTAR PERROS_____________
+	
+	@GetMapping("/listAdoptableDogs")
+	public String listAdoptableDogs(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findPerritosEnAdopcion();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listAdoptableDogs";
+	}
+	
+	@GetMapping("/listReservedDogs")
+	public String listReservedDogs(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findPerritosReservados();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listReservedDogs";
+	}
+	
+	@GetMapping("/listAdoptedDogs")
+	public String listAdoptedDogs(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findPerritosAdoptados();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listAdoptedDogs";
+	}
+	
+	
+//__________LISTAR GATOS_________________
+	
+	@GetMapping("/listAdoptableCats")
+	public String listAdoptableCats(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findGatitosEnAdopcion();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listAdoptableCats";
+	}
+	
+	@GetMapping("/listReservedCats")
+	public String listReservedCats(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findGatitosReservados();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listReservedCats";
+	}
+	
+	@GetMapping("/listAdoptedCats")
+	public String listAdoptedCats(Model model) {
+		
+		Collection<Animal> listaAnimales = animalesRepo.findGatitosAdoptados();
+		
+		model.addAttribute("animales", listaAnimales);
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "animales/listAdoptedCats";
+	}
+	
+	//________________________________________-
+	
+	
+	
 }

@@ -3,37 +3,293 @@
 	layout:decorate="~{fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Modificar animal</title>
 </head>
 <body>
 
-
-
 	<div id="caja" layout:fragment="content" class="container">
 
-		<form action="" name="formularioVotantes" id="formularioVotantes"
-			method="post">
-			<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
-		
-		</form>
-	</div>
-	
-					<div class="row">
-						<div class="col-md-12">Total de ancho (12 casillas)</div>
-					</div>
 
-					<div class="row">
-						<div class="col-md-6">Mitad de ancho (6 casillas izquierda)
+		<div class="row">
+			<div class="col-md-6 offset-3">
+				<h2 class="text-center">Modificar animal</h2>
+				<hr>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-9 offset-1">
+
+
+
+
+				<form th:action="@{/animales/altaAnimal-submit}"
+					th:object="${animal}" method="post" enctype="multipart/form-data"
+					class="was-validated">
+					<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
+
+					<div class="form-group row">
+
+						<!-- INPUT TIPO DE ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Animal</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">🐕</label>
+							</div>
+
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">🐈</label>
+							</div>
+
 						</div>
-						<div class="col-md-6">Mitad de ancho (6 casillas derecha)</div>
+
+						<!-- INPUT SEXO DEL ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Sexo</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:field="*{sexo}" th:value="*{sexo.MACHO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">♂️</label>
+							</div>
+							<div class="form-check">
+								<input type="radio" th:field="*{sexo}" th:value="*{sexo.HEMBRA}"
+									class="form-check-input" /> <label class="form-check-label"
+									required>♀️</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT SELECT ANIMAL -->
+						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
+						<div class="col-sm-7">
+
+							<select id="animal.id" name="animal.id" required
+								class="form-control">
+								<option value="">Selecciona animal</option>
+								<th:block th:each="i : ${animales}">
+									<th:block th:switch="${i.sexo.name()}">
+
+										<th:block th:case="'MACHO'">
+
+											<option
+												th:text="${i.nombre} + ' - ' + '♂️' + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
+												th:value="${i.id}">
+												<!--th:selected="${i.id==0}"--></option>
+										</th:block>
+
+										<th:block th:case="'HEMBRA'">
+											<option
+												th:text="${i.nombre} + ' - ' + '♀' + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
+												th:value="${i.id}">
+												<!--th:selected="${i.id==0}"--></option>
+										</th:block>
+									</th:block>
+								</th:block>
+							</select>
+
+						</div>
+
+
+						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
+						<div class="col-sm-7">
+							<select id="animal.id" name="animal.id" required
+								class="form-control">
+								<option value="">Selecciona animal</option>
+								<option th:each="i : ${animales}"
+									th:text="${i.nombre} + ' - ' + ${i.sexo} + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
+									th:value="${i.id}">
+									<!--th:selected="${i.id==0}"--></option>
+							</select>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<div class="row" style="display: none">
+			<div class="col-md-9 offset-1">
+
+
+				<form th:action="@{/animales/altaAnimal-submit}"
+					th:object="${animal}" method="post" enctype="multipart/form-data"
+					class="was-validated">
+
+
+					<!-- INPUT NOMBRE ANIMAL -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="nombre">Nombre</label>
+						<div class="col-sm-10">
+							<input type="text" th:field="*{nombre}" class="form-control"
+								placeholder="Nombre del animal" required minlength=3
+								maxlength=50 />
+						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-md-3">Un tercio de ancho (primera parte)</div>
-						<div class="col-md-3">Un tercio de ancho (segunda parte)</div>
-						<div class="col-md-3">Un tercio de ancho (tercera parte)</div>
+					<!-- th:field = name,  th:value = value -->
+					<!-- tipo sería la variable de la clase Animal -->
+
+					<div class="form-group row">
+
+						<!-- INPUT TIPO DE ANIMAL -->
+
+						<label class="col-sm-2 col-form-label">Animal</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">🐕</label>
+							</div>
+
+							<div class="form-check">
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">🐈</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT SEXO DEL ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Sexo</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:field="*{sexo}" th:value="*{sexo.MACHO}"
+									class="form-check-input" required /> <label
+									class="form-check-label">♂️</label>
+							</div>
+							<div class="form-check">
+								<input type="radio" th:field="*{sexo}" th:value="*{sexo.HEMBRA}"
+									class="form-check-input" /> <label class="form-check-label"
+									required>♀️</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT RAZA -->
+
+						<label class="col-sm-1 col-form-label" for="nombre">Raza</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{raza}" class="form-control"
+								placeholder="Raza del animal" required minlength=3 maxlength=100 />
+						</div>
 					</div>
-	
+
+
+					<div class="form-group row">
+
+						<!-- INPUT FECHA DE NACIMIENTO -->
+
+						<label class="col-sm-2 col-form-label" for="fnac">Fecha de
+							nacimiento</label>
+						<div class="col-sm-4">
+							<input type="date" th:field="*{fnac}" class="form-control"
+								min="1990-01-01" required />
+						</div>
+
+						<!-- INPUT ESTERILIZADO -->
+
+						<label class="col-sm-2 col-form-label">Esterilizado</label>
+						<div class="col-sm-4">
+							<th:block th:each="i : ${esterilizados}">
+								<div class="form-check">
+									<input type="radio" th:field="*{esterilizado}" required
+										th:value="${i}" class="form-check-input" /> <label
+										class="form-check-label" th:for="${#ids.prev('esterilizado')}"
+										th:text="${#strings.capitalize(#strings.toLowerCase(i))}">Esterilizado</label>
+								</div>
+							</th:block>
+
+						</div>
+
+
+					</div>
+
+					<div class="form-group row">
+
+						<!-- INPUT PROVINCIA ANIMAL -->
+
+						<label class="col-sm-2 col-form-label" for="provincia.id">Provincia</label>
+						<div class="col-sm-4">
+							<select id="provincia.id" name="provincia.id" required
+								class="form-control">
+								<option value="">Selecciona provincia</option>
+								<option th:each="i : ${provincias}" th:text="${i.provincia}"
+									th:value="${i.id}">
+									<!--th:selected="${i.id==0}"--></option>
+							</select>
+
+							<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
+							<option th:each="i : ${provincias}" th:text="${i.toString()}"
+								th:value="${i}"></option></select></td>-->
+
+						</div>
+
+						<!-- INPUT POBLACION ANIMAL -->
+
+						<label class="col-sm-2 col-form-label" for="fnac">Población</label>
+						<div class="col-sm-4">
+							<input type="text" th:field="*{poblacion}" class="form-control"
+								required minlenght=2 maxlength=50 />
+						</div>
+					</div>
+
+
+
+					<!-- INPUT FOTO ANIMAL -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="file">Foto</label>
+						<div class="col-sm-10">
+
+							<input type="file" name="file" accept="image/*"
+								class="form-control-file" id="validatedCustomFile" required />
+							<div class="invalid-feedback">Ningún archivo seleccionado</div>
+						</div>
+						<!-- INPUT FOTO EN LAS SOMBRAS -->
+						<label for="foto" style="display: none;">Foto</label> <input
+							type="text" th:field="*{foto}" maxlength=200
+							style="display: none;" />
+
+					</div>
+
+					<!-- INPUT DESCRIPCION ANIMAL -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" required rows="5" cols="50"
+								th:field="*{descripcion}" minlength=50 maxlength=255
+								placeholder="Historia, personalidad, enfermedades, comportamiento con otras mascotas"></textarea>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success float-right"
+								id="botonAlta">Guardar</button>
+						</div>
+					</div>
+
+					<div th:if="${message}" th:text="${message}"
+						th:class="${'alert ' + alertClass}" />
+
+
+
+
+				</form>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

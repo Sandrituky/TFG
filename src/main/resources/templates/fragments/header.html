@@ -19,8 +19,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" th:href="@{/animales/listAdoptableDogs}">En adopción</a>
-          <a class="dropdown-item" href="#">Reservados</a>
-          <a class="dropdown-item" href="#">Adoptados</a>
+          <a class="dropdown-item" th:href="@{/animales/listReservedDogs}">Reservados</a>
+          <a class="dropdown-item" th:href="@{/animales/listAdoptedDogs}">Adoptados</a>
         </div>
       </li>
       
@@ -29,9 +29,9 @@
           Gatos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">En adopción</a>
-          <a class="dropdown-item" href="#">Reservados</a>
-          <a class="dropdown-item" href="#">Adoptados</a>
+          <a class="dropdown-item" th:href="@{/animales/listAdoptableCats}">En adopción</a>
+          <a class="dropdown-item" th:href="@{/animales/listReservedCats}">Reservados</a>
+          <a class="dropdown-item" th:href="@{/animales/listAdoptedCats}">Adoptados</a>
         </div>
       </li>
       
