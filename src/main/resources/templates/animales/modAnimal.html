@@ -36,7 +36,7 @@
 						<div class="col-sm-1">
 							<div class="form-check">
 								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}"
-									class="form-check-input" required /> <label
+									class="form-check-input" required  /> <label
 									class="form-check-label">🐕</label>
 							</div>
 
@@ -66,44 +66,17 @@
 						</div>
 
 						<!-- INPUT SELECT ANIMAL -->
-						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
-						<div class="col-sm-7">
-
-							<select id="animal.id" name="animal.id" required
-								class="form-control">
-								<option value="">Selecciona animal</option>
-								<th:block th:each="i : ${animales}">
-									<th:block th:switch="${i.sexo.name()}">
-
-										<th:block th:case="'MACHO'">
-
-											<option
-												th:text="${i.nombre} + ' - ' + '♂️' + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
-												th:value="${i.id}">
-												<!--th:selected="${i.id==0}"--></option>
-										</th:block>
-
-										<th:block th:case="'HEMBRA'">
-											<option
-												th:text="${i.nombre} + ' - ' + '♀' + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
-												th:value="${i.id}">
-												<!--th:selected="${i.id==0}"--></option>
-										</th:block>
-									</th:block>
-								</th:block>
-							</select>
-
-						</div>
+					
 
 
 						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
 						<div class="col-sm-7">
-							<select id="animal.id" name="animal.id" required
+							<select id="selectAnimal" required
 								class="form-control">
 								<option value="">Selecciona animal</option>
 								<option th:each="i : ${animales}"
-									th:text="${i.nombre} + ' - ' + ${i.sexo} + ' - ' + ${i.raza} + ' - ' + ${i.poblacion}"
-									th:value="${i.id}">
+									th:text="${i.emojiTipo} + ' ' + ${i.emojiSexo} + ' - ' + ${i.nombre} + ' - ' + ${i.raza} + ' - ' + ${i.provincia.provincia} + '  (' + ${i.poblacion} + ')'"
+									th:value="${i.id}" th:class="${#strings.toLowerCase(i.getTipo())}" th:classappend="${#strings.toLowerCase(i.getSexo())}">
 									<!--th:selected="${i.id==0}"--></option>
 							</select>
 

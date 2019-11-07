@@ -48,13 +48,7 @@ $(document).ready(function() { // valida que el correo tenga bien el formato y s
 	});
 });
 
-$.fn.addClassDelay = function(className, delay) {
-	var $addClassDelayElement = $(this), $addClassName = className;
-	$addClassDelayElement.addClass($addClassName);
-	setTimeout(function() {
-		$addClassDelayElement.removeClass($addClassName);
-	}, delay);
-};
+
 
 $(document).ready(function() { // valida que el DNI tenga bien el formato y sea unico
 	$('#dni').keyup(function() {
@@ -173,7 +167,7 @@ $(document).ready(function() { // comprueba la mayoría de edad
 });
 
 // _________________ANIMALES______________________
-$(document).ready(function() { // pone esterilizado unchecked
+$(document).ready(function() { // pone todos los radioButton en unchecked
 	if ($("#raza").length) { // comprueba que el elemento existe
 
 		$('input[type="radio"]').prop('checked', false);
@@ -222,3 +216,86 @@ $(document).ready(function() { // comprueba la edad del animal
 		});
 	}
 });
+
+var filtroSelectAnimalesSexo = '';
+var filtroSelectAnimalesTipo = '';
+
+function aplicarFiltro(){
+	$("#selectAnimal").children('option').hide();
+	$(filtroSelectAnimalesSexo+filtroSelectAnimalesTipo).show()
+}
+
+
+$(document).ready(function(){
+	$("#tipo1").on("click",function(){
+		filtroSelectAnimalesTipo = ".perro";
+		aplicarFiltro();
+	});
+
+
+	$("#tipo2").on("click",function(){
+		filtroSelectAnimalesTipo = ".gato";
+		aplicarFiltro();
+	});
+
+	$("#sexo1").on("click",function(){
+		filtroSelectAnimalesSexo = ".macho";
+		aplicarFiltro();
+	});
+	
+	$("#sexo2").on("click",function(){
+		filtroSelectAnimalesSexo = ".hembra";
+		aplicarFiltro();
+	});
+
+	//igual con hembra 
+
+});
+
+
+/*
+$(document).ready(function() { // valida que el telefono tenga bien el formato y sea unico
+	$('#selectAnimal').keyup(function() {
+
+		var telefono = $('#telefono').val();
+		var inputTelefono = $("#telefono")[0];
+
+		if (telefono != '') {
+
+			$.ajax({
+				url : 'http://localhost:8080/json/checktelefono/',
+				data : {
+					telefono : $(this).val()
+				},
+				type : 'GET',
+				dataType : 'json',
+				success : function(json) {
+					if (json.result == true) { // Telefono registrado
+						inputTelefono
+								.setCustomValidity('Este telefono ya está registrado');
+
+					} else if (checkTelefono(telefono) == false) { //
+
+					} else {
+
+					}
+
+				},
+				error : function(jqXHR, status, error) {
+
+				},
+
+				complete : function(jqXHR, status) {
+
+				}
+			});
+
+		} else {
+		}
+
+	});
+});
+*/
+
+
+

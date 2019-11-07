@@ -22,7 +22,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.project.model.Estado;
@@ -30,6 +32,7 @@ import com.project.model.Esterilizado;
 import com.project.model.Tipo;
 import com.project.model.Provincia;
 import com.project.model.Usuario;
+import com.vdurmont.emoji.EmojiParser;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -90,6 +93,12 @@ public class Animal {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
 	private Usuario owner;
+	
+	@Transient
+	private String emojiTipo;
+	
+	@Transient
+	private String emojiSexo;
 
 	// CONSTRUCTOR
 
@@ -108,13 +117,15 @@ public class Animal {
 		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
+		this.emojiTipo="";
+		this.emojiSexo="aa";
 	}
 
 	// CONSTRUCTOR
 
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado,
 			String descripcion, Provincia provincia, String poblacion, Sexo sexo, LocalDate fnac, Estado estado,
-			Usuario owner) {
+			Usuario owner, String emojiTipo, String emojiSexo) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -128,9 +139,14 @@ public class Animal {
 		this.sexo = sexo;
 		this.estado = estado;
 		this.owner = owner;
+		this.emojiTipo=emojiTipo;
+		this.emojiSexo=emojiSexo;
+		
 	}
 
 	// GETTERS & SETTERS
+
+
 
 	public int getId() {
 		return id;
@@ -243,11 +259,11 @@ public class Animal {
 		return "afidfdh";
 	}
 
-	public void setFnac(String fnac) {
+	public void setFnac(String fnac) { //convierte String en LocalDate
 		this.fnac = LocalDate.parse(fnac);
 	}
 
-	public String getFnac() {
+	public String getFnac() { //Convierte LocalDate en String
 		return fnac.toString();
 	}
 
@@ -274,5 +290,40 @@ public class Animal {
 	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
+	
+	
+	@Transient
+	public void setEmojiTipo(String emojiTipo) { //convierte unicode en aliases
+		this.emojiTipo = EmojiParser.parseToAliases(emojiTipo);
+	}
+	
+	
+	@Transient
+	public String getEmojiTipo() { //convierte aliases en unicode
+		String emoji = EmojiParser.parseToUnicode(emojiTipo);
+		return emoji;
+	}
+	
+	
+	//Aqui no hace falta usar EmojiParser porque son unicode muy antiguos...
+	@Transient
+	public void setEmojiSexo(String emojiSexo) { 
+		this.emojiSexo = emojiSexo;
+	}
+	
+	@Transient
+	public String getEmojiSexo() { 
+		return emojiSexo;
+	}
+	
+
+	
+
+	
+
+
+	
+	
+
 
 }

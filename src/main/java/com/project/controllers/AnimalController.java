@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import com.vdurmont.emoji.EmojiParser;
+
 @Controller
 @RequestMapping("/animales")
 public class AnimalController {
@@ -145,16 +147,18 @@ public class AnimalController {
 
 		Estado[] opcionesEstado = Estado.values();
 		model.addAttribute("estados", opcionesEstado);
+		
+		
 
 		return "animales/bajaAnimal";
 	}
 
 	@GetMapping("/modAnimal") // pagina de modificacion de Animal
-	public String pagMod(Model model) {
-
+	public String pagMod(Model model, @RequestParam(name = "tipo", required = false) String radioTipo, @RequestParam(name = "sexo", required = false) String radioSexo) {
+		
 		Animal animal = new Animal();
 		model.addAttribute("animal", animal);
-		
+
 		List<Animal> listaAnimales = animalesRepo.findAll();
 		model.addAttribute("animales", listaAnimales);
 
@@ -163,11 +167,38 @@ public class AnimalController {
 		
 		Sexo[] opcionesSexo = Sexo.values();
 		model.addAttribute("sexos", opcionesSexo);
+		
+		Tipo[] opcionesTipo = Tipo.values();
+		model.addAttribute("tipos", opcionesTipo);
 
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
 		model.addAttribute("provincias", listaProvincias);
 		
+		
 
+	
+
+	//ASIGNAR EMOJIS
+	for (Animal animalito : listaAnimales){
+		if (animalito.getTipo() == Tipo.PERRO) {
+			animalito.setEmojiTipo(":dog2:");
+		}else if(animalito.getTipo() == Tipo.GATO) {
+			animalito.setEmojiTipo(":cat2:");
+		}
+	}
+	
+	for (Animal animalito : listaAnimales){
+		if(animalito.getSexo() == Sexo.MACHO) {
+			animalito.setEmojiSexo("\u2642");
+		}else if(animalito.getSexo() == Sexo.HEMBRA) {
+			animalito.setEmojiSexo("\u2640");
+		}
+	}
+//_____________________
+		
+		
+		
+		
 		return "animales/modAnimal";
 	}
 
