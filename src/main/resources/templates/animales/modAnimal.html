@@ -23,9 +23,9 @@
 
 
 
-				<form th:action="@{/animales/altaAnimal-submit}"
+				<form th:action="@{/animales/preModAnimal}"
 					th:object="${animal}" method="post" enctype="multipart/form-data"
-					class="was-validated">
+					class="was-validated" id="formPreModAnimal">
 					<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
 
 					<div class="form-group row">
@@ -71,14 +71,14 @@
 
 						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
 						<div class="col-sm-7">
-							<select id="selectAnimal" required
-								class="form-control">
+							  <select id="selectAnimal" required class="form-control">
 								<option value="">Selecciona animal</option>
-								<option th:each="i : ${animales}"
+								<option th:fragment="animales" th:each="i : ${animales}"
 									th:text="${i.emojiTipo} + ' ' + ${i.emojiSexo} + ' - ' + ${i.nombre} + ' - ' + ${i.raza} + ' - ' + ${i.provincia.provincia} + '  (' + ${i.poblacion} + ')'"
 									th:value="${i.id}" th:class="${#strings.toLowerCase(i.getTipo())}" th:classappend="${#strings.toLowerCase(i.getSexo())}">
-									<!--th:selected="${i.id==0}"--></option>
+									</option>
 							</select>
+							
 
 						</div>
 					</div>

@@ -105,7 +105,7 @@ public class Animal {
 	public Animal() {
 		super();
 		this.id = 0;
-		this.tipo = Tipo.NONE;
+		this.tipo = Tipo.PERRO;
 		this.nombre = "";
 		this.raza = "";
 		this.foto = "";
@@ -114,7 +114,7 @@ public class Animal {
 		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.fnac = LocalDate.now();
-		this.sexo = Sexo.NONE;
+		this.sexo = Sexo.MACHO;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
 		this.emojiTipo="";

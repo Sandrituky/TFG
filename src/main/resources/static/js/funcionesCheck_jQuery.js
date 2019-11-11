@@ -217,6 +217,7 @@ $(document).ready(function() { // comprueba la edad del animal
 	}
 });
 
+/*
 var filtroSelectAnimalesSexo = '';
 var filtroSelectAnimalesTipo = '';
 
@@ -251,51 +252,20 @@ $(document).ready(function(){
 	//igual con hembra 
 
 });
+*/
 
 
-/*
-$(document).ready(function() { // valida que el telefono tenga bien el formato y sea unico
-	$('#selectAnimal').keyup(function() {
+$(document).ready(function() { 
+	$('[name=tipo], [name=sexo]').change(function() {
 
-		var telefono = $('#telefono').val();
-		var inputTelefono = $("#telefono")[0];
-
-		if (telefono != '') {
-
-			$.ajax({
-				url : 'http://localhost:8080/json/checktelefono/',
-				data : {
-					telefono : $(this).val()
-				},
-				type : 'GET',
-				dataType : 'json',
-				success : function(json) {
-					if (json.result == true) { // Telefono registrado
-						inputTelefono
-								.setCustomValidity('Este telefono ya está registrado');
-
-					} else if (checkTelefono(telefono) == false) { //
-
-					} else {
-
-					}
-
-				},
-				error : function(jqXHR, status, error) {
-
-				},
-
-				complete : function(jqXHR, status) {
-
-				}
-			});
-
-		} else {
-		}
+		$("#selectAnimal").load('/animales/checktiposexo', $('#formPreModAnimal :input[type=radio]').serialize());
+		//$("#selectAnimal").load('/animales/checktiposexo');
+	
+		//alert($('#formPreModAnimal :input[type=radio]').serialize());
 
 	});
 });
-*/
+
 
 
 

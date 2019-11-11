@@ -128,8 +128,6 @@ public class AnimalController {
 		}
 		return new RedirectView("altaAnimal");
 
-		// return new RedirectView("altaAnimal");
-
 	}
 
 	@GetMapping("/bajaAnimal")
@@ -152,55 +150,66 @@ public class AnimalController {
 
 		return "animales/bajaAnimal";
 	}
+	
+	
 
 	@GetMapping("/modAnimal") // pagina de modificacion de Animal
-	public String pagMod(Model model, @RequestParam(name = "tipo", required = false) String radioTipo, @RequestParam(name = "sexo", required = false) String radioSexo) {
+	public String pagMod(Model model) {
 		
 		Animal animal = new Animal();
 		model.addAttribute("animal", animal);
-
-		List<Animal> listaAnimales = animalesRepo.findAll();
-		model.addAttribute("animales", listaAnimales);
-
-		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
-		model.addAttribute("esterilizados", opcionesEsterilizado);
 		
 		Sexo[] opcionesSexo = Sexo.values();
 		model.addAttribute("sexos", opcionesSexo);
 		
 		Tipo[] opcionesTipo = Tipo.values();
 		model.addAttribute("tipos", opcionesTipo);
-
-		List<Provincia> listaProvincias = provinciasRepo.findAll();
-		model.addAttribute("provincias", listaProvincias);
-		
-		
-
-	
-
-	//ASIGNAR EMOJIS
-	for (Animal animalito : listaAnimales){
-		if (animalito.getTipo() == Tipo.PERRO) {
-			animalito.setEmojiTipo(":dog2:");
-		}else if(animalito.getTipo() == Tipo.GATO) {
-			animalito.setEmojiTipo(":cat2:");
-		}
-	}
-	
-	for (Animal animalito : listaAnimales){
-		if(animalito.getSexo() == Sexo.MACHO) {
-			animalito.setEmojiSexo("\u2642");
-		}else if(animalito.getSexo() == Sexo.HEMBRA) {
-			animalito.setEmojiSexo("\u2640");
-		}
-	}
-//_____________________
-		
 		
 		
 		
 		return "animales/modAnimal";
 	}
+	
+	@GetMapping("/checktiposexo")
+	public String filtroTipoSexo(Model model, @RequestParam("tipo") Tipo tipo, @RequestParam("sexo") Sexo sexo){
+		
+		
+		List<Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndSexo(tipo, sexo);
+		//List<Animal> listaAnimales = animalesRepo.findAll();
+		model.addAttribute("animales", listaAnimales);
+
+		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
+		model.addAttribute("esterilizados", opcionesEsterilizado);
+
+		List<Provincia> listaProvincias = provinciasRepo.findAll();
+		model.addAttribute("provincias", listaProvincias);
+		
+		//ASIGNAR EMOJIS
+		for (Animal animalito : listaAnimales){
+			if (animalito.getTipo() == Tipo.PERRO) {
+				animalito.setEmojiTipo(":dog2:");
+			}else if(animalito.getTipo() == Tipo.GATO) {
+				animalito.setEmojiTipo(":cat2:");
+			}
+		}
+		
+		for (Animal animalito : listaAnimales){
+			if(animalito.getSexo() == Sexo.MACHO) {
+				animalito.setEmojiSexo("\u2642");
+			}else if(animalito.getSexo() == Sexo.HEMBRA) {
+				animalito.setEmojiSexo("\u2640");
+			}
+		}
+		
+
+
+		
+
+		return "animales/modAnimal :: animales";
+		
+	}
+	
+	
 
 	@PostMapping("/add-submit")
 	public RedirectView pageAddSubmit(Animal animal, Model model) {

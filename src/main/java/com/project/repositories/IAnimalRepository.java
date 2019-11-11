@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.project.model.Animal;
+import com.project.model.Sexo;
+import com.project.model.Tipo;
 
 @Repository
 public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
@@ -16,6 +18,7 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	@Query(
 	value="SELECT * FROM ANIMAL WHERE ESTADO = 'EN_ADOPCION' AND TIPO = 'PERRO'", nativeQuery = true)
 	List <Animal> findPerritosEnAdopcion();
+
 	
 	@Query(
 			value="SELECT * FROM ANIMAL WHERE ESTADO = 'RESERVADO' AND TIPO = 'PERRO'", nativeQuery = true)
@@ -87,6 +90,11 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
 	//____________________________
 	
+	
+	List <Animal> findAllAnimalesByTipo(String tipo);
+	List <Animal> findAllAnimalesBySexo(String sexo);
+	List <Animal> findAllAnimalesByTipoAndSexo(Tipo tipo, Sexo sexo);
+
 	
 	
 	
