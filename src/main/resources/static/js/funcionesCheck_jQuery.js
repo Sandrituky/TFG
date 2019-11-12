@@ -156,11 +156,19 @@ $(document).ready(function() { // comprueba la mayoría de edad
 			birthday = $("#fnac").val();
 
 			var diferencia = today.diff(birthday, 'years');
+			var diferenciaDias = today.diff(birthday, 'days', true);
+			
 			if (diferencia >= 18) {
 				inputFnac.setCustomValidity('');
-			} else {
+				
+			} else if(diferenciaDias<0){
+				inputFnac.setCustomValidity('Aún te quedan '+Math.round(Math.abs(diferenciaDias-1))+'  días para nacer');
+				
+			}else{
 				inputFnac.setCustomValidity('Debes ser mayor de edad');
 			}
+			
+
 
 		});
 	}
@@ -180,86 +188,74 @@ $(document).ready(function() { // pone la fecha como valor vacio
 			
 			inputFnac = $('#fnac')[0];
 			fnac = $('#fnac').val("");
-			
-			var today = moment().format('YYYY-MM-DD');
-			inputFnac.setAttribute("max", today);
-			
-			if (fnac == "") {
-				inputFnac
-						.setCustomValidity('Debes introducir la fecha de nacimiento del animal');
-			} else {
-				inputFnac.setCustomValidity('');
-			}
+			inputFnac.setCustomValidity('Debes introducir la fecha de nacimiento del animal');
 		}
 	});
 
-$(document).ready(function() { // comprueba la edad del animal
+$(document).ready(function() { // comprueba la mayoría de edad
 	if ($("#raza").length) {
 		$('#fnac').keyup(function() {
 
-			var today = moment();
+			var today = moment();//.format("YYYY-MM-DD")
 
 			inputFnac = $("#fnac")[0];
 			birthday = $("#fnac").val();
-			
 
-			
 			var diferencia = today.diff(birthday, 'years');
+			var diferenciaDias = today.diff(birthday, 'days', true);
 			
-			if (diferencia <= 40) { // suponemos que es imposible que un animal tenga
-				// mas de 40 años
+			
+			if (diferenciaDias >= 0 && diferencia<40) {
 				inputFnac.setCustomValidity('');
-			} else {
-				inputFnac.setCustomValidity('Debes ser mayor de edad');
+				
+			} else if(Math.ceil(diferenciaDias)<0){
+				inputFnac.setCustomValidity('No puede registrar animales que aún no han nacido');
+				
+			}else{
+				inputFnac.setCustomValidity('Es imposible que el animal tenga '+diferencia+ ' años');
 			}
+			//alert(diferenciaDias);
+
 
 		});
 	}
 });
 
-/*
-var filtroSelectAnimalesSexo = '';
-var filtroSelectAnimalesTipo = '';
-
-function aplicarFiltro(){
-	$("#selectAnimal").children('option').hide();
-	$(filtroSelectAnimalesSexo+filtroSelectAnimalesTipo).show()
-}
 
 
-$(document).ready(function(){
-	$("#tipo1").on("click",function(){
-		filtroSelectAnimalesTipo = ".perro";
-		aplicarFiltro();
+$(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (radioButtons)
+	$('[name=tipo], [name=sexo]').change(function() {
+		
+
+		
+		$("#selectAnimal").load('/animales/checktiposexo', $('#formPreModAnimal :input[type=radio]').serialize());
+
+		
+		/*setTimeout(function(){
+			var option = new Option("Seleciona animal", 0, selected="selected");
+			$("#selectAnimal").append($(option));
+  	}, 100);*/
+		//alert($('#formPreModAnimal :input[type=radio]').serialize());
+
 	});
-
-
-	$("#tipo2").on("click",function(){
-		filtroSelectAnimalesTipo = ".gato";
-		aplicarFiltro();
-	});
-
-	$("#sexo1").on("click",function(){
-		filtroSelectAnimalesSexo = ".macho";
-		aplicarFiltro();
-	});
-	
-	$("#sexo2").on("click",function(){
-		filtroSelectAnimalesSexo = ".hembra";
-		aplicarFiltro();
-	});
-
-	//igual con hembra 
-
 });
-*/
+
 
 
 $(document).ready(function() { 
-	$('[name=tipo], [name=sexo]').change(function() {
-
-		$("#selectAnimal").load('/animales/checktiposexo', $('#formPreModAnimal :input[type=radio]').serialize());
-		//$("#selectAnimal").load('/animales/checktiposexo');
+	$( "#modificarOculto" ).hide();
+	$("[name=tipo], [name=sexo], #selectAnimal").change(function() {
+		
+		
+		inputSelectAnimal = $("#selectAnimal")[0];
+		selectAnimal = $("#selectAnimal").val();
+		
+		if(selectAnimal>0){
+		$('#modificarOculto').show('slow');
+		}else{
+			$('#modificarOculto').hide('slow');
+		}
+		
 	
 		//alert($('#formPreModAnimal :input[type=radio]').serialize());
 

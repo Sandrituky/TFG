@@ -42,58 +42,11 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 			value="SELECT * FROM ANIMAL WHERE ESTADO = 'ADOPTADO' AND TIPO = 'GATO'", nativeQuery = true)
 			List <Animal> findGatitosAdoptados();
 	
-	
-	
-	//_____________BUSCAR TODOS LOS ANIMALES_____________
-	
-	@Query(
-			value="SELECT * FROM ANIMAL", nativeQuery = true)
-			List <Animal> findAllAnimalitos();
-	
-	//_____________BUSCAR ANIMALES POR TIPO Y SEXO__________
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'PERRO' AND SEXO = 'MACHO'", nativeQuery = true)
-			List <Animal> findPerritosMacho();
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'PERRO' AND SEXO = 'HEMBRA'", nativeQuery = true)
-			List <Animal> findPerritosHembra();
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'GATO' AND SEXO = 'MACHO'", nativeQuery = true)
-			List <Animal> findGatitosMacho();
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'GATO' AND SEXO = 'HEMBRA'", nativeQuery = true)
-			List <Animal> findGatitosHembra();
-	
-	//_____________BUSCAR ANIMALES POR TIPO__________
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'PERRO'", nativeQuery = true)
-			List <Animal> findAllPerritos();
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE TIPO = 'GATO'", nativeQuery = true)
-			List <Animal> findAllGatitos();
-	
-	//_____________BUSCAR ANIMALES POR SEXO__________
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE SEXO = 'MACHO'", nativeQuery = true)
-			List <Animal> findAllAnimalitosMacho();
-	
-	@Query(
-			value="SELECT * FROM ANIMAL WHERE SEXO = 'HEMBRA'", nativeQuery = true)
-			List <Animal> findAllAnimalitosHembra();
-	
-	//____________________________
-	
-	
-	List <Animal> findAllAnimalesByTipo(String tipo);
-	List <Animal> findAllAnimalesBySexo(String sexo);
+
 	List <Animal> findAllAnimalesByTipoAndSexo(Tipo tipo, Sexo sexo);
+	List <Animal> findAllAnimalesByTipoOrSexo(Tipo tipo, Sexo sexo);
+	
+
 
 	
 	

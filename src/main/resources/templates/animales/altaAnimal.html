@@ -7,7 +7,7 @@
 </head>
 <body>
 
-	<div id="caja" layout:fragment="content" class="container">
+	<div id="caja" layout:fragment="content" class="container caja">
 
 
 		<div class="row">
@@ -93,8 +93,8 @@
 						<label class="col-sm-2 col-form-label"  for="fnac">Fecha de
 							nacimiento</label>
 						<div class="col-sm-4">
-							<input type="date" th:field="*{fnac}" class="form-control" min="1990-01-01"
-							 required />
+							<input th:field="*{fnac}" type="date" class="form-control" id="fnac"
+						min="1900-01-01"/>
 						</div>
 
 						<!-- INPUT ESTERILIZADO -->

@@ -80,7 +80,7 @@ public class AnimalController {
 		// RedirectView redirecciona a la pagina que le digas
 
 		Boolean result = false;
-		
+
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
 		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
@@ -113,19 +113,30 @@ public class AnimalController {
 			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
 			animal.setFoto(nombreImagen);
 
-			try {
-				// Y finalmente guardamos el objeto animal en la BD
-				animalesRepo.save(animal);
-			} catch (Exception e) {
-				result = false;
+			// Y finalmente guardamos el objeto animal en la BD
+
+			if ((animal.checkFnac(animal.getFnac()) == true) && result) {
+				try {
+					animalesRepo.save(animal);
+					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+				} catch (Exception e) {
+					result = false;
+					redirectAttributes.addFlashAttribute("message",
+							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
+				}
+			} else if (animal.checkFnac(animal.getFnac()) == false) {
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
+
+			} else if (!result) {
+				redirectAttributes.addFlashAttribute("message", "La extensión del archivo no es correcta");
+
+			} else {
+				redirectAttributes.addFlashAttribute("message",
+						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
 			}
+
 		}
-		if (!result) {
-			redirectAttributes.addFlashAttribute("message",
-					"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
-		} else {
-			redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
-		}
+
 		return new RedirectView("altaAnimal");
 
 	}
@@ -134,82 +145,80 @@ public class AnimalController {
 	public String pagBaja(Model model) {
 		Animal animal = new Animal();
 		model.addAttribute("animal", animal);
-		
-		
+
 		List<Animal> listaAnimales = animalesRepo.findAll();
 		model.addAttribute("animales", listaAnimales);
-		
+
 		List<Usuario> listaUsuarios = usuariosRepo.findAll();
 		model.addAttribute("usuarios", listaUsuarios);
 
-
 		Estado[] opcionesEstado = Estado.values();
 		model.addAttribute("estados", opcionesEstado);
-		
-		
 
 		return "animales/bajaAnimal";
 	}
-	
-	
 
 	@GetMapping("/modAnimal") // pagina de modificacion de Animal
 	public String pagMod(Model model) {
-		
+
 		Animal animal = new Animal();
 		model.addAttribute("animal", animal);
-		
+
 		Sexo[] opcionesSexo = Sexo.values();
 		model.addAttribute("sexos", opcionesSexo);
-		
+
 		Tipo[] opcionesTipo = Tipo.values();
 		model.addAttribute("tipos", opcionesTipo);
-		
-		
-		
+
 		return "animales/modAnimal";
 	}
-	
+
 	@GetMapping("/checktiposexo")
-	public String filtroTipoSexo(Model model, @RequestParam("tipo") Tipo tipo, @RequestParam("sexo") Sexo sexo){
-		
-		
-		List<Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndSexo(tipo, sexo);
-		//List<Animal> listaAnimales = animalesRepo.findAll();
-		model.addAttribute("animales", listaAnimales);
+	public String filtroTipoSexo(Model model, @RequestParam(name = "tipo", required = false) Tipo tipo,
+			@RequestParam(name = "sexo", required = false) Sexo sexo) {
+
+		List<Animal> listaAnimales;
+
+		if (tipo == null && sexo == null) { // no funciona
+			listaAnimales = animalesRepo.findAll();
+			model.addAttribute("animales", listaAnimales);
+		} else if (tipo != null && sexo == null) {
+			listaAnimales = animalesRepo.findAllAnimalesByTipoOrSexo(tipo, sexo);
+			model.addAttribute("animales", listaAnimales);
+		} else if (tipo == null && sexo != null) {
+			listaAnimales = animalesRepo.findAllAnimalesByTipoOrSexo(tipo, sexo);
+			model.addAttribute("animales", listaAnimales);
+		} else {
+			listaAnimales = animalesRepo.findAllAnimalesByTipoAndSexo(tipo, sexo);
+			model.addAttribute("animales", listaAnimales);
+		}
 
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
 		model.addAttribute("esterilizados", opcionesEsterilizado);
 
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
 		model.addAttribute("provincias", listaProvincias);
-		
-		//ASIGNAR EMOJIS
-		for (Animal animalito : listaAnimales){
+
+		// ASIGNAR EMOJIS
+		for (Animal animalito : listaAnimales) {
 			if (animalito.getTipo() == Tipo.PERRO) {
 				animalito.setEmojiTipo(":dog2:");
-			}else if(animalito.getTipo() == Tipo.GATO) {
+			} else if (animalito.getTipo() == Tipo.GATO) {
 				animalito.setEmojiTipo(":cat2:");
 			}
 		}
-		
-		for (Animal animalito : listaAnimales){
-			if(animalito.getSexo() == Sexo.MACHO) {
+
+		for (Animal animalito : listaAnimales) {
+			if (animalito.getSexo() == Sexo.MACHO) {
 				animalito.setEmojiSexo("\u2642");
-			}else if(animalito.getSexo() == Sexo.HEMBRA) {
+			} else if (animalito.getSexo() == Sexo.HEMBRA) {
 				animalito.setEmojiSexo("\u2640");
 			}
 		}
-		
-
-
-		
 
 		return "animales/modAnimal :: animales";
-		
+
 	}
-	
-	
 
 	@PostMapping("/add-submit")
 	public RedirectView pageAddSubmit(Animal animal, Model model) {
@@ -218,14 +227,14 @@ public class AnimalController {
 
 		return new RedirectView("animales/add-submit");
 	}
-	
-  //__________LISTAR PERROS_____________
-	
+
+	// __________LISTAR PERROS_____________
+
 	@GetMapping("/listAdoptableDogs")
 	public String listAdoptableDogs(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findPerritosEnAdopcion();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -233,12 +242,12 @@ public class AnimalController {
 
 		return "animales/listAdoptableDogs";
 	}
-	
+
 	@GetMapping("/listReservedDogs")
 	public String listReservedDogs(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findPerritosReservados();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -246,12 +255,12 @@ public class AnimalController {
 
 		return "animales/listReservedDogs";
 	}
-	
+
 	@GetMapping("/listAdoptedDogs")
 	public String listAdoptedDogs(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findPerritosAdoptados();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -259,15 +268,14 @@ public class AnimalController {
 
 		return "animales/listAdoptedDogs";
 	}
-	
-	
+
 //__________LISTAR GATOS_________________
-	
+
 	@GetMapping("/listAdoptableCats")
 	public String listAdoptableCats(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findGatitosEnAdopcion();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -275,12 +283,12 @@ public class AnimalController {
 
 		return "animales/listAdoptableCats";
 	}
-	
+
 	@GetMapping("/listReservedCats")
 	public String listReservedCats(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findGatitosReservados();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -288,12 +296,12 @@ public class AnimalController {
 
 		return "animales/listReservedCats";
 	}
-	
+
 	@GetMapping("/listAdoptedCats")
 	public String listAdoptedCats(Model model) {
-		
+
 		Collection<Animal> listaAnimales = animalesRepo.findGatitosAdoptados();
-		
+
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
 		model.addAttribute("sexos", Sexo.class);
@@ -301,9 +309,7 @@ public class AnimalController {
 
 		return "animales/listAdoptedCats";
 	}
-	
-	//________________________________________-
-	
-	
-	
+
+	// ________________________________________-
+
 }

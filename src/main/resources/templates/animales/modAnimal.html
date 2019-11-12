@@ -7,7 +7,7 @@
 </head>
 <body>
 
-	<div id="caja" layout:fragment="content" class="container">
+	<div id="caja" layout:fragment="content" class="container caja">
 
 
 		<div class="row">
@@ -17,8 +17,8 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-9 offset-1">
+		<div class="row" >
+			<div class="col-md-9 offset-1" >
 
 
 
@@ -71,11 +71,11 @@
 
 						<label class="col-sm-1 col-form-label" for="animal.id">Animal</label>
 						<div class="col-sm-7">
-							  <select id="selectAnimal" required class="form-control">
-								<option value="">Selecciona animal</option>
-								<option th:fragment="animales" th:each="i : ${animales}"
+							  <select th:fragment="animales" id="selectAnimal" required class="form-control">
+								<option value="" selected="selected">Selecciona animal</option>
+								<option  th:each="i : ${animales}"
 									th:text="${i.emojiTipo} + ' ' + ${i.emojiSexo} + ' - ' + ${i.nombre} + ' - ' + ${i.raza} + ' - ' + ${i.provincia.provincia} + '  (' + ${i.poblacion} + ')'"
-									th:value="${i.id}" th:class="${#strings.toLowerCase(i.getTipo())}" th:classappend="${#strings.toLowerCase(i.getSexo())}">
+									th:value="${i.id}">
 									</option>
 							</select>
 							
@@ -87,7 +87,7 @@
 		</div>
 
 
-		<div class="row" style="display: none">
+		<div class="row cajita" id="modificarOculto" style="">
 			<div class="col-md-9 offset-1">
 
 

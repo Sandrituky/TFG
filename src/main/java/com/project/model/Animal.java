@@ -105,7 +105,7 @@ public class Animal {
 	public Animal() {
 		super();
 		this.id = 0;
-		this.tipo = Tipo.PERRO;
+		this.tipo = Tipo.NONE;
 		this.nombre = "";
 		this.raza = "";
 		this.foto = "";
@@ -114,7 +114,7 @@ public class Animal {
 		this.provincia = new Provincia();
 		this.poblacion = "";
 		this.fnac = LocalDate.now();
-		this.sexo = Sexo.MACHO;
+		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
 		this.emojiTipo="";
@@ -265,6 +265,18 @@ public class Animal {
 
 	public String getFnac() { //Convierte LocalDate en String
 		return fnac.toString();
+	}
+	
+	public static boolean checkFnac(String fnac) { //comprueba que el animal tenga entre 0 y 40 años
+		LocalDate fecha = LocalDate.parse(fnac);		
+		LocalDate currentDate = LocalDate.now();
+		
+		int edad = Period.between(fecha, currentDate).getYears();
+		
+		if ((edad<41) && (fecha.isBefore(currentDate))) {  
+			return true;
+    }else return false;
+		
 	}
 
 	public Sexo getSexo() {

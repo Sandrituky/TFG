@@ -24,19 +24,36 @@ body{
 }
 
 
-#caja {
+.caja {
     width:85%;
     background-color:rgba(230,230,230,0.5);
     text-align: left;
     background-repeat:no-repeat;
     overflow:auto;
     font-size:12pt;
+    padding:20px;
+	border-radius: 10px;
+	margin: auto;
+	position: relative;
+	top: 10px;
+	/*border: 1px solid #000;*/
+
+}
+
+.cajita {
+
+    background-color:rgba(255,255,255,0.6);
+    text-align: left;
+    background-repeat:no-repeat;
+    overflow:auto;
+    font-size:12pt;
     padding:35px;
-    border-radius:5px;
+    border-radius:25px;
+    bottom:20px;
     margin:auto;
     position:relative;
     top:10px;
-    left: -5px;
+
     /*border: 1px solid #000;*/
     margin-bottom:5	0px;
 }
