@@ -1,22 +1,17 @@
 package com.project.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,9 +23,9 @@ import javax.persistence.Table;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-import com.project.model.Rol;
 import com.project.model.Provincia;
 import com.project.model.Animal;
+import com.project.model.Rol;
 
 @Table(name = "USUARIO")
 @Entity
@@ -43,9 +38,11 @@ public class Usuario {
 	@Column(name = "ID")
 	private int id;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "ROL", nullable = false)
-	private Rol rol;
+	@Column(name = "USERNAME", length = 50, unique=true, nullable = false)
+	private String username;
+
+	@Column(name = "ENABLED", nullable = false)
+	private boolean enabled;
 
 	@Column(name = "DNI", length = 9, unique = true, nullable = false)
 	private String dni;
@@ -83,17 +80,28 @@ public class Usuario {
 
 	@Column(name = "TELEFONO", length = 13, unique = true, nullable = false)
 	private String telefono;
-
+	
 	// ANIMAL TIENE CLAVE FORANEA DE USUARIO
 	@OneToMany(mappedBy = "owner")
 	private List<Animal> animales;
+	
+  //ROL, CLAVE FORANEA A TABLA ROL, 1-N
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "ROL_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_rol"))
+	private Rol rol;
+
+	
+	
+
 
 	// CONSTRUCTOR
+
 
 	public Usuario() {
 		super();
 		this.id = 0;
-		this.rol = Rol.USER;
+		this.username="";
+		this.enabled=true;
 		this.dni = "";
 		this.nombre = "";
 		this.apellidos = "";
@@ -108,12 +116,13 @@ public class Usuario {
 		this.animales = Arrays.asList();
 	}
 
-	public Usuario(int id, Rol rol, String dni, String nombre, String apellidos, String email, String password,
+	public Usuario(int id, String username, boolean enabled, String dni, String nombre, String apellidos, String email, String password,
 			LocalDate fnac, Provincia provincia, String poblacion, String telefono, String direccion, String cp,
 			List<Animal> animales) {
 		super();
 		this.id = id;
-		this.rol = rol;
+		this.username=username;
+		this.enabled=enabled;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -136,7 +145,7 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+	
 	public Rol getRol() {
 		return rol;
 	}
@@ -144,6 +153,35 @@ public class Usuario {
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
+	
+	public boolean hasRol(String role) {
+		boolean result = false;
+		
+		
+			if(this.rol.getRol().equals(role)) {
+				result = true;
+			}
+			return result;
+	}
+
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		// debe estar vacío 		
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	
 
 	public String getDni() {
 		return dni;
@@ -209,6 +247,7 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+		//this.username=email;
 	}
 	
 	public static boolean checkEmail(String email) {
@@ -323,5 +362,24 @@ public class Usuario {
 	public void setAnimales(List<Animal> animales) {
 		this.animales = animales;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {		
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == 0) {
+			if (other.id != 0)
+				return false;
+		} else if (id != other.id)
+			return false;
+		return true;
+	}
+
+
 
 }

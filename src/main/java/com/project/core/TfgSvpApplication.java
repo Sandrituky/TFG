@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-@ComponentScan({ "com.project.controllers" })
+@ComponentScan({ "com.project.controllers", "com.project.config", "com.project.services"})
 @EntityScan("com.project.model")
 @EnableJpaRepositories("com.project.repositories")
 
@@ -27,8 +27,9 @@ public class TfgSvpApplication extends SpringBootServletInitializer {
 		SpringApplication.run(TfgSvpApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	*/
 }

@@ -12,23 +12,25 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
+import com.project.config.WebSecurityConfig;
 import com.project.model.Animal;
 import com.project.model.Provincia;
 import com.project.model.Tipo;
 import com.project.model.Usuario;
 import com.project.model.Sexo;
+import com.project.model.Rol;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
+import com.project.repositories.IRolRepository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import com.project.util.SecurityConfig;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -39,6 +41,9 @@ public class UsuarioController {
 
 	@Autowired
 	private IProvinciaRepository provinciasRepo;
+	
+	@Autowired
+	private IRolRepository rolRepo;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -66,6 +71,9 @@ public class UsuarioController {
 			
 			//String enPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 		  //user.setPassword(enPass);
+			Rol rol = rolRepo.findByRol("USER");			
+			
+			user.setRol(rol);				
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			
 			usuariosRepo.save(user);

@@ -1,6 +1,7 @@
 package com.project.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,10 +15,14 @@ import com.project.model.Usuario;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
 	List <Usuario> findByEmail(String email);
+	public Optional<Usuario> findByUsername(String username);
+	
 
 	boolean existsByEmail(String email);
 	boolean existsByDni(String dni);
 	boolean existsByTelefono(String telefono);
+	
+
 	
 	
 }

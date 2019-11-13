@@ -19,6 +19,7 @@ import com.project.model.Usuario;
 import com.project.repositories.IUsuarioRepository;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
+import com.project.repositories.IRolRepository;
 
 
 
@@ -34,6 +35,9 @@ public class JsonController {
 	
 	@Autowired
 	private IProvinciaRepository provinciasRepo;
+	
+	@Autowired
+	private IRolRepository rolRepo;
 	
 	@GetMapping("/checkemail")
 	public String duplicatedEmail(@RequestParam("email") String email){

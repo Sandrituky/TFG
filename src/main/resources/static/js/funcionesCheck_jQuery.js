@@ -19,6 +19,7 @@ $(document).ready(function() { // valida que el correo tenga bien el formato y s
 				success : function(json) {
 
 					setTimeout(function() {
+						
 						inputEmail.removeClass('loading');
 					}, 1000);
 
@@ -37,7 +38,7 @@ $(document).ready(function() { // valida que el correo tenga bien el formato y s
 				},
 
 				complete : function(jqXHR, status) {
-
+					
 				}
 			});
 

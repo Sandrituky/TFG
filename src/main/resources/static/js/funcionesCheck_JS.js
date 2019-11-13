@@ -30,7 +30,6 @@ function checkEmail(email){
 	
 	var regex =  /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   var inputEmail = document.getElementById("email");
-  
   if(regex.test (email) == true){
   	inputEmail.setCustomValidity('');
   	setTimeout(function(){
