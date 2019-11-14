@@ -2,17 +2,19 @@
 <div th:fragment="login" xmlns:th="http://www.thymeleaf.org">
 
 	<!--  <th:block th:if="${authUser != null}">  Otra manera de hacerlo-->
-	<th:block sec:authorize="isAuthenticated()">
-		<span th:text="'¡Hola ' + ${authUser.nombre} + '!'"></span>
+	<th:block sec:authorize="isAuthenticated()" >
+		
 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Cerrar Sesion" />
+		<th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span style="color:purple; font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
+			<input  type="submit" value="Cerrar Sesion"  class="btn btn-outline-success my-2 my-sm-0" />
 		</form>
 	</th:block>
 
 	<th:block sec:authorize="!isAuthenticated()">
-		<a th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
+		
 		<form th:action="@{/login}" method="post"
 			class="form-inline my-2 my-lg-0">
+			<a th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
 			<input class="form-control mr-sm-2" type="text" name="loginEmail"
 				placeholder="Usuario" aria-label="Usuario"> <input
 				class="form-control mr-sm-2" type="password" name="loginPassword"

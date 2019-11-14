@@ -38,11 +38,7 @@ public class Usuario {
 	@Column(name = "ID")
 	private int id;
 
-	@Column(name = "USERNAME", length = 50, unique=true, nullable = false)
-	private String username;
 
-	@Column(name = "ENABLED", nullable = false)
-	private boolean enabled;
 
 	@Column(name = "DNI", length = 9, unique = true, nullable = false)
 	private String dni;
@@ -100,8 +96,6 @@ public class Usuario {
 	public Usuario() {
 		super();
 		this.id = 0;
-		this.username="";
-		this.enabled=true;
 		this.dni = "";
 		this.nombre = "";
 		this.apellidos = "";
@@ -116,13 +110,11 @@ public class Usuario {
 		this.animales = Arrays.asList();
 	}
 
-	public Usuario(int id, String username, boolean enabled, String dni, String nombre, String apellidos, String email, String password,
+	public Usuario(int id, String dni, String nombre, String apellidos, String email, String password,
 			LocalDate fnac, Provincia provincia, String poblacion, String telefono, String direccion, String cp,
 			List<Animal> animales) {
 		super();
 		this.id = id;
-		this.username=username;
-		this.enabled=enabled;
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -164,22 +156,6 @@ public class Usuario {
 			return result;
 	}
 
-	
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		// debe estar vacío 		
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
 
 	
 

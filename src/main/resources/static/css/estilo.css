@@ -62,6 +62,20 @@ h1{
     text-align: center;
 }
 
+span + span{
+	margin-left: 5px;
+}
+
+a + input{
+	margin-left: 15px;
+}
+
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
 
 
 

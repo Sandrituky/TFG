@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 public class MainController {
 
 	@GetMapping({"/","/login","/index"})
-	public String redIndex(@RequestParam(defaultValue = "") String result, Model model) {
-			model.addAttribute("result", result);
+	public String redIndex(@RequestParam(defaultValue = "") String re, Model model) {
+			model.addAttribute("result", re);
 			        
 			return "index";
 		}

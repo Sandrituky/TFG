@@ -51,14 +51,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/index?result=success")
-                .failureUrl("/login?result=error")
+                .defaultSuccessUrl("/?re=login")
+                .failureUrl("/?re=error")
                 .usernameParameter("loginEmail")//name="loginEmail" (form)
                 .passwordParameter("loginPassword")//name="loginPassword" (form)
                 .and()
             .logout()
                 .permitAll()
-                .logoutSuccessUrl("/login?result=logout");
+                .logoutSuccessUrl("/?re=logout");
     }
         
     BCryptPasswordEncoder bCryptPasswordEncoder;

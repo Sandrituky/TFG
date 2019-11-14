@@ -31,7 +31,7 @@ public class AuthUserController { //GlobalControllerAdvice
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {		    
 			try {
-				usuario = userRepository.findByUsername(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));    
+				usuario = userRepository.findByEmail(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));    
 			}
 			catch (Exception e) {
 				System.out.println(e); 

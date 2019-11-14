@@ -27,10 +27,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     IUsuarioRepository userRepository;
 	
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {		
+    //@Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {		
 		
-		Usuario appUser = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
+		Usuario appUser = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("No existe usuario"));
 				 
 		List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 	
@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUser.getRol().getRol());
 		grantList.add(grantedAuthority);
 		
-		UserDetails user = (UserDetails) new User(appUser.getUsername(), appUser.getPassword(), grantList);
+		UserDetails user = (UserDetails) new User(appUser.getEmail(), appUser.getPassword(), grantList);
 		
 	    return user;
 	}
