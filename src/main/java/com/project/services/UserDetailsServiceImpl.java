@@ -38,12 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(appUser.getRol().getRol());
 		grantList.add(grantedAuthority);
 		
-		
-		
-		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(4);
-		String passEndcrypt = passwordEncoder.encode(appUser.getPassword());
-		
-		UserDetails user = (UserDetails) new User(appUser.getUsername(), passEndcrypt, grantList);
+		UserDetails user = (UserDetails) new User(appUser.getUsername(), appUser.getPassword(), grantList);
 		
 	    return user;
 	}

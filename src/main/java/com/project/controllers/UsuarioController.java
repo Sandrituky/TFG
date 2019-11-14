@@ -29,6 +29,7 @@ import com.project.repositories.IRolRepository;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,8 +49,7 @@ public class UsuarioController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@GetMapping("/altaUsuario") //
-	public String pageAdd(Model model) {
+	@GetMapping("/altaUsuario") public String pageAdd(Model model) {
 
 		Usuario user = new Usuario();
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
@@ -69,12 +69,14 @@ public class UsuarioController {
 		if ((user.checkDNI(user.getDni())==true)&&(user.checkTelefono(user.getTelefono()) == true)&&(user.checkCP(user.getCp()) == true)
 				&&(user.checkFnac(user.getFnac()) == true) && (user.checkMayorEdad(user.getFnac())==true)) {
 			
-			//String enPass = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-		  //user.setPassword(enPass);
+
 			Rol rol = rolRepo.findByRol("USER");			
 			
 			user.setRol(rol);				
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			
+	
+
 			
 			usuariosRepo.save(user);
 			

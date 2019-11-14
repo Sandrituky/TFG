@@ -14,7 +14,7 @@ import com.project.repositories.IUsuarioRepository;
 
 
 @ControllerAdvice
-public class GlobalControllerAdvice {
+public class AuthUserController { //GlobalControllerAdvice
 	
 	@Autowired
 	IUsuarioRepository userRepository;

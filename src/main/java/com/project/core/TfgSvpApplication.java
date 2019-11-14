@@ -27,9 +27,4 @@ public class TfgSvpApplication extends SpringBootServletInitializer {
 		SpringApplication.run(TfgSvpApplication.class, args);
 	}
 
-	/*@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	*/
 }
