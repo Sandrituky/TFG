@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 
 import com.project.model.Animal;
 import com.project.model.Provincia;
@@ -24,14 +23,11 @@ import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-
-import com.vdurmont.emoji.EmojiParser;
 
 @Controller
 @RequestMapping("/animales")
@@ -57,8 +53,6 @@ public class AnimalController {
 
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
 		model.addAttribute("provincias", listaProvincias);
-
-		List<Usuario> listaUsuarios = usuariosRepo.findAll();
 
 		// No usados porque al final se decidió sacar los valores manualmente
 
@@ -233,7 +227,7 @@ public class AnimalController {
 	@GetMapping("/listAdoptableDogs")
 	public String listAdoptableDogs(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findPerritosEnAdopcion();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.PERRO, Estado.EN_ADOPCION);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
@@ -246,7 +240,7 @@ public class AnimalController {
 	@GetMapping("/listReservedDogs")
 	public String listReservedDogs(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findPerritosReservados();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.PERRO, Estado.RESERVADO);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
@@ -259,7 +253,7 @@ public class AnimalController {
 	@GetMapping("/listAdoptedDogs")
 	public String listAdoptedDogs(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findPerritosAdoptados();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.PERRO, Estado.ADOPTADO);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
@@ -274,7 +268,7 @@ public class AnimalController {
 	@GetMapping("/listAdoptableCats")
 	public String listAdoptableCats(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findGatitosEnAdopcion();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.GATO, Estado.EN_ADOPCION);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
@@ -287,7 +281,7 @@ public class AnimalController {
 	@GetMapping("/listReservedCats")
 	public String listReservedCats(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findGatitosReservados();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.GATO, Estado.RESERVADO);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);
@@ -300,7 +294,7 @@ public class AnimalController {
 	@GetMapping("/listAdoptedCats")
 	public String listAdoptedCats(Model model) {
 
-		Collection<Animal> listaAnimales = animalesRepo.findGatitosAdoptados();
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByTipoAndEstado(Tipo.GATO, Estado.ADOPTADO);
 
 		model.addAttribute("animales", listaAnimales);
 		model.addAttribute("tipos", Tipo.class);

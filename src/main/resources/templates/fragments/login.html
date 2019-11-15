@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<div th:fragment="login" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="login" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 	<!--  <th:block th:if="${authUser != null}">  Otra manera de hacerlo-->
 	<th:block sec:authorize="isAuthenticated()" >

@@ -21,8 +21,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
-
 import com.project.model.Provincia;
 import com.project.model.Animal;
 import com.project.model.Rol;

@@ -1,15 +1,7 @@
 package com.project.model;
 
-import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.TimeZone;
 import java.time.Period;
 
 import javax.persistence.CascadeType;
@@ -20,12 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.project.model.Estado;
 import com.project.model.Esterilizado;

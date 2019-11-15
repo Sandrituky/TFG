@@ -1,7 +1,7 @@
 function checkDni(dni){
   var numero;
-  var let;
   var letra;
+  var letras;
   var expresion_regular_dni;
   var inputDNI = document.getElementById("dni");
   
@@ -9,15 +9,15 @@ function checkDni(dni){
   
   if(expresion_regular_dni.test (dni) == true){
      numero = dni.substr(0,dni.length-1);
-     let = dni.substr(dni.length-1,1);
-     let=let.toUpperCase();
+     letra = dni.substr(dni.length-1,1);
+     letra=letra.toUpperCase();
      numero = numero % 23;
-     letra='TRWAGMYFPDXBNJZSQVHLCKET';
-     letra=letra.substring(numero,numero+1);
-     if (letra!=let) {
+     letras='TRWAGMYFPDXBNJZSQVHLCKET';
+     letras=letras.substring(numero,numero+1);
+     if (letras!=letra) {
     	 inputDNI.setCustomValidity('La letra no corresponde con el DNI');      
      }else{
-    	 inputDNI.setCustomValidity('')
+    	 inputDNI.setCustomValidity('');
        return true;
      }
   }else{

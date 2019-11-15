@@ -248,7 +248,6 @@ $(document).ready(function() {
 	$("[name=tipo], [name=sexo], #selectAnimal").change(function() {
 		$('#modificarOculto').hide('300');
 		$("#selectAnimal").change(function() {
-		
 		inputSelectAnimal = $("#selectAnimal")[0];
 		selectAnimal = $("#selectAnimal").val();
 		

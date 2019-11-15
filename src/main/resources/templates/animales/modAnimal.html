@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.thymeleaf.org"
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{fragments/main_layout}">
 <head>
 <meta charset="UTF-8">
@@ -59,8 +59,7 @@
 							</div>
 							<div class="form-check">
 								<input type="radio" th:field="*{sexo}" th:value="*{sexo.HEMBRA}"
-									class="form-check-input" /> <label class="form-check-label"
-									required>♀️</label>
+									class="form-check-input" required/> <label class="form-check-label">♀️</label>
 							</div>
 
 						</div>
@@ -91,10 +90,10 @@
 			<div class="col-md-9 offset-1">
 
 
-				<form th:action="@{/animales/altaAnimal-submit}"
+				<form th:action="@{/animales/modAnimal-submit}"
 					th:object="${animal}" method="post" enctype="multipart/form-data"
 					class="was-validated">
-
+					<th:block th:each="animal : ${animales}">
 
 					<!-- INPUT NOMBRE ANIMAL -->
 
@@ -141,8 +140,8 @@
 							</div>
 							<div class="form-check">
 								<input type="radio" th:field="*{sexo}" th:value="*{sexo.HEMBRA}"
-									class="form-check-input" /> <label class="form-check-label"
-									required>♀️</label>
+									class="form-check-input" required /> <label class="form-check-label"
+									>♀️</label>
 							</div>
 
 						</div>
@@ -254,11 +253,11 @@
 					</div>
 
 					<div th:if="${message}" th:text="${message}"
-						th:class="${'alert ' + alertClass}" />
+						th:class="${'alert ' + alertClass}" ></div>
 
 
 
-
+</th:block>
 				</form>
 			</div>
 		</div>

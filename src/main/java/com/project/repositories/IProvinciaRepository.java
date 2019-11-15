@@ -8,3 +8,5 @@ import com.project.model.Provincia;
 public interface IProvinciaRepository extends JpaRepository<Provincia, Integer> {
 	
 }
+
+

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.thymeleaf.org"
-	layout:decorate="~{fragments/main_layout}">
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}" >
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -156,7 +156,7 @@
 							<div class="invalid-feedback">Ningún archivo seleccionado</div>
 						</div>
 						<!-- INPUT FOTO EN LAS SOMBRAS -->
-						<label for="foto" style="display: none;">Foto</label> <input
+						<label for="foto" style="display: none">Foto</label> <input
 							type="text" th:field="*{foto}" maxlength=200
 							style="display: none;" />
 
@@ -182,7 +182,7 @@
 					</div>
 
 					<div th:if="${message}" th:text="${message}"
-						th:class="${'alert ' + alertClass}" />
+						th:class="${'alert ' + alertClass}"></div>
 
 
 

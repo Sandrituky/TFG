@@ -6,32 +6,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
-import com.project.config.WebSecurityConfig;
-import com.project.model.Animal;
+
 import com.project.model.Provincia;
-import com.project.model.Tipo;
 import com.project.model.Usuario;
-import com.project.model.Sexo;
 import com.project.model.Rol;
-import com.project.model.Estado;
-import com.project.model.Esterilizado;
-import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
 import com.project.repositories.IRolRepository;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/usuarios")

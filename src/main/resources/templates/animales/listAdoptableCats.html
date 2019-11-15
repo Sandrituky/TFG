@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.thymeleaf.org"
-	layout:decorate="~{fragments/main_layout}">
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{fragments/main_layout}" >
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -58,7 +58,7 @@
 				<div class="d-flex justify-content-between align-items-center">
 					<p
 						th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
-					<!--  <small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins</small>-->
+					<!--  <small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins </small> -->
 					<div sec:authorize="hasAuthority('USER')">
 						<button type="submit" class="btn btn-success float"
 							id="botonReservar">Reservar</button>
