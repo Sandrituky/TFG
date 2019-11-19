@@ -237,29 +237,26 @@ $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (
 
 
 
-$(document).ready(function() { 
-	$( "#modificarOculto" ).hide();
-	$("[name=tipo], [name=sexo], #selectAnimal").change(function() {
-		$('#modificarOculto').hide('300');
+$(document).ready(function() {
+	//$("#modificarOculto").hide();
+	//$("[name=tipo], [name=sexo], #selectAnimal").change(function() {
+		//$('#modificarOculto').hide('300');
 		$("#selectAnimal").change(function() {
-			
-		inputSelectAnimal = $("#selectAnimal")[0];
-		selectAnimal = $("#selectAnimal").val();
-		
-		if(selectAnimal>0){
-		$('#modificarOculto').show('slow');
-		$('#holi').load('/animales/animalid', $("#selectAnimal").serialize());
-		alert($("#selectAnimal").serialize());
-		
 
-		}else if(selectAnimal==0){
-			$('#modificarOculto').hide('slow');
-		}
+			inputSelectAnimal = $("#selectAnimal")[0];
+			selectAnimal = $("#selectAnimal").val();
 
+			if (selectAnimal > 0) {
+				//$('#modificarOculto').show('slow');
+				$('#modificarOculto').load('/animales/animalid', $("#selectAnimal").serialize());
+				//alert($("#selectAnimal").serialize());
 
-		
+			} else if (selectAnimal == 0) {
+				//$('#modificarOculto').hide('slow');
+			}
+
 		});
-	});
+	//});
 });
 
 

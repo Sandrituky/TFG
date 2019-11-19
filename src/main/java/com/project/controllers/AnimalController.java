@@ -157,12 +157,13 @@ public class AnimalController {
 
 		Animal animal = new Animal();
 		model.addAttribute("animal", animal);
-
+		/*
 		Sexo[] opcionesSexo = Sexo.values();
 		model.addAttribute("sexos", opcionesSexo);
 
 		Tipo[] opcionesTipo = Tipo.values();
 		model.addAttribute("tipos", opcionesTipo);
+		*/
 
 		return "animales/modAnimal";
 	}
@@ -187,11 +188,7 @@ public class AnimalController {
 			model.addAttribute("animales", listaAnimales);
 		}
 
-		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
-		model.addAttribute("esterilizados", opcionesEsterilizado);
-
-		List<Provincia> listaProvincias = provinciasRepo.findAll();
-		model.addAttribute("provincias", listaProvincias);
+		
 
 		// ASIGNAR EMOJIS
 		for (Animal animalito : listaAnimales) {
@@ -217,19 +214,99 @@ public class AnimalController {
 	}
 	
 	@RequestMapping("/animalid")
-	public String sacarAnimalesByID(@RequestParam(name = "selectAnimal", required = false) int idAnimal, Model model) {
+	public String getAnimalByID(@RequestParam(name = "selectAnimal", required = false) int idAnimal, Model model) {
+
 		
-		//Optional <Animal> animal = animalesRepo.findAnimalById(idAnimal);
+		Animal animalModelo = new Animal();
+		model.addAttribute("animal", animalModelo);
+		
+		
+		
+		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
+		model.addAttribute("esterilizados", opcionesEsterilizado);
+
+		List<Provincia> listaProvincias = provinciasRepo.findAll();
+		model.addAttribute("provincias", listaProvincias);
+		
+		
 		Optional <Animal> animal = animalesRepo.findOneAnimalById(idAnimal);
+
 		
 		if (animal.isPresent()) {
-			model.addAttribute("animali", animal.get());
+			model.addAttribute("selectedAnimal", animal.get());
 	} else {
 	    // ERROR?
 	}
 		
 		
-		return "animales/modAnimal :: animali";
+		return "animales/modAnimal :: selectedAnimal";
+	}
+	
+	@PostMapping("/modAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
+	public RedirectView updateAnimal(Animal animal, @RequestParam("file") MultipartFile file, Model model,
+			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		// RedirectView redirecciona a la pagina que le digas
+
+		Boolean result = false;
+
+		// TRATAMIENTO DE SUBIDA DE IMAGEN
+
+		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
+		// especificadas
+		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
+		extensionImagen = extensionImagen.toLowerCase();
+		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
+		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
+
+			result = true;
+
+			// Generamos un nombre random a la imagen y la guardamos junto a la extension.
+			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
+
+			// Guardamos la imagen en una carpeta del proyecto para imagenes.
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\animales\\"
+					+ nombreImagen;
+
+			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
+			// archivo (path), si no existe la ruta se crea.
+			File dirPath = new File(path);
+			if (!dirPath.exists()) {
+				dirPath.mkdirs();
+			}
+
+			// Transferimos la imagen subida en el formulario a la ruta previamente indicada
+			// para guardarla.
+			file.transferTo(dirPath);
+
+			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
+			animal.setFoto(nombreImagen);
+
+			// Y finalmente guardamos el objeto animal en la BD
+			//MerchandiseEntity pantsInDB = repo.findById(pantsId).get(); 
+			if ((animal.checkFnac(animal.getFnac()) == true) && result) {
+				try {
+					animalesRepo.save(animal);
+					redirectAttributes.addFlashAttribute("message", "El animal se ha actualizado correctamente.");
+				} catch (Exception e) {
+					result = false;
+					redirectAttributes.addFlashAttribute("message",
+							"Se produjo un error al actualizar. Por favor, inténtelo de nuevo.");
+				}
+			} else if (animal.checkFnac(animal.getFnac()) == false) {
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
+
+			} else if (!result) {
+				redirectAttributes.addFlashAttribute("message", "La extensión del archivo no es correcta");
+
+			} else {
+				redirectAttributes.addFlashAttribute("message",
+						"Se produjo un error al actualizar el animal. Por favor, inténtelo de nuevo.");
+			}
+
+		}
+
+		return new RedirectView("modAnimal");
+
 	}
 
 	@PostMapping("/add-submit")
