@@ -24,7 +24,7 @@ import com.project.repositories.IUsuarioRepository;
 
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Optional;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -209,9 +209,27 @@ public class AnimalController {
 				animalito.setEmojiSexo("\u2640");
 			}
 		}
+		
+		
 
-		return "animales/modAnimal :: animales";
+		return "animales/modAnimal :: animales"; //podriamos poner tambien :: #selectAnimal
 
+	}
+	
+	@RequestMapping("/animalid")
+	public String sacarAnimalesByID(@RequestParam(name = "selectAnimal", required = false) int idAnimal, Model model) {
+		
+		//Optional <Animal> animal = animalesRepo.findAnimalById(idAnimal);
+		Optional <Animal> animal = animalesRepo.findOneAnimalById(idAnimal);
+		
+		if (animal.isPresent()) {
+			model.addAttribute("animali", animal.get());
+	} else {
+	    // ERROR?
+	}
+		
+		
+		return "animales/modAnimal :: animali";
 	}
 
 	@PostMapping("/add-submit")

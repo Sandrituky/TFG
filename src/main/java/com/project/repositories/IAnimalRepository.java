@@ -1,6 +1,7 @@
 package com.project.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,9 +14,12 @@ import com.project.model.Tipo;
 @Repository
 public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
+	Optional <Animal> findAnimalById(int id);
+	Optional <Animal> findOneAnimalById(int id);
 	
 	//Filtra animales por (tipo && estado), usado para mostrar las fichas de los animales
 	List <Animal> findAllAnimalesByTipoAndEstado(Tipo tipo, Estado estado);
+	
 	
 	
 	//_____________________________(usado para filtrar animales en Vista Modificar)
