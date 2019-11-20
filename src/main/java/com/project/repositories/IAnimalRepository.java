@@ -14,7 +14,8 @@ import com.project.model.Tipo;
 @Repository
 public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
-	Optional <Animal> findAnimalById(int id);
+	boolean existsById(int id);
+	
 	Optional <Animal> findOneAnimalById(int id);
 	
 	

@@ -225,10 +225,10 @@ $(document).ready(function() { // comprueba la mayoría de edad
 
 
 $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (radioButtons)
-	$('[name=tipo], [name=sexo]').change(function() {
+	$('[name=selectTipo], [name=selectSexo]').change(function() {
 		
-		$("#selectAnimal").load('/animales/checktiposexo', $('#formPreModAnimal :input[type=radio]').serialize());
-		//alert($('#formPreModAnimal :input[type=radio]').serialize());
+		$("#selectAnimal").load('/animales/checktiposexo', $('[name=selectTipo], [name=selectSexo]').serialize());
+		//alert($('[name=selectTipo], [name=selectSexo]').serialize());
 		
 		
 
@@ -238,25 +238,24 @@ $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (
 
 
 $(document).ready(function() {
-	//$("#modificarOculto").hide();
-	//$("[name=tipo], [name=sexo], #selectAnimal").change(function() {
-		//$('#modificarOculto').hide('300');
+	$("#divFormModificar").hide();
+	$("[name=selectTipo], [name=selectSexo], #selectAnimal").change(function() {
+		$('#divFormModificar').hide('300');
 		$("#selectAnimal").change(function() {
 
 			inputSelectAnimal = $("#selectAnimal")[0];
 			selectAnimal = $("#selectAnimal").val();
 
 			if (selectAnimal > 0) {
-				//$('#modificarOculto').show('slow');
-				$('#modificarOculto').load('/animales/animalid', $("#selectAnimal").serialize());
-				//alert($("#selectAnimal").serialize());
+				$('#divFormModificar').show('300');
+				$('#divFormModificar').load('/animales/animalid', $("#selectAnimal").serialize());
 
 			} else if (selectAnimal == 0) {
-				//$('#modificarOculto').hide('slow');
+				$('#divFormModificar').hide('slow');
 			}
 
 		});
-	//});
+	});
 });
 
 

@@ -169,8 +169,8 @@ public class AnimalController {
 	}
 
 	@GetMapping("/checktiposexo")
-	public String filtroTipoSexo(Model model, @RequestParam(name = "tipo", required = false) Tipo tipo,
-			@RequestParam(name = "sexo", required = false) Sexo sexo) {
+	public String filtroTipoSexo(Model model, @RequestParam(name = "selectTipo", required = false) Tipo tipo,
+			@RequestParam(name = "selectSexo", required = false) Sexo sexo) {
 
 		List<Animal> listaAnimales;
 
@@ -214,7 +214,7 @@ public class AnimalController {
 	}
 	
 	@RequestMapping("/animalid")
-	public String getAnimalByID(@RequestParam(name = "selectAnimal", required = false) int idAnimal, Model model) {
+	public String getAnimalByID(@RequestParam(name = "id", required = false) int idAnimal, Model model) {
 
 		
 		Animal animalModelo = new Animal();
@@ -246,7 +246,8 @@ public class AnimalController {
 	public RedirectView updateAnimal(Animal animal, @RequestParam("file") MultipartFile file, Model model,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		// RedirectView redirecciona a la pagina que le digas
-
+		
+		
 		Boolean result = false;
 
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
@@ -282,8 +283,7 @@ public class AnimalController {
 			animal.setFoto(nombreImagen);
 
 			// Y finalmente guardamos el objeto animal en la BD
-			//MerchandiseEntity pantsInDB = repo.findById(pantsId).get(); 
-			if ((animal.checkFnac(animal.getFnac()) == true) && result) {
+			if ((animal.checkFnac(animal.getFnac()) == true) && result && (animalesRepo.existsById(animal.getId()))) {
 				try {
 					animalesRepo.save(animal);
 					redirectAttributes.addFlashAttribute("message", "El animal se ha actualizado correctamente.");
@@ -292,7 +292,10 @@ public class AnimalController {
 					redirectAttributes.addFlashAttribute("message",
 							"Se produjo un error al actualizar. Por favor, inténtelo de nuevo.");
 				}
-			} else if (animal.checkFnac(animal.getFnac()) == false) {
+			} else if(!animalesRepo.existsById(animal.getId())) {
+				redirectAttributes.addFlashAttribute("message", "Se ha producido un error al actualizar el animal"); //esto ocurre cuando trucas la ID desde F12
+				
+			}else if (animal.checkFnac(animal.getFnac()) == false) {
 				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
 
 			} else if (!result) {
@@ -304,18 +307,13 @@ public class AnimalController {
 			}
 
 		}
+		
+		
 
 		return new RedirectView("modAnimal");
 
 	}
 
-	@PostMapping("/add-submit")
-	public RedirectView pageAddSubmit(Animal animal, Model model) {
-
-		animalesRepo.save(animal);
-
-		return new RedirectView("animales/add-submit");
-	}
 
 	// __________LISTAR PERROS_____________
 

@@ -17,32 +17,32 @@
 			</div>
 		</div>
 
+
+
+<form th:action="@{/animales/modAnimal-submit}" id="formModAnimal"
+					th:object="${selectedAnimal}" method="post" enctype="multipart/form-data"
+					class="was-validated" >
+					
+					
 		<div class="row" >
 			<div class="col-md-9 offset-1" >
 
 
-
-
-				<form th:action="@{/animales/preModAnimal}" th:object="${animal}"
-					method="post" enctype="multipart/form-data" class="was-validated"
-					id="formPreModAnimal">
-					<!-- el objeto inicializado en el controlador: ⬆️ Animal animal = new Animal(); -->
-
-					<div class="form-group row">
+					<div class="form-group row" id="formPreModAnimal">
 
 						<!-- INPUT TIPO DE ANIMAL -->
 
 						<label class="col-sm-1 col-form-label">Animal</label>
 						<div class="col-sm-1">
 							<div class="form-check">
-								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}"
-									class="form-check-input" required /> <label
+								<input type="radio" th:name="selectTipo" th:id="selectTipo1"  th:value="PERRO"
+									class="form-check-input"  /> <label
 									class="form-check-label">🐕</label>
 							</div>
 
 							<div class="form-check">
-								<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}"
-									class="form-check-input" required /> <label
+								<input type="radio" th:name="selectTipo" th:id="selectTipo2"  th:value="GATO"
+									class="form-check-input" /> <label
 									class="form-check-label">🐈</label>
 							</div>
 
@@ -53,13 +53,13 @@
 						<label class="col-sm-1 col-form-label">Sexo</label>
 						<div class="col-sm-1">
 							<div class="form-check">
-								<input type="radio" th:field="*{sexo}" th:value="*{sexo.MACHO}"
-									class="form-check-input" required /> <label
+								<input type="radio" th:name="selectSexo" th:id="selectSexo1" th:value="MACHO"
+									class="form-check-input"  /> <label
 									class="form-check-label">♂️</label>
 							</div>
 							<div class="form-check">
-								<input type="radio" th:field="*{sexo}" th:value="*{sexo.HEMBRA}"
-									class="form-check-input" required /> <label
+								<input type="radio" th:name="selectSexo" th:id="selectSexo1" th:value="HEMBRA"
+									class="form-check-input"  /> <label
 									class="form-check-label">♀️</label>
 							</div>
 
@@ -68,61 +68,29 @@
 						<!-- INPUT SELECT ANIMAL -->
 
 
-
 						<label class="col-sm-1 col-form-label" for="selectAnimal">Animal</label>
-						<div class="col-sm-7">
-							<select th:fragment="animales" id="selectAnimal" name="selectAnimal" required
+						<div class="col-sm-7" >
+							<select th:fragment="animales" id="selectAnimal" name="id" required
 								class="form-control">
 								<option value="" selected="selected">Selecciona animal</option>
 								<option th:each="i : ${animales}"
 									th:text="${i.emojiTipo} + ' ' + ${i.emojiSexo} + ' - ' + ${i.nombre} + ' - ' + ${i.raza} + ' - ' + ${i.provincia.provincia} + '  (' + ${i.poblacion} + ')'"
 									th:value="${i.id}"></option>
 							</select>
-							
-							<!--  <div id="holi" th:fragment="animali">
-							<input type="text" th:value="${animali.getId()} + ${animali.getNombre()} + ${animali.raza}" th:text="${animali.getNombre()}"
-								placeholder="Nombre del animal" required minlength=3
-								maxlength=50 />
-								</div>-->
-
-							  <!--<div id="holi" th:fragment="selectedAnimal">
-								<th:block th:if="${selectedAnimal != null}">
-									<input
-										th:value="${selectedAnimal.getId()} + ${selectedAnimal.getNombre()} + ${selectedAnimal.getRaza()}"
-										placeholder="Nombre del animal" required minlength=3
-										maxlength=50 />
-								</th:block>
-							</div>-->
-								
-
-
-
-
-
 
 						</div>
 					
 					</div>
 					
-					
-						
-				</form>
 			</div>
 		</div>
 
 
-		<div class="row cajita" id="modificarOculto">
+		<div class="row cajita">
 
-			<div class="col-md-9 offset-1">
+			<div class="col-md-10 offset-1" id="divFormModificar" th:fragment="selectedAnimal">
 			
 			
-			
-				
-			
-				<form th:action="@{/animales/modAnimal-submit}" id="formModAnimal"
-					th:object="${animal}" method="post" enctype="multipart/form-data"
-					class="was-validated" th:fragment="selectedAnimal">
-					
 					<th:block th:if="${selectedAnimal != null}">
 					
 				
@@ -144,12 +112,12 @@
 						<label class="col-sm-2 col-form-label">Animal</label>
 						<div class="col-sm-1">
 							<div class="form-check">
-								<input type="radio" th:name="tipo" th:value="${animal.tipo.PERRO}"  th:checked="${selectedAnimal.getTipo()} == ${animal.tipo.PERRO}"
+								<input type="radio" th:name="tipo" th:value="${selectedAnimal.tipo.PERRO}"  th:checked="${selectedAnimal.getTipo()} == ${selectedAnimal.tipo.PERRO}"
 									class="form-check-input" required > <label class="form-check-label">🐕</label>
 							</div>
 
 							<div class="form-check">
-								<input type="radio" th:name="tipo" th:value="${animal.tipo.GATO}" th:checked="${selectedAnimal.getTipo()} == ${animal.tipo.GATO}"
+								<input type="radio" th:name="tipo" th:value="${selectedAnimal.tipo.GATO}" th:checked="${selectedAnimal.getTipo()} == ${selectedAnimal.tipo.GATO}"
 									class="form-check-input" required > <label class="form-check-label">🐈</label>
 							</div>
 
@@ -160,11 +128,11 @@
 						<label class="col-sm-1 col-form-label">Sexo</label>
 						<div class="col-sm-1">
 							<div class="form-check">
-								<input type="radio" th:name="sexo" th:value="${animal.sexo.MACHO}" th:checked="${selectedAnimal.getSexo()} == ${animal.sexo.MACHO}"
+								<input type="radio" th:name="sexo" th:value="${selectedAnimal.sexo.MACHO}" th:checked="${selectedAnimal.getSexo()} == ${selectedAnimal.sexo.MACHO}"
 									class="form-check-input" required > <label class="form-check-label">♂️</label>
 							</div>
 							<div class="form-check">
-								<input type="radio" th:name="sexo" th:value="${animal.sexo.HEMBRA}" th:checked="${selectedAnimal.getSexo()} == ${animal.sexo.HEMBRA}"
+								<input type="radio" th:name="sexo" th:value="${selectedAnimal.sexo.HEMBRA}" th:checked="${selectedAnimal.getSexo()} == ${selectedAnimal.sexo.HEMBRA}"
 									class="form-check-input" required > <label class="form-check-label">♀️</label>
 							</div>
 
@@ -277,14 +245,18 @@
 						</div>
 					</div>
 
-					<div th:if="${message}" th:text="${message}"
-						th:class="${'alert ' + alertClass}" ></div>
+					
 					
 					</th:block>
-				</form>
+					
+				
 				
 			</div>
+			
 		</div>
+		<div th:if="${message}" th:text="${message}"
+						th:class="${'alert ' + alertClass}" ></div>
+		</form>
 	</div>
 
 </body>
