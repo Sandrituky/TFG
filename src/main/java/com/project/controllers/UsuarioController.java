@@ -10,10 +10,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
-
+import com.project.model.Animal;
+import com.project.model.Estado;
+import com.project.model.Esterilizado;
 import com.project.model.Provincia;
 import com.project.model.Usuario;
 import com.project.model.Rol;
+import com.project.model.Sexo;
+import com.project.model.Tipo;
+import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
 import com.project.repositories.IRolRepository;
@@ -32,10 +37,16 @@ public class UsuarioController {
 	private IProvinciaRepository provinciasRepo;
 	
 	@Autowired
+	private IAnimalRepository animalesRepo;
+	
+	@Autowired
 	private IRolRepository rolRepo;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private AuthUserController authController;
 
 	@GetMapping("/altaUsuario") public String pageAdd(Model model) {
 
@@ -62,10 +73,6 @@ public class UsuarioController {
 			
 			user.setRol(rol);				
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			
-	
-
-			
 			usuariosRepo.save(user);
 			
 			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!");
@@ -85,9 +92,6 @@ public class UsuarioController {
 						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
 			}
 		
-		
-		
-		
 		return new RedirectView("altaUsuario");
 		
 	}
@@ -97,17 +101,18 @@ public class UsuarioController {
        return "fragments/login";
    }
 	
-	@PostMapping("/loginUsuario-submit") // Lo que ocurre cuando pulsas [Iniciar Sesión]
-	public RedirectView pageLoginSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		// RedirectView redirecciona a la pagina que le digas
+	@GetMapping("/reservas") public String pagReservasUsuarios(Model model) {
 		
-		try {
-			
-		}catch(Exception e){
-			
-		}
+		Usuario usuario = authController.getAuthUser();
+
+		List <Animal> listaAnimales = animalesRepo.findAllAnimalesByOwnerAndEstado(usuario, Estado.RESERVADO);
 		
-		return new RedirectView("altaUsuario");
+		model.addAttribute("animales", listaAnimales);	
+		model.addAttribute("tipos", Tipo.class);
+		model.addAttribute("sexos", Sexo.class);
+		model.addAttribute("esterilizados", Esterilizado.class);
+
+		return "usuarios/reservas";
 	}
 	
 

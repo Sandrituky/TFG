@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	        .antMatchers(resources).permitAll()  
 	        .antMatchers("/","/index","/login").permitAll()
 	        .antMatchers("/usuarios/*").permitAll()
+	        .antMatchers("/usuarios/myReservations").access("hasAuthority('USER')")
 	        .antMatchers("/animales/list**").permitAll()
 	        .antMatchers("/json/**").permitAll()
 	        .antMatchers("/animales/altaAnimal", "/animales/bajaAnimal", "/animales/modAnimal").access("hasAuthority('ADMIN')")

@@ -25,7 +25,7 @@ public class AuthUserController { //GlobalControllerAdvice
 		
 	}
 	
-	public Usuario getAuthUser() {
+	public Usuario getAuthUser() { //devuelve el usuario logeado
 		Usuario usuario = null;
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

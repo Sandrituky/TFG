@@ -16,7 +16,12 @@
 		has autenticado correctamente.</div>
 	<div class="alert alert-warning mt-4" th:if="${result == 'logout'}">Has
 		cerrado sesión correctamente.</div>
+		
+		<div th:if="${message}" th:text="${message}"
+						th:class="${'alert ' + alertClass}">gfdg</div>
 </div>
+
+
 
 
 

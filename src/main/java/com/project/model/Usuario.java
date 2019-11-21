@@ -36,8 +36,6 @@ public class Usuario {
 	@Column(name = "ID")
 	private int id;
 
-
-
 	@Column(name = "DNI", length = 9, unique = true, nullable = false)
 	private String dni;
 

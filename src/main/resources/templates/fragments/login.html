@@ -3,11 +3,32 @@
 
 	<!--  <th:block th:if="${authUser != null}">  Otra manera de hacerlo-->
 	<th:block sec:authorize="isAuthenticated()" >
+	
+	<th:block sec:authorize="hasAuthority('USER')">
+		<form th:action="@{/logout}" method="post">
+		<ul class="navbar-nav mr-auto">
+		<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-usuarios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span style="color:purple; font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/usuarios/reservas}">Mis reservas</a>
+        </div>
+      </li>
+      <input  type="submit" value="Cerrar Sesion"  class="btn btn-outline-success my-2 my-sm-0" />
+      </ul>
+			
+		</form>
+		</th:block>
 		
+		<th:block sec:authorize="hasAuthority('ADMIN')">
 		<form th:action="@{/logout}" method="post">
 		<th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span style="color:purple; font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
 			<input  type="submit" value="Cerrar Sesion"  class="btn btn-outline-success my-2 my-sm-0" />
 		</form>
+		</th:block>
+		
+		
 	</th:block>
 
 	<th:block sec:authorize="!isAuthenticated()">
