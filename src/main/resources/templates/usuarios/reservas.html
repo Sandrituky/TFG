@@ -23,7 +23,7 @@
 						<th:block th:each="animal : ${animales}">
 							<div class="col-md-4">
 				<div class="card mb-4 box-shadow">
-	<form th:action="@{/animales/reservar-submit}" th:object="${animal}" method="post">
+	<form th:action="@{/animales/cancelarReserva-submit}" th:object="${animal}" method="post">
 	<div class="card-header">
 		<h5>
 			<th:block th:text="${animal.nombre}"></th:block>
@@ -59,7 +59,7 @@
 					<p th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
 					<!--  <small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins</small>-->
 					<div sec:authorize="hasAuthority('USER')">
-					<button type="submit" class="btn btn-success float" id="botonCancelarReserva">Cancelar reserva</button>
+					<button type="submit" class="btn btn-danger	 float" id="botonCancelarReserva">Cancelar reserva</button>
 					</div>
 				</div>
 				<input type="hidden" th:name="id" th:value=${animal.id}>

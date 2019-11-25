@@ -47,12 +47,12 @@
 						<label class="col-sm-2 col-form-label">Animal</label>
 						<div class="col-sm-1">
 							<div class="form-check">
-								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}" th:text=" *{getEmojiTipo()}" th:preload="*{setEmojiTipo(':dog2:')}" 	
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.PERRO}" th:text="'🐕'"	
 									class="form-check-input" required /> 
 							</div>
 
 							<div class="form-check">
-								<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}" th:text=" *{getEmojiTipo()}" th:preload="*{setEmojiTipo(':cat2:')}" 		
+								<input type="radio" th:field="*{tipo}" th:value="*{tipo.GATO}" th:text="'🐈'"		
 									class="form-check-input" required />
 							</div>
 

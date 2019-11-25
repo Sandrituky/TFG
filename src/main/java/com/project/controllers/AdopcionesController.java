@@ -49,10 +49,8 @@ public class AdopcionesController {
 	public RedirectView reservarAnimal(Animal animal, Model model,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 
+		Usuario usuario = authController.getAuthUser(); 
 		
-		Usuario usuario = authController.getAuthUser();
-		
-		//Optional <Animal> currentAnimal = animalesRepo.findOneAnimalById(animal.getId());
 		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
 
 		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION) {
@@ -64,7 +62,64 @@ public class AdopcionesController {
 					"Éste animal no está disponible para su reserva.");
 		}
 		
-		return new RedirectView("../");
+		return new RedirectView("../"); 
+	}
+	
+	@PostMapping("/cancelarReserva-submit") //Cancelar reserva (done by Usuario)
+	public RedirectView calcelarReservaAnimal(Animal animal, Model model,
+			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+
+		
+		Usuario usuario = authController.getAuthUser();
+		
+		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
+
+		if (currentAnimal.getOwner() == usuario && currentAnimal.getEstado() == Estado.RESERVADO) {
+			currentAnimal.setOwner(null);
+			currentAnimal.setEstado(Estado.EN_ADOPCION);
+			animalesRepo.save(currentAnimal);
+		}else {
+			redirectAttributes.addFlashAttribute("message",
+					"Se ha producido un error.");
+		}
+		
+		return new RedirectView("../"); 
+	}
+	
+	@GetMapping("/bajaAnimal")
+	public String pagBaja(Model model) {
+		
+
+		List<Animal> listaAnimales = animalesRepo.findAllAnimalesByEstado(Estado.RESERVADO);
+		model.addAttribute("animales", listaAnimales);
+
+
+		Estado[] opcionesEstado = Estado.values();
+		model.addAttribute("estados", opcionesEstado);
+		
+
+
+		return "animales/bajaAnimal";
+	}
+	
+	@PostMapping("/bajaAnimal-submit")
+	public String cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
+			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model) {
+		
+		
+		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
+		
+		if (estado == Estado.ADOPTADO) { 
+			currentAnimal.setOwner(currentAnimal.getOwner());
+			currentAnimal.setEstado(Estado.ADOPTADO);
+			
+		 }else if (estado == Estado.EN_ADOPCION) {
+			 currentAnimal.setOwner(null);
+			 currentAnimal.setEstado(Estado.EN_ADOPCION);
+				
+			}
+		
+		return "animales/bajaAnimal";
 	}
 	
 

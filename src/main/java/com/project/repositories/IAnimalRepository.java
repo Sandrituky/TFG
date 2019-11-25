@@ -20,8 +20,11 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	boolean existsById(int id);
 	
 	Optional <Animal> findOneAnimalById(int id);
+	
 	Animal findAnimalById(int id);
 	
+	
+	List <Animal> findAllAnimalesByEstado(Estado estado);
 	
 	
 	//Filtra animales por (tipo && estado), usado para mostrar las fichas de los animales
@@ -46,6 +49,10 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	@Modifying
 	@Query(value="UPDATE Animal SET ESTADO = ?1, USUARIO_ID = ?2 WHERE ID=?3", nativeQuery=true)
 	int setEstadoAndOwnerForId(Estado estado, int owner, int id);
+	
+	
+	@Query(value="SELECT enum_range(NULL::myenum)", nativeQuery=true)
+	List <Estado> findAllEstados();
 	
 	
 	

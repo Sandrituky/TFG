@@ -105,7 +105,7 @@ public class Animal {
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
 		this.emojiTipo="";
-		this.emojiSexo="aa";
+		this.emojiSexo="";
 	}
 
 	// CONSTRUCTOR
@@ -294,17 +294,24 @@ public class Animal {
 	@Transient
 	public void setEmojiTipo(String emojiTipo) { //convierte unicode en aliases
 		this.emojiTipo = EmojiParser.parseToAliases(emojiTipo);
+
 	}
 	
 	
 	@Transient
 	public String getEmojiTipo() { //convierte aliases en unicode
-		String emoji = EmojiParser.parseToUnicode(emojiTipo);
-		return emoji;
+		//String emoji = EmojiParser.parseToUnicode(emojiTipo);
+		//return emoji;
+		if (this.tipo == Tipo.PERRO) {
+			return EmojiParser.parseToUnicode(":dog2:");
+		}else if (this.tipo == Tipo.GATO) {
+			return EmojiParser.parseToUnicode(":cat2:");
+		}
+		 return "";
 	}
 	
 	
-	//Aqui no hace falta usar EmojiParser porque son unicode muy antiguos...
+	//Aqui no hace falta usar EmojiParser porque ♂️ y ♀️ son unicode muy antiguos...
 	@Transient
 	public void setEmojiSexo(String emojiSexo) { 
 		this.emojiSexo = emojiSexo;
@@ -312,7 +319,13 @@ public class Animal {
 	
 	@Transient
 	public String getEmojiSexo() { 
-		return emojiSexo;
+		//return emojiSexo;
+		if (this.sexo == Sexo.MACHO) {
+			return "\u2642";
+		}else if (this.sexo == Sexo.HEMBRA) {
+			return "\u2640";
+		}
+		 return "";
 	}
 	
 

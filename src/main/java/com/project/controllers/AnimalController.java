@@ -135,35 +135,10 @@ public class AnimalController {
 
 	}
 
-	@GetMapping("/bajaAnimal")
-	public String pagBaja(Model model) {
-		Animal animal = new Animal();
-		model.addAttribute("animal", animal);
 
-		List<Animal> listaAnimales = animalesRepo.findAll();
-		model.addAttribute("animales", listaAnimales);
-
-		List<Usuario> listaUsuarios = usuariosRepo.findAll();
-		model.addAttribute("usuarios", listaUsuarios);
-
-		Estado[] opcionesEstado = Estado.values();
-		model.addAttribute("estados", opcionesEstado);
-
-		return "animales/bajaAnimal";
-	}
 
 	@GetMapping("/modAnimal") // pagina de modificacion de Animal
 	public String pagMod(Model model) {
-
-		Animal animal = new Animal();
-		model.addAttribute("animal", animal);
-		/*
-		Sexo[] opcionesSexo = Sexo.values();
-		model.addAttribute("sexos", opcionesSexo);
-
-		Tipo[] opcionesTipo = Tipo.values();
-		model.addAttribute("tipos", opcionesTipo);
-		*/
 
 		return "animales/modAnimal";
 	}
@@ -190,25 +165,6 @@ public class AnimalController {
 
 		
 
-		// ASIGNAR EMOJIS
-		for (Animal animalito : listaAnimales) {
-			if (animalito.getTipo() == Tipo.PERRO) {
-				animalito.setEmojiTipo(":dog2:");
-			} else if (animalito.getTipo() == Tipo.GATO) {
-				animalito.setEmojiTipo(":cat2:");
-			}
-		}
-
-		for (Animal animalito : listaAnimales) {
-			if (animalito.getSexo() == Sexo.MACHO) {
-				animalito.setEmojiSexo("\u2642");
-			} else if (animalito.getSexo() == Sexo.HEMBRA) {
-				animalito.setEmojiSexo("\u2640");
-			}
-		}
-		
-		
-
 		return "animales/modAnimal :: animales"; //podriamos poner tambien :: #selectAnimal
 
 	}
@@ -216,11 +172,6 @@ public class AnimalController {
 	@RequestMapping("/animalid")
 	public String getAnimalByID(@RequestParam(name = "id", required = false) int idAnimal, Model model) {
 
-		
-		Animal animalModelo = new Animal();
-		model.addAttribute("animal", animalModelo);
-		
-		
 		
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
 		model.addAttribute("esterilizados", opcionesEsterilizado);
