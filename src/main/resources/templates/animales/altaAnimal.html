@@ -118,14 +118,11 @@
 
 						<!-- INPUT PROVINCIA ANIMAL -->
 
-						<label class="col-sm-2 col-form-label" for="provincia.id">Provincia</label>
+						<label class="col-sm-2 col-form-label" for="provincia">Provincia</label>
 						<div class="col-sm-4">
-							<select id="provincia.id" name="provincia.id" required
-								class="form-control">
+							<select id="provincia" name="provincia.id" required class="form-control">
 								<option value="">Selecciona provincia</option>
-								<option th:each="i : ${provincias}" th:text="${i.provincia}"
-									th:value="${i.id}">
-									<!--th:selected="${i.id==0}"--></option>
+								<option th:each="i : ${provincias}" th:text="${i.provincia}" th:value="${i.id}">
 							</select>
 
 							<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
