@@ -106,8 +106,9 @@ public class AdopcionesController {
 	public String cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
 			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model, RedirectAttributes redirectAttributes) {
 		
+
     Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
-		
+	
 		if (estado == Estado.ADOPTADO) { 
 			currentAnimal.setOwner(currentAnimal.getOwner());
 			currentAnimal.setEstado(Estado.ADOPTADO);

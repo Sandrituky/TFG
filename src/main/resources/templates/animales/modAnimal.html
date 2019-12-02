@@ -183,11 +183,9 @@
 
 						<label class="col-sm-2 col-form-label" for="provincia">Provincia</label>
 						<div class="col-sm-4">
-								<select id="provincia" th:name="provincia" required
-									class="form-control">
-									<option th:each="i : ${provincias}" th:text="${i.provincia}"
-										th:value="${i.id}"
-										th:selected="${selectedAnimal.getProvincia().getId() == i.id}">
+								<select id="provincia" name="provincia.id" required class="form-control">
+									<option th:each="i : ${provincias}" th:text="${i.provincia}" th:value="${i.id}" 
+									th:selected="${selectedAnimal.getProvincia().getId() == i.id}">
 								</select>
 
 								<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
