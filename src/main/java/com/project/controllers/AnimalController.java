@@ -146,19 +146,19 @@ public class AnimalController {
 	public String filtroTipoSexo(Model model, @RequestParam(name = "selectTipo", required = false) Tipo tipo,
 			@RequestParam(name = "selectSexo", required = false) Sexo sexo) {
 
-		List<Animal> listaAnimales;
+		List<Animal> listaAnimales = animalesRepo.findAllAnimalesByEstado(Estado.EN_ADOPCION);
 
 		if (tipo == null && sexo == null) { // no funciona
-			listaAnimales = animalesRepo.findAll();
+			listaAnimales = animalesRepo.findAllAnimalesByEstado(Estado.EN_ADOPCION);
 			model.addAttribute("animales", listaAnimales);
 		} else if (tipo != null && sexo == null) {
-			listaAnimales = animalesRepo.findAllAnimalesByTipoOrSexo(tipo, sexo);
+			listaAnimales = animalesRepo.findAllAnimalesByEstadoAndTipoOrEstadoAndSexo(Estado.EN_ADOPCION, tipo, Estado.EN_ADOPCION, sexo);
 			model.addAttribute("animales", listaAnimales);
 		} else if (tipo == null && sexo != null) {
-			listaAnimales = animalesRepo.findAllAnimalesByTipoOrSexo(tipo, sexo);
+			listaAnimales = animalesRepo.findAllAnimalesByEstadoAndTipoOrEstadoAndSexo(Estado.EN_ADOPCION, tipo, Estado.EN_ADOPCION, sexo);
 			model.addAttribute("animales", listaAnimales);
-		} else {
-			listaAnimales = animalesRepo.findAllAnimalesByTipoAndSexo(tipo, sexo);
+		} else { 
+			listaAnimales = animalesRepo.findAllAnimalesByEstadoAndTipoAndSexo(Estado.EN_ADOPCION, tipo, sexo);
 			model.addAttribute("animales", listaAnimales);
 		}
 

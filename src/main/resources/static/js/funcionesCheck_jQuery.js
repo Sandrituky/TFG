@@ -225,6 +225,7 @@ $(document).ready(function() { // comprueba la mayoría de edad
 
 
 $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (radioButtons)
+	$("#selectAnimal").load('/animales/checktiposexo', $('[name=selectTipo], [name=selectSexo]').serialize());
 	$('[name=selectTipo], [name=selectSexo]').change(function() {
 		
 		$("#selectAnimal").load('/animales/checktiposexo', $('[name=selectTipo], [name=selectSexo]').serialize());

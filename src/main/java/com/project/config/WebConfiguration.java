@@ -1,16 +1,10 @@
 package com.project.config;
 
-
-
 import org.springframework.context.annotation.Configuration;
-
-import java.util.concurrent.TimeUnit;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.CacheControl;
 
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
 
 @Configuration
 public class WebConfiguration extends WebMvcConfigurationSupport{

@@ -37,11 +37,11 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
 	//_____________________________(usado para filtrar animales en Vista Modificar)
 
-	//Filtra animales por (tipo && sexo)
-	List <Animal> findAllAnimalesByTipoAndSexo(Tipo tipo, Sexo sexo);
+	//Filtra animales por (tipo && sexo && estado(en adopcion)))
+	List <Animal> findAllAnimalesByEstadoAndTipoAndSexo(Estado estado, Tipo tipo, Sexo sexo);
 	
 	//Filtra animales por (tipo || sexo)
-	List <Animal> findAllAnimalesByTipoOrSexo(Tipo tipo, Sexo sexo);
+	List <Animal> findAllAnimalesByEstadoAndTipoOrEstadoAndSexo(Estado estado, Tipo tipo, Estado estado2, Sexo sexo);
 //_______________________
 	
 	
@@ -53,6 +53,10 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
 	@Query(value="SELECT enum_range(NULL::myenum)", nativeQuery=true)
 	List <Estado> findAllEstados();
+	
+	
+	//saca el nº de animales reservados por un usuario (tambien serviria para sacar nº de adoptados).
+	int countByOwnerAndEstado(Usuario usuario, Estado estado);
 	
 	
 	

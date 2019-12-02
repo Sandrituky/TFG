@@ -52,11 +52,18 @@ public class AdopcionesController {
 		Usuario usuario = authController.getAuthUser(); 
 		
 		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
+		
+		int numReservas = animalesRepo.countByOwnerAndEstado(usuario, Estado.RESERVADO);
+		
+		
 
-		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION) {
+		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION && numReservas <= 3) {
 			currentAnimal.setOwner(usuario);
 			currentAnimal.setEstado(Estado.RESERVADO);
 			animalesRepo.save(currentAnimal);
+		}else if(numReservas>3) {
+			redirectAttributes.addFlashAttribute("message",
+					"Como máximo puedes reservar 3 animales");
 		}else {
 			redirectAttributes.addFlashAttribute("message",
 					"Éste animal no está disponible para su reserva.");
@@ -73,8 +80,8 @@ public class AdopcionesController {
 		Usuario usuario = authController.getAuthUser();
 		
 		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
-
-		if (currentAnimal.getOwner() == usuario && currentAnimal.getEstado() == Estado.RESERVADO) {
+		
+		if (currentAnimal.getOwner().getId() == usuario.getId() || currentAnimal.getEstado() == Estado.RESERVADO) {
 			currentAnimal.setOwner(null);
 			currentAnimal.setEstado(Estado.EN_ADOPCION);
 			animalesRepo.save(currentAnimal);
