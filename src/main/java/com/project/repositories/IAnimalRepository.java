@@ -1,5 +1,6 @@
 package com.project.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,11 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
 	//saca el nº de animales reservados por un usuario (tambien serviria para sacar nº de adoptados).
 	int countByOwnerAndEstado(Usuario usuario, Estado estado);
+	
+	
+	
+	
+	List <Animal> findByEstadoOrderByFechaAltaDesc(Estado estado);
 	
 	
 	

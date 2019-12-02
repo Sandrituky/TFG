@@ -211,11 +211,16 @@
 						<label class="col-sm-2 col-form-label" for="file">Foto</label>
 						<div class="col-sm-10">
 
-							<input type="file" name="file" accept="image/*"
-								class="form-control-file" id="validatedCustomFile" required />
+							<input type="file" name="file" accept="image/*" th:value="${selectedAnimal.getFoto()}" th:files="${selectedAnimal.getFoto()}"
+								class="form-control-file" id="validatedCustomFile"  required />
+								
+								<!--  <img class="card-img-top"
+											th:src="@{'/imagenes/animales/' + ${selectedAnimal.getFoto()}}"
+											alt="Card image cap">-->
+							
 							<div class="invalid-feedback">Ningún archivo seleccionado</div>
 						</div>
-						
+						<!--  -->
 
 					</div>
 

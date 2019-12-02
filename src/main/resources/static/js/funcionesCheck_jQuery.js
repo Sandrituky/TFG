@@ -240,22 +240,26 @@ $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (
 
 $(document).ready(function() {
 	$("#divFormModificar").hide();
-	$("[name=selectTipo], [name=selectSexo], #selectAnimal").change(function() {
+	
+	$("[name=selectTipo], [name=selectSexo]").change(function() {
 		$('#divFormModificar').hide('300');
-		$("#selectAnimal").change(function() {
+		
+	});
+	
+	$("#selectAnimal").change(function() {
+		$("#divFormModificar").hide();
+		inputSelectAnimal = $("#selectAnimal")[0];
+		selectAnimal = $("#selectAnimal").val();
+		
+		if (selectAnimal > 0) {
+			$('#divFormModificar').show('300');
+			
+			$('#divFormModificar').load('/animales/animalid', $("#selectAnimal").serialize());
 
-			inputSelectAnimal = $("#selectAnimal")[0];
-			selectAnimal = $("#selectAnimal").val();
+		} else if (selectAnimal == 0) {
+			$('#divFormModificar').hide('slow');
+		}
 
-			if (selectAnimal > 0) {
-				$('#divFormModificar').show('300');
-				$('#divFormModificar').load('/animales/animalid', $("#selectAnimal").serialize());
-
-			} else if (selectAnimal == 0) {
-				$('#divFormModificar').hide('slow');
-			}
-
-		});
 	});
 });
 

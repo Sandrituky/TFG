@@ -1,6 +1,7 @@
 package com.project.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Period;
 
@@ -81,10 +82,13 @@ public class Animal {
 	@JoinColumn(name = "USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
 	private Usuario owner;
 	
-	@Transient
+	@Column(name = "FECHA_ALTA")
+	private LocalDateTime fechaAlta;
+	
+	@Transient //no está mapeado en la BD
 	private String emojiTipo;
 	
-	@Transient
+	@Transient //no está mapeado en la BD
 	private String emojiSexo;
 
 	// CONSTRUCTOR
@@ -104,6 +108,7 @@ public class Animal {
 		this.sexo = Sexo.NONE;
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
+		this.fechaAlta = LocalDateTime.now();
 		this.emojiTipo="";
 		this.emojiSexo="";
 	}
@@ -112,7 +117,7 @@ public class Animal {
 
 	public Animal(int id, Tipo tipo, String nombre, String raza, String foto, Esterilizado esterilizado,
 			String descripcion, Provincia provincia, String poblacion, Sexo sexo, LocalDate fnac, Estado estado,
-			Usuario owner, String emojiTipo, String emojiSexo) {
+			Usuario owner, LocalDateTime fechaAlta, String emojiTipo, String emojiSexo) {
 		this.id = id;
 		this.tipo = tipo;
 		this.nombre = nombre;
@@ -126,6 +131,7 @@ public class Animal {
 		this.sexo = sexo;
 		this.estado = estado;
 		this.owner = owner;
+		this.fechaAlta = fechaAlta;
 		this.emojiTipo=emojiTipo;
 		this.emojiSexo=emojiSexo;
 		
