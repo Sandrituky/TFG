@@ -104,19 +104,24 @@ public class AdopcionesController {
 	
 	@PostMapping("/bajaAnimal-submit")
 	public String cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
-			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model) {
+			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model, RedirectAttributes redirectAttributes) {
 		
-		
-		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
+    Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
 		
 		if (estado == Estado.ADOPTADO) { 
 			currentAnimal.setOwner(currentAnimal.getOwner());
 			currentAnimal.setEstado(Estado.ADOPTADO);
+			animalesRepo.save(currentAnimal);
+			
 			
 		 }else if (estado == Estado.EN_ADOPCION) {
 			 currentAnimal.setOwner(null);
 			 currentAnimal.setEstado(Estado.EN_ADOPCION);
-				
+			 animalesRepo.save(currentAnimal);
+			 				
+			}else {
+				redirectAttributes.addFlashAttribute("message",
+						"Se ha producido un error.");
 			}
 		
 		return "animales/bajaAnimal";

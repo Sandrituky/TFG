@@ -23,9 +23,11 @@ import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -82,27 +84,24 @@ public class AnimalController {
 		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
 		extensionImagen = extensionImagen.toLowerCase();
 		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
+		
 		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
+			
+			byte[] imageByte=Base64.getEncoder().encode(file.getBytes());
 
-			result = true;
-
-			// Generamos un nombre random a la imagen y la guardamos junto a la extension.
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
-			// Guardamos la imagen en una carpeta del proyecto para imagenes.
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\animales\\"
-					+ nombreImagen;
+			// la ruta ahora es "imagenes/animales" justo despues de la raiz
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
 
-			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
-			// archivo (path), si no existe la ruta se crea.
-			File dirPath = new File(path);
-			if (!dirPath.exists()) {
-				dirPath.mkdirs();
+			try {
+				// Guardamos la imagen en base64 en un archivo
+				new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-
-			// Transferimos la imagen subida en el formulario a la ruta previamente indicada
-			// para guardarla.
-			file.transferTo(dirPath);
+			
+			result=true;
 
 			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
 			animal.setFoto(nombreImagen);
@@ -203,34 +202,28 @@ public class AnimalController {
 
 		// TRATAMIENTO DE SUBIDA DE IMAGEN
 
-		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
-		// especificadas
+		// Guardamos la extension de la imagen
 		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
 		extensionImagen = extensionImagen.toLowerCase();
 		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
+		
 		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
 
-			result = true;
+			byte[] imageByte=Base64.getEncoder().encode(file.getBytes());
 
-			// Generamos un nombre random a la imagen y la guardamos junto a la extension.
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
-			// Guardamos la imagen en una carpeta del proyecto para imagenes.
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\src\\main\\resources\\static\\imagenes\\animales\\"
-					+ nombreImagen;
 
-			// Generamos una variable de tipo archivo a partir de la ruta y nombre del nuevo
-			// archivo (path), si no existe la ruta se crea.
-			File dirPath = new File(path);
-			if (!dirPath.exists()) {
-				dirPath.mkdirs();
+			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
+
+			try {
+				new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));
+			} catch (Exception e) {
+				System.out.println(e);
 			}
+			
+			result=true;
 
-			// Transferimos la imagen subida en el formulario a la ruta previamente indicada
-			// para guardarla.
-			file.transferTo(dirPath);
-
-			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
 			animal.setFoto(nombreImagen);
 
 			// Y finalmente guardamos el objeto animal en la BD
