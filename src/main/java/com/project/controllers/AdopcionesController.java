@@ -103,7 +103,6 @@ public class AdopcionesController {
 
 		Estado[] opcionesEstado = Estado.values();
 		model.addAttribute("estados", opcionesEstado);
-		
 
 
 		return "animales/bajaAnimal";

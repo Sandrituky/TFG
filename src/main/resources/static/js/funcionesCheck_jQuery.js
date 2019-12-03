@@ -264,5 +264,35 @@ $(document).ready(function() {
 });
 
 
+//Funcion para subir la imagen y mostrar preview
+$(document).ready(function(){
+  $("#uploadFile").on("change", function()
+  {
+      var files = !!this.files ? this.files : [];
+      if (!files.length || !window.FileReader){ // no file selected, or no FileReader support
+      	$("#imagePreview").css("background-image", "url('http://via.placeholder.com/350x150')");
+      	
+      }
+      
+
+      if (/^image/.test( files[0].type)){ // only image file
+          var reader = new FileReader(); // instance of the FileReader
+          reader.readAsDataURL(files[0]); // read the local file
+
+          reader.onloadend = function(){ // set image data as background of div
+              $("#imagePreview").css("background-image", "url("+this.result+")");
+              
+          }
+      }
+  });
+
+
+$('#imagePreview').click(function(){
+$('#uploadFile').click();
+});
+});
+
+
+
 
 

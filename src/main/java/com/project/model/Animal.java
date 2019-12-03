@@ -52,11 +52,11 @@ public class Animal {
 	@Column(name = "RAZA", length = 100, nullable = false)
 	private String raza;
 
-	@Column(name = "FNAC", nullable = false)
+	@Column(name = "FNAC")
 	private LocalDate fnac;
 
 	// CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne()
 	@JoinColumn(name = "PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_animal_provincia"))
 	private Provincia provincia;
 
@@ -82,7 +82,7 @@ public class Animal {
 	@JoinColumn(name = "USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
 	private Usuario owner;
 	
-	@Column(name = "FECHA_ALTA", nullable = false)
+	@Column(name = "FECHA_ALTA")
 	private LocalDateTime fechaAlta;
 	
 	@Transient //no está mapeado en la BD

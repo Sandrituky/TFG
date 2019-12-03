@@ -25,7 +25,7 @@ public class Rol {
 	@Column(name = "ROL", length = 10, nullable = false)
 	private String rol;
 
-	// USUARIO TIENE CLAVE FORANEA DE R
+	// USUARIO TIENE CLAVE FORANEA DE ROL
 	@OneToMany(mappedBy = "rol")
 	private List<Usuario> usuarios;
 

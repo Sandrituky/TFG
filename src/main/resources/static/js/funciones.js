@@ -19,5 +19,3 @@ function check(input) { // comprueba que las contraseñas coincidan
 
 
 
-
-
