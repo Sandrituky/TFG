@@ -80,18 +80,51 @@ a + input{
 #imagePreview {
     width: 180px;
     height: 180px;
-    background-position: center center;
-    background-size: cover;
+    background-position: center center !important;
+    background-size: cover !important; 
     -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
     display: inline-block;
     background-image: url('http://via.placeholder.com/350x150');
+    
+    
 }
+
 
 #uploadFile{
   display: none
 }
 
+.table > tbody > tr > td {
+font-family:Arial;
+font-size:20px;
+vertical-align:middle;
+horizontal-align:middle;
 
+}
+
+
+
+.estiloTipo {
+    position:relative;
+    left: 4%;
+	top: -1%;
+	font-size:120%;	
+	text-shadow: 0px -1px 0px #000000, 0px 1px 0px #000000, -1px 1px 0px #000000, 1px 1px 0px #000000, 1px 1px 0px #000000, 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 3px 3px 0px rgba(120,254,255,0), #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FFFFFF 0px 0px 20px, #FFFFFF 0px 0px 30px, #FFFFFF 0px 0px 40px, #FFFFFF 0px 0px 50px, #FFFFFF 0px 0px 75px;
+}
+
+.estiloSexo {
+	position:relative;
+	left: 87%;
+	top: -21%;
+	color:black;
+	font-size:120%;
+	text-shadow: 0px -1px 0px #000000, 0px 1px 0px #000000, -1px 1px 0px #000000, 1px 1px 0px #000000, 1px 1px 0px #000000, 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 3px 3px 0px rgba(120,254,255,0), #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #FFFFFF 0px 0px 20px, #FFFFFF 0px 0px 30px, #FFFFFF 0px 0px 40px, #FFFFFF 0px 0px 50px, #FFFFFF 0px 0px 75px;
+}
+
+.intPubli{
+	position:absolute;
+	margin-top:-5%;
+}
 
 
 

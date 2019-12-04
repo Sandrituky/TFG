@@ -334,6 +334,44 @@ public class Animal {
 		 return "";
 	}
 	
+	
+	public String getIntervaloPublicacion() {
+		LocalDate fechaAltaDate = fechaAlta.toLocalDate(); 
+		Period periodo = Period.between(fechaAltaDate, LocalDate.now());
+		int anios = periodo.getYears();
+		int meses = periodo.getMonths();
+		int dias = periodo.getDays();
+
+		if (anios > 1) {
+			if (meses == 0) {
+				return "Hace " + anios + " años";
+			} else if (meses == 1) {
+				return "Hace " + anios + " años y " + meses + " mes";
+			} else {
+				return "Hace " + anios + " años y " + meses + " meses";
+			}
+		} else if (anios == 1) {
+			if (meses == 0) {
+				return "Hace " + anios + " año";
+			} else if (meses == 1) {
+				return "Hace " + anios + " año y " + meses + " mes";
+			} else {
+				return "Hace " + anios + " año y " + meses + " meses";
+			}
+		} else if (dias == 1) {
+			return "Ayer";
+		}else if (dias == 0) {
+				return "Hoy";
+		} else if (meses < 1) {
+			return "Hace "+ dias + " días";
+		} else if (meses == 1) {
+			return "Hace " + meses + " mes";
+		} else if (meses < 12) {
+			return "Hace " + meses + " meses";
+		}
+		return "afidfdh";
+	}
+	
 
 	
 

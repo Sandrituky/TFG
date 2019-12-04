@@ -28,6 +28,7 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	List <Animal> findAllAnimalesByEstado(Estado estado);
 	
 	
+	
 	//Filtra animales por (tipo && estado), usado para mostrar las fichas de los animales
 	List <Animal> findAllAnimalesByTipoAndEstado(Tipo tipo, Estado estado);
 	

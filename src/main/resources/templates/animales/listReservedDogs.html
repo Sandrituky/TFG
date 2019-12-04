@@ -50,8 +50,12 @@
    										</th:block><br/><br/>
 										<div class="d-flex justify-content-between align-items-center">
 											<p th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
-											<small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins</small>
+											<small class="text-muted" th:text="${animal.getIntervaloPublicacion()}"></small>
 										</div>
+									</div>
+									<div class="card-footer ">
+										<h5 style="text-align:center"><th:block th:text="${animal.estado.getDisplayName()}"></th:block></h5>
+											
 									</div>
 								</div>
 							</div>

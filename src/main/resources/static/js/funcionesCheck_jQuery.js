@@ -1,5 +1,7 @@
 //___________USUARIOS________________________
-$(document).ready(function() { // valida que el correo tenga bien el formato y sea unico
+
+//REGISTRAR USUARIO: valida que el correo sea unico y tenga el formato correcto
+$(document).ready(function() {
 	$('#email').keyup(function() {
 
 		var inputEmail = $("#email");
@@ -50,8 +52,8 @@ $(document).ready(function() { // valida que el correo tenga bien el formato y s
 });
 
 
-
-$(document).ready(function() { // valida que el DNI tenga bien el formato y sea unico
+//REGISTRAR USUARIO: valida que el DNI sea unico y valido
+$(document).ready(function() { 
 	$('#dni').keyup(function() {
 
 		var dni = $('#dni').val();
@@ -95,7 +97,8 @@ $(document).ready(function() { // valida que el DNI tenga bien el formato y sea 
 	});
 });
 
-$(document).ready(function() { // valida que el telefono tenga bien el formato y sea unico
+//REGISTRAR USUARIO: valida que el telefono sea unico y tenga el formato correcto
+$(document).ready(function() {
 	$('#telefono').keyup(function() {
 
 		var telefono = $('#telefono').val();
@@ -137,7 +140,8 @@ $(document).ready(function() { // valida que el telefono tenga bien el formato y
 	});
 });
 
-$(document).ready(function() { // pone la fecha como valor vacio
+//REGISTRAR USUARIO: Quita la fecha por defecto para que aparezca vacía
+$(document).ready(function() {
 	if ($("#dni").length) { // comprueba que el elemento existe
 		inputFnac = $('#fnac')[0];
 		fnac = $('#fnac').val("");
@@ -147,7 +151,8 @@ $(document).ready(function() { // pone la fecha como valor vacio
 	}
 });
 
-$(document).ready(function() { // comprueba la mayoría de edad
+//REGISTRAR USUARIO: Comprueba la mayoría de edad
+$(document).ready(function() { 
 	if ($("#dni").length) {
 		$('#fnac').keyup(function() {
 
@@ -176,15 +181,17 @@ $(document).ready(function() { // comprueba la mayoría de edad
 });
 
 // _________________ANIMALES______________________
-$(document).ready(function() { // pone todos los radioButton en unchecked
+
+//ALTA ANIMAL: Pone todos los radioButton del formulario en unchecked (PUEDE QUE YA NO SEA NECESARIA ESTA FUNCION)
+$(document).ready(function() { 
 	if ($("#raza").length) { // comprueba que el elemento existe
 
 		$('input[type="radio"]').prop('checked', false);
 	}
 });
 
-
-$(document).ready(function() { // pone la fecha como valor vacio
+//ALTA ANIMAL: Quita la fecha por defecto para que aparezca vacía
+$(document).ready(function() {
 		if ($("#raza").length) { // comprueba que el elemento existe
 			
 			inputFnac = $('#fnac')[0];
@@ -193,7 +200,8 @@ $(document).ready(function() { // pone la fecha como valor vacio
 		}
 	});
 
-$(document).ready(function() { // comprueba la mayoría de edad
+//ALTA ANIMAL: Impide registrar animales que no hayan nacido o tengan mas de 40 años
+$(document).ready(function() { 
 	if ($("#raza").length) {
 		$('#fnac').keyup(function() {
 
@@ -223,8 +231,8 @@ $(document).ready(function() { // comprueba la mayoría de edad
 });
 
 
-
-$(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (radioButtons)
+//MODIFICAR ANIMALES: filtra la busqueda por tipo y sexo para llenar el Select
+$(document).ready(function() { 
 	$("#selectAnimal").load('/animales/checktiposexo', $('[name=selectTipo], [name=selectSexo]').serialize());
 	$('[name=selectTipo], [name=selectSexo]').change(function() {
 		
@@ -237,7 +245,7 @@ $(document).ready(function() { //filtrar animales en ModAnimal por tipo y sexo (
 });
 
 
-
+//MODIFICAR ANIMALES: Carga la información del select en el formulario de modificar
 $(document).ready(function() {
 	$("#divFormModificar").hide();
 	
@@ -254,7 +262,7 @@ $(document).ready(function() {
 		if (selectAnimal > 0) {
 			$('#divFormModificar').show('300');
 			
-			$('#divFormModificar').load('/animales/animalid', $("#selectAnimal").serialize());
+			$('#divFormModificar').load('/animales/animalid', $("#selectAnimal").serialize(), loadFormModificar());
 
 		} else if (selectAnimal == 0) {
 			$('#divFormModificar').hide('slow');
@@ -264,10 +272,9 @@ $(document).ready(function() {
 });
 
 
-//Funcion para subir la imagen y mostrar preview
+//Funcion para subir la imagen y mostrar preview en ALTA ANIMAL
 $(document).ready(function(){
-  $("#uploadFile").on("change", function()
-  {
+  $("#uploadFile").on("change", function(){
       var files = !!this.files ? this.files : [];
       if (!files.length || !window.FileReader){ // no file selected, or no FileReader support
       	$("#imagePreview").css("background-image", "url('http://via.placeholder.com/350x150')");
@@ -293,6 +300,47 @@ $('#uploadFile').click();
 });
 
 
+//Funcion para subir la imagen y mostrar preview en MODIFICAR ANIMAL
+//es distinta a la de ALTA porque el codigo debe cargar despues de cargar el th:fragment
+function loadFormModificar() {
+	
+	var checkExist = setInterval(function() { // va a comprobar si existe imagePreview cada 100ms hasta que exista.
+		
+		if ($("#imagePreview").length) {
+			
+			$("#uploadFile").on("change",function() {
+				
+				$("#uploadFile").prop('required',true);
+				
+						var files = !!this.files ? this.files : [];
+						
+						if (!files.length || !window.FileReader) { // no file selected, or no FileReader support
+							
+							
+							$("#imagePreview").css("background-image","url('http://via.placeholder.com/350x150')");
+
+						}
+
+						if (/^image/.test(files[0].type)) { // only image file
+							var reader = new FileReader(); // instance of the FileReader
+							reader.readAsDataURL(files[0]); // read the local file
+
+							reader.onloadend = function() { // set image data as background of div
+								$("#imagePreview").css("background-image",
+										"url(" + this.result + ")");
+
+							}
+						}
+
+					});
+
+			$('#imagePreview').click(function() {
+				$('#uploadFile').click();
+			});
+			clearInterval(checkExist);
+		}
+	}, 100);
+}
 
 
 

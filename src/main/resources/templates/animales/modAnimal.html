@@ -86,12 +86,14 @@
 		</div>
 
 
-		<div class="row cajita">
-
-			<div class="col-md-10 offset-1" id="divFormModificar" th:fragment="selectedAnimal">
+		<div class="row cajita" >
+		
+			<div class="col-md-10 offset-1" id="divFormModificar" th:fragment="selectedAnimal" >
 			
 			
 					<th:block th:if="${selectedAnimal != null}">
+					
+					
 					
 				
 					<!-- INPUT NOMBRE ANIMAL -->
@@ -208,11 +210,15 @@
 					<!-- INPUT FOTO ANIMAL -->
 
 					<div class="form-group row">
+					
+		
 						<label class="col-sm-2 col-form-label" for="file">Foto</label>
 						<div class="col-sm-10">
-
-							<div id="imagePreview" src="http://via.placeholder.com/350x150" alt="placeholder image goes here"></div>
-						<input id="uploadFile" type="file" name="file" class="form-control-file img" required />	
+                         
+							<div id="imagePreview" src="http://via.placeholder.com/350x150" alt="placeholder image goes here" 
+							th:styleappend="'background:url(' + @{'/imagenes/animales/' + ${selectedAnimal.getFoto()}} + ');'"
+							></div>
+						<input id="uploadFile" type="file" name="file" class="form-control-file img"  />	
 							<div class="invalid-feedback">Ningún archivo seleccionado</div>
 							<!-- id="validatedCustomFile" -->
 							

@@ -169,7 +169,7 @@ public class AnimalController {
 	}
 	
 	@RequestMapping("/animalid")
-	public String getAnimalByID(@RequestParam(name = "id", required = false) int idAnimal, Model model) {
+	public String getAnimalByID(@RequestParam(name = "id", required = false) int idAnimal, Model model, RedirectAttributes redirectAttributes) {
 
 		
 		Esterilizado[] opcionesEsterilizado = Esterilizado.values();
@@ -184,8 +184,8 @@ public class AnimalController {
 		
 		if (animal.isPresent()) {
 			model.addAttribute("selectedAnimal", animal.get());
-	} else {
-	    // ERROR?
+	} else { 
+		redirectAttributes.addFlashAttribute("message","No se pudo encontrar el animal"); //Esto nunca debería pasar en condiciones normales
 	}
 		
 		

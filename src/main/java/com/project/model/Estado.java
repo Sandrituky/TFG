@@ -2,7 +2,7 @@ package com.project.model;
 
 public enum Estado {
 	EN_ADOPCION("En adopción","Cancelar adopción"),
-	RESERVADO("Reservado","Adios"),
+	RESERVADO("Reservado","Reservar"),
 	ADOPTADO("Adoptado","Aceptar adopción");
 	
 	
