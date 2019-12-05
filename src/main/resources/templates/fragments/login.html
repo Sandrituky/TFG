@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<div th:fragment="login" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<div  th:fragment="login" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 	<!--  <th:block th:if="${authUser != null}">  Otra manera de hacerlo-->
 	<th:block sec:authorize="isAuthenticated()" >
@@ -23,8 +23,8 @@
 		
 		<th:block sec:authorize="hasAuthority('ADMIN')">
 		<form th:action="@{/logout}" method="post">
-		<th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span style="color:purple; font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
-			<input  type="submit" value="Cerrar Sesion"  class="btn btn-outline-success my-2 my-sm-0" />
+		<th:block  navbar-collapse collapse justify-content-between ><span class="white-text">!Hola</span><span class="red-text" style="font-weight:bold" th:text="${authUser.nombre}"></span><span class="white-text">!</span></th:block>
+			<input  type="submit" value="Cerrar Sesion"  class="btn btn-md btn-danger m-0 px-3" />
 		</form>
 		</th:block>
 		
@@ -36,11 +36,13 @@
 		<form th:action="@{/login}" method="post"
 			class="form-inline my-2 my-lg-0">
 			<a th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
-			<input class="form-control mr-sm-2" type="text" name="loginEmail"
-				placeholder="Usuario" aria-label="Usuario"> <input
-				class="form-control mr-sm-2" type="password" name="loginPassword"
+			
+			<input class="form-control mr-sm-2" type="text" name="loginEmail" 
+				placeholder="Usuario" aria-label="Usuario"> 
+				
+				<input class="form-control mr-sm-2" type="password" name="loginPassword"
 				placeholder="Contraseña" aria-label="password">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Iniciar
+			<button class="btn btn-md btn-success m-0 px-3" type="submit">Iniciar
 				sesión</button>
 
 		</form>

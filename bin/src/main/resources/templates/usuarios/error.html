@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/main_layout}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>App</title>
+</head>
+<div layout:fragment="content" class="container">
+	<h3>Ha ocurrido un error</h3>
+	<ul>
+	  <li>Puede que la página a la que intentas acceder no exista</li>
+	  <li>No tienes suficientes permisos para ver esta página</li>
+	</ul>	
+	<a th:href="@{/}">Volver a inicio</a>
+</div>
+</html>

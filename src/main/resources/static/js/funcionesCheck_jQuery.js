@@ -316,7 +316,6 @@ function loadFormModificar() {
 						
 						if (!files.length || !window.FileReader) { // no file selected, or no FileReader support
 							
-							
 							$("#imagePreview").css("background-image","url('http://via.placeholder.com/350x150')");
 
 						}
@@ -336,6 +335,8 @@ function loadFormModificar() {
 
 			$('#imagePreview').click(function() {
 				$('#uploadFile').click();
+				$("#imagePreview").css("background-image","url('http://via.placeholder.com/350x150')");
+				$("#uploadFile").prop('required',true);
 			});
 			clearInterval(checkExist);
 		}

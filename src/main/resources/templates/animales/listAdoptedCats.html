@@ -10,7 +10,7 @@
 		<main role="main">
 			<div class="album py-3 bg-light">
 
-				<div class="container">
+
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
@@ -40,26 +40,26 @@
 										<p class="card-text" th:text="${animal.descripcion}"></p>
 
 										
-										<th:block th:if="${animal.esterilizado == esterilizados.SI}">
-											Esterilizado.
-   										</th:block>
-										<th:block
-											th:if="${animal.esterilizado == esterilizados.PENDIENTE}">
-   											Esterilización pendiente.
-   											
-   										</th:block><br/><br/>
-										<div class="d-flex justify-content-between align-items-center">
-											<p th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
-											<small class="text-muted" th:text="${animal.getFnacSpanish()}">9 mins</small>
-										</div>
-										
+										<p class="card-text" th:text="${animal.esterilizado.getDisplayName()}"></p>
+									
+											<p class="card-text" th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
+									
+						
 									</div>
+									<div style="text-align:center;" class="card-footer alert-primary" th:if="${authUser.getId() != animal.owner.getId()}">
+										<h5 style="display:inline" th:text="${animal.estado.getDisplayName()}"></h5>
+										<span>(por </span><b  th:text="${animal.owner.getNombre()}"></b><span>)</span>
+									</div >
+									<div style="text-align:center;"  class="card-footer alert-success" th:if="${authUser.getId() == animal.owner.getId()}">
+										<h5 style="display:inline" th:text="${animal.estado.getDisplayName()}"></h5>
+										<span>(por usted, </span><b  th:text="${animal.owner.getNombre()}"></b><span>)</span>
+									</div >
 								</div>
 							</div>
 
 						</th:block>
 					</div>
-				</div>
+
 			</div>
 
 		</main>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:layout="http://www.thymeleaf.org"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="caja" layout:fragment="content" class="container caja">
+		<main role="main">
+			<div class="album py-3 bg-light">
+
+				<div class="container">
+
+					<div class="row">
+						<th:block th:each="animal : ${animales}">
+							<div class="col-md-4">
+								<div class="card mb-4 box-shadow">
+									<form th:action="@{/animales/reservar-submit}"
+										th:object="${animal}" method="post">
+										<div class="card-header">
+											<h5>
+												<th:block th:text="${animal.nombre}"></th:block>
+
+												<th:block th:switch="${animal.sexo}">
+													<small class="float-right" th:case="${sexos.MACHO}">♂️
+													</small>
+													<small class="float-right" th:case="${sexos.HEMBRA}">♀️
+													</small>
+												</th:block>
+												<small class="float-right" th:text="${animal.getEdad()}"></small>
+											</h5>
+											<small class="float-right"
+												style="margin-top: -14px; margin-bottom: -5px"
+												th:text="${animal.getFnacSpanish()}"></small>
+
+										</div>
+										<div class="card-body">
+											<img class="card-img-top"
+												th:src="@{'/imagenes/animales/' + ${animal.foto}}"
+												alt="Card image cap">
+											<p>
+												<b>Raza: </b><span th:text="${animal.raza}"></span>
+											</p>
+											<p class="card-text" th:text="${animal.descripcion}"></p>
+											<p class="card-text" th:text="${animal.esterilizado.getDisplayName()}"></p>
+											<div class="d-flex justify-content-between align-items-center">
+												<p th:text="${animal.poblacion} + ' (' + ${animal.provincia.provincia} + ')'"></p>
+												<div sec:authorize="hasAuthority('USER')">
+													<button type="submit" class="btn btn-success float"
+														id="botonReservar">Reservar</button>
+												</div>
+											</div>
+											<small class="text-muted intPubli" th:text="${animal.getIntervaloPublicacion()}"></small>
+											<input type="hidden" th:name="id" th:value=${animal.id}>
+										</div>
+										
+
+									</form>
+								</div>
+							</div>
+
+						</th:block>
+					</div>
+				</div>
+			</div>
+
+		</main>
+	</div>
+</body>
+</html>

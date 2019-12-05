@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Modificar animal</title>
+</head>
+<body>
+
+	<div id="caja" layout:fragment="content" class="container caja">
+
+
+		<div class="row">
+			<div class="col-md-6 offset-3">
+				<h2 class="text-center">Modificar animal</h2>
+				<hr>
+			</div>
+		</div>
+
+
+
+<form th:action="@{/animales/modAnimal-submit}" id="formModAnimal"
+					th:object="${selectedAnimal}" method="post" enctype="multipart/form-data"
+					class="was-validated" >
+					
+					
+		<div class="row" >
+			<div class="col-md-9 offset-1" >
+
+
+					<div class="form-group row" id="formPreModAnimal">
+
+						<!-- INPUT TIPO DE ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Animal</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:name="selectTipo" th:id="selectTipo1"  th:value="PERRO"
+									class="form-check-input"  /> <label
+									class="form-check-label">🐕</label>
+							</div>
+
+							<div class="form-check">
+								<input type="radio" th:name="selectTipo" th:id="selectTipo2"  th:value="GATO"
+									class="form-check-input" /> <label
+									class="form-check-label">🐈</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT SEXO DEL ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Sexo</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:name="selectSexo" th:id="selectSexo1" th:value="MACHO"
+									class="form-check-input"  /> <label
+									class="form-check-label">♂️</label>
+							</div>
+							<div class="form-check">
+								<input type="radio" th:name="selectSexo" th:id="selectSexo1" th:value="HEMBRA"
+									class="form-check-input"  /> <label
+									class="form-check-label">♀️</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT SELECT ANIMAL -->
+
+
+						<label class="col-sm-1 col-form-label" for="selectAnimal">Animal</label>
+						<div class="col-sm-7" >
+							<select th:fragment="animales" id="selectAnimal" name="id" required
+								class="form-control">
+								<option value="" selected="selected">Selecciona animal</option>
+								<option th:each="i : ${animales}"
+									th:text="${i.emojiTipo} + ' ' + ${i.emojiSexo} + ' - ' + ${i.nombre} + ' - ' + ${i.raza} + ' - ' + ${i.provincia.provincia} + '  (' + ${i.poblacion} + ')'"
+									th:value="${i.id}"></option>
+							</select>
+
+						</div>
+					
+					</div>
+					
+			</div>
+		</div>
+
+
+		<div class="row cajita" >
+		
+			<div class="col-md-10 offset-1" id="divFormModificar" th:fragment="selectedAnimal" >
+			
+			
+					<th:block th:if="${selectedAnimal != null}">
+					
+					
+					
+				
+					<!-- INPUT NOMBRE ANIMAL -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="nombre">Nombre</label>
+						<div class="col-sm-10">
+							<input type="text" th:name="nombre"  th:value="${selectedAnimal.getNombre()}"  class="form-control"
+								placeholder="Nombre del animal" required minlength=3
+								maxlength=50 />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+
+						<!-- INPUT TIPO DE ANIMAL -->
+
+						<label class="col-sm-2 col-form-label">Animal</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:name="tipo" th:value="${selectedAnimal.tipo.PERRO}"  th:checked="${selectedAnimal.getTipo()} == ${selectedAnimal.tipo.PERRO}"
+									class="form-check-input" required > <label class="form-check-label">🐕</label>
+							</div>
+
+							<div class="form-check">
+								<input type="radio" th:name="tipo" th:value="${selectedAnimal.tipo.GATO}" th:checked="${selectedAnimal.getTipo()} == ${selectedAnimal.tipo.GATO}"
+									class="form-check-input" required > <label class="form-check-label">🐈</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT SEXO DEL ANIMAL -->
+
+						<label class="col-sm-1 col-form-label">Sexo</label>
+						<div class="col-sm-1">
+							<div class="form-check">
+								<input type="radio" th:name="sexo" th:value="${selectedAnimal.sexo.MACHO}" th:checked="${selectedAnimal.getSexo()} == ${selectedAnimal.sexo.MACHO}"
+									class="form-check-input" required > <label class="form-check-label">♂️</label>
+							</div>
+							<div class="form-check">
+								<input type="radio" th:name="sexo" th:value="${selectedAnimal.sexo.HEMBRA}" th:checked="${selectedAnimal.getSexo()} == ${selectedAnimal.sexo.HEMBRA}"
+									class="form-check-input" required > <label class="form-check-label">♀️</label>
+							</div>
+
+						</div>
+
+						<!-- INPUT RAZA -->
+
+						<label class="col-sm-1 col-form-label" for="nombre">Raza</label>
+						<div class="col-sm-6">
+							<input type="text" th:name="raza" th:value="${selectedAnimal.getRaza()}" class="form-control"
+								placeholder="Raza del animal" required minlength=3 maxlength=100 />
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+
+						<!-- INPUT FECHA DE NACIMIENTO -->
+
+						<label class="col-sm-2 col-form-label" for="fnac">Fecha de
+							nacimiento</label>
+						<div class="col-sm-4">
+							<input type="date" th:name="fnac" th:id="fnac" th:value="${selectedAnimal.getFnac()}" class="form-control"
+								min="1990-01-01" required />
+						</div>
+
+						<!-- INPUT ESTERILIZADO -->
+
+						<label class="col-sm-2 col-form-label">Esterilizado</label>
+						<div class="col-sm-4">
+							<th:block th:each="i : ${esterilizados}">
+								<div class="form-check">
+									<input type="radio" th:name="esterilizado" th:id="'esterilizado'+${iStat.index+1}" required
+										th:value="${i}" class="form-check-input" th:checked="${selectedAnimal.getEsterilizado() == i}" > <label
+										class="form-check-label" th:for="'esterilizado'+${iStat.index+1}"
+										th:text="${#strings.capitalize(#strings.toLowerCase(i))}">Esterilizado</label>
+								</div>
+							</th:block>
+
+						</div>
+
+
+					</div>
+
+					<div class="form-group row">
+
+						<!-- INPUT PROVINCIA ANIMAL -->
+
+						<label class="col-sm-2 col-form-label" for="provincia">Provincia</label>
+						<div class="col-sm-4">
+								<select id="provincia" name="provincia.id" required class="form-control">
+									<option th:each="i : ${provincias}" th:text="${i.provincia}" th:value="${i.id}" 
+									th:selected="${selectedAnimal.getProvincia().getId() == i.id}">
+								</select>
+
+								<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
+							<option th:each="i : ${provincias}" th:text="${i.toString()}"
+								th:value="${i}"></option></select></td>-->
+
+						</div>
+
+						<!-- INPUT POBLACION ANIMAL -->
+
+						<label class="col-sm-2 col-form-label" for="fnac">Población</label>
+						<div class="col-sm-4">
+							<input type="text" th:name="poblacion" th:value="${selectedAnimal.getPoblacion()}" class="form-control"
+								required minlenght=2 maxlength=50 />
+						</div>
+					</div>
+
+
+
+					<!-- INPUT FOTO ANIMAL -->
+
+					<div class="form-group row">
+					
+		
+						<label class="col-sm-2 col-form-label" for="file">Foto</label>
+						<div class="col-sm-10">
+                         
+							<div id="imagePreview" src="http://via.placeholder.com/350x150" alt="placeholder image goes here" 
+							th:styleappend="'background:url(' + @{'/imagenes/animales/' + ${selectedAnimal.getFoto()}} + ');'"
+							></div>
+						<input id="uploadFile" type="file" name="file" class="form-control-file img"  />	
+							<div class="invalid-feedback">Ningún archivo seleccionado</div>
+							<!-- id="validatedCustomFile" -->
+							
+						</div>
+
+					</div>
+
+					<!-- INPUT DESCRIPCION ANIMAL -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" for="descripcion">Descripción</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" required rows="5" cols="50"
+								th:name="descripcion" minlength=50 maxlength=255
+								th:text="${selectedAnimal.getDescripcion()}" th:value="${selectedAnimal.getDescripcion()}"
+								placeholder="Historia, personalidad, enfermedades, comportamiento con otras mascotas"></textarea>
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<div class="col-sm-12">
+							<button type="submit" class="btn btn-success float-right"
+								id="botonUpdateAnimal">Actualizar</button>
+						</div>
+					</div>
+
+					
+					
+					</th:block>
+					
+				
+				
+			</div>
+			
+		</div>
+		<div th:if="${message}" th:text="${message}"
+						th:class="${'alert ' + alertClass}" ></div>
+		</form>
+	</div>
+
+</body>
+</html>

@@ -57,11 +57,11 @@ public class AdopcionesController {
 		
 		
 
-		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION && numReservas <= 3) {
+		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION && numReservas < 3) {
 			currentAnimal.setOwner(usuario);
 			currentAnimal.setEstado(Estado.RESERVADO);
 			animalesRepo.save(currentAnimal);
-		}else if(numReservas>3) {
+		}else if(numReservas>=3) {
 			redirectAttributes.addFlashAttribute("message",
 					"Como máximo puedes reservar 3 animales");
 		}else {

@@ -2,9 +2,9 @@
 <div th:fragment="listAllAnimales" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 		<main role="main">
-			<div class="album py-3 bg-light">
+			<div class="album py-3 bg-light container">
 
-				<div class="container">
+			
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
@@ -65,7 +65,7 @@
 
 						</th:block>
 					</div>
-				</div>
+			
 			</div>
 
 		</main>

@@ -48,17 +48,18 @@
 										<small class="text-muted intPubli"
 											th:text="${animal.getIntervaloPublicacion()}"></small>
 									</div>
-									<div sec:authorize="hasAuthority('USER')">
-					<button type="submit" class="btn btn-danger	 float" id="botonCancelarReserva">Cancelar reserva</button>
-					</div>
-									<div class="card-footer alert-danger">
+										<div style="text-align: center" class="card-footer alert-danger" sec:authorize="hasAuthority('USER')"
+											th:if="${authUser.getId() == animal.owner.getId()}">
+											<button type="submit" class="btn btn-danger	 float" id="botonCancelarReserva">Cancelar reserva</button>
+										</div>
+										<div class="card-footer alert-danger" th:if="${authUser.getId() != animal.owner.getId()}">
 										<h5 style="text-align:center"><th:block th:text="${animal.estado.getDisplayName()}"></th:block></h5>
-									</div>
+									</div >
 									<input type="hidden" th:name="id" th:value=${animal.id}>
 									</form>
 								</div>
 							</div>
-th:if="${authUser != null}"
+
 						</th:block>
 					</div>
 				</div>

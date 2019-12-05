@@ -1,0 +1,63 @@
+            <meta charset="UTF-8">
+<header th:fragment="header" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <a class="navbar-brand" href="#">Protectora</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-principal" aria-controls="menu-principal" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="menu-principal">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-perros" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Perros
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/animales/listAdoptableDogs}">En adopción</a>
+          <a class="dropdown-item" th:href="@{/animales/listReservedDogs}">Reservados</a>
+          <a class="dropdown-item" th:href="@{/animales/listAdoptedDogs}">Adoptados</a>
+        </div>
+      </li>
+      
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-gatos" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gatos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/animales/listAdoptableCats}">En adopción</a>
+          <a class="dropdown-item" th:href="@{/animales/listReservedCats}">Reservados</a>
+          <a class="dropdown-item" th:href="@{/animales/listAdoptedCats}">Adoptados</a>
+        </div>
+      </li>
+      
+      <li  sec:authorize="hasAuthority('ADMIN')" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="menu-gestion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gestión
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" th:href="@{/animales/altaAnimal}">Alta</a>
+          <a class="dropdown-item" th:href="@{/animales/bajaAnimal}">Baja</a>
+          <a class="dropdown-item" th:href="@{/animales/modAnimal}">Modificar</a>
+        </div>
+      </li>
+            
+      <li class="nav-item">
+        <a class="nav-link" href="#">Ejemplo</a>
+      </li>
+      
+      
+      </ul>
+
+<th:block th:include="fragments/login.html :: login">
+        </th:block>
+
+</div>
+</nav>
+	
+</header>
+

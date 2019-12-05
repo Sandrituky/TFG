@@ -92,7 +92,10 @@ public class AnimalController {
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
 			// la ruta ahora es "imagenes/animales" justo despues de la raiz
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
+			//String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
+			String workingDir = System.getProperty("user.dir");
+			String path= workingDir +"\\imagenes\\animales\\"+nombreImagen;
+
 
 			try {
 				// Guardamos la imagen en base64 en un archivo
@@ -214,7 +217,8 @@ public class AnimalController {
 			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 
 
-			String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
+			String workingDir = System.getProperty("user.dir");
+			String path= workingDir +"\\imagenes\\animales\\"+nombreImagen;
 
 			try {
 				new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));

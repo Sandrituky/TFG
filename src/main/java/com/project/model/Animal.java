@@ -335,6 +335,14 @@ public class Animal {
 	}
 	
 	
+	public void setFechaAlta(String fechaAlta) { //convierte String en LocalDate
+		this.fechaAlta = LocalDateTime.parse(fechaAlta);
+	}
+
+	public String getFechaAlta() { //Convierte LocalDate en String
+		return fechaAlta.toString();
+	}
+	
 	public String getIntervaloPublicacion() {
 		LocalDate fechaAltaDate = fechaAlta.toLocalDate(); 
 		Period periodo = Period.between(fechaAltaDate, LocalDate.now());
