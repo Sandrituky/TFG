@@ -8,11 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="caja" layout:fragment="content" class="container caja">
-		<main role="main">
-			<div class="album py-3 bg-light">
+	<main role="main" layout:fragment="content" class="vertical-align my-7">
 
-				<div class="container">
+				<div class="album caja">
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
@@ -65,9 +63,9 @@
 						</th:block>
 					</div>
 				</div>
-			</div>
+
 
 		</main>
-	</div>
+
 </body>
 </html>

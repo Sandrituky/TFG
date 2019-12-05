@@ -7,7 +7,10 @@
 </head>
 <body>
 
-	<div id="caja" layout:fragment="content" class="container caja">
+	<main role="main" layout:fragment="content" class="vertical-align my-7">
+
+
+	<div class="container caja">
 
 
 		<div class="row">
@@ -22,15 +25,7 @@
 			<div class="col-md-12 offset-0">
 			
 			<table class="table table-striped table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Foto</th>
-      <th scope="col">Animal</th>
-      <th scope="col">Usuario</th>
-      <th scope="col">Solicitud</th>
-      <th scope="col">Guardar</th>
-    </tr>
-  </thead>
+
   <tbody th:each="animal : ${animales}">
     
     <form th:action="@{/animales/bajaAnimal-submit}" th:object="${animal}" method="post">
@@ -41,7 +36,7 @@
       <div class="estiloTipo" th:text="${animal.emojiTipo}"></div>  <div class="estiloSexo" th:text="${animal.emojiSexo}"></div>
       </div></td>
 	
-      <td th:text="${'Nombre: ' + animal.getNombre()}"></td>
+      <td class="text-left" th:text="${'Nombre: ' + animal.getNombre()}"></td>
 	
       <td rowspan="4" th:text="${animal.owner.nombre} + ' ' + ${animal.owner.apellidos}"></td>
       
@@ -59,13 +54,13 @@
       <td rowspan="4"><button type="submit" class="btn btn-success float-right" id="botonGestionarAdopcion">Guardar</button></td>
       </tr>
       <tr>
-      <td  th:text="${'Raza: ' + animal.getRaza()}"></td>
+      <td class="text-left" th:text="${'Raza: ' + animal.getRaza()}"></td>
       </tr>
       <tr>
-      <td th:text="${'Fecha de nacimiento: ' + animal.getFnacSpanish()}"></td>
+      <td class="text-left" th:text="${'Nacimiento: ' + animal.getFnacSpanish()}"></td>
       </tr>
       <tr>
-      <td th:text="${'Esterilizado: ' + animal.esterilizado.getDisplayName2()}"></td>
+      <td class="text-left" th:text="${'Esterilizado: ' + animal.esterilizado.getDisplayName2()}"></td>
       </tr>
       
 	</form>
@@ -76,7 +71,8 @@
 			
 			</div>
 		</div>
-	</div>
+		</div>
+	</main>
 
 </body>
 </html>

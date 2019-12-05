@@ -6,11 +6,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="caja" layout:fragment="content" class="container caja">
-		<main role="main">
-			<div class="album py-3 bg-light">
+	<main role="main" layout:fragment="content" class="vertical-align my-7">
+	
 
-				<div class="container">
+
+					<div class="album caja">
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
@@ -48,23 +48,25 @@
 										<small class="text-muted intPubli"
 											th:text="${animal.getIntervaloPublicacion()}"></small>
 									</div>
-									<div style="text-align:center" class="card-footer alert-danger" sec:authorize="hasAuthority('USER')" th:if="${authUser.getId() == animal.owner.getId()}">
-									<button type="submit"  class="btn btn-danger	 float" id="botonCancelarReserva">Cancelar reserva</button>
-									</div>
-									<div class="card-footer alert-danger" th:if="${authUser == null or authUser.getId() != animal.owner.getId()}">
+										<div style="text-align: center" class="card-footer alert-danger" sec:authorize="hasAuthority('USER')"
+											th:if="${authUser.getId() == animal.owner.getId()}">
+											<button type="submit" class="btn btn-danger	 float" id="botonCancelarReserva">Cancelar reserva</button>
+										</div>
+										<div class="card-footer alert-danger" th:if="${authUser == null or authUser.getId() != animal.owner.getId()}">
 										<h5 style="text-align:center"><th:block th:text="${animal.estado.getDisplayName()}"></th:block></h5>
 									</div >
 									<input type="hidden" th:name="id" th:value=${animal.id}>
 									</form>
+									
 								</div>
 							</div>
 
 						</th:block>
 					</div>
 				</div>
-			</div>
+			
 
 		</main>
-	</div>
+	
 </body>
 </html>

@@ -6,10 +6,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<main role="main" layout:fragment="content" style="background-color:red">
+	<main role="main" layout:fragment="content" class="vertical-align my-7">
+	
 
-			<div class="album py-3 caja">
-
+			<div class="album caja">
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
 							<div class="col-md-4">
@@ -44,11 +44,11 @@
 									
 						
 									</div>
-									<div style="text-align:center;" class="card-footer alert-primary" th:if="${authUser.getId() != animal.owner.getId()}">
+									<div style="text-align:center;" class="card-footer alert-primary" th:if="${authUser == null or authUser.getId() != animal.owner.getId()}">
 										<h5 style="display:inline" th:text="${animal.estado.getDisplayName()}"></h5>
 										<span>(por </span><b  th:text="${animal.owner.getNombre()}"></b><span>)</span>
 									</div >
-									<div style="text-align:center;"  class="card-footer alert-success" th:if="${authUser.getId() == animal.owner.getId()}">
+									<div style="text-align:center;"  class="card-footer alert-success" th:if="${authUser != null and authUser.getId() == animal.owner.getId()}">
 										<h5 style="display:inline" th:text="${animal.estado.getDisplayName()}"></h5>
 										<span>(por usted, </span><b  th:text="${animal.owner.getNombre()}"></b><span>)</span>
 									</div >

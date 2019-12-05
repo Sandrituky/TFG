@@ -7,7 +7,8 @@
 
 </head>
 <body>
-<main role="main" layout:fragment="content">
+<main role="main" layout:fragment="content" class="vertical-align my-7">
+
 	<div class="container caja">
 
 
@@ -19,7 +20,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-9 offset-1">
+			<div class="col-md-10 offset-1">
 
 				<form th:action="@{/animales/altaAnimal-submit}"
 					th:object="${animal}" method="post" enctype="multipart/form-data"

@@ -6,7 +6,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div id="caja" layout:fragment="content" class="container caja">
+<main role="main" layout:fragment="content" class="vertical-align my-7">
+
+	<div class="container caja">
+
 		<div class="row">
 			<div class="col-md-6 offset-3">
 				<h2 class="text-center">Mis reservas</h2>
@@ -14,10 +17,10 @@
 			</div>
 		</div>
 	
-		<main role="main">
-			<div class="album py-3 bg-light">
 
-				<div class="container">
+
+
+
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">
@@ -72,9 +75,10 @@
 		</th:block>
 	</div>
 </div>
-</div>
 
-		</main>
-	</div>
+
+	
+
+	</main>
 </body>
 </html>

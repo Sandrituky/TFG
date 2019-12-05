@@ -7,7 +7,12 @@
 </head>
 <body>
 
-	<div id="caja" layout:fragment="content" class="container caja">
+	<main role="main" layout:fragment="content" class="vertical-align my-7">
+
+
+
+
+	<div id="caja" class="container caja">
 
 
 		<div class="row">
@@ -86,7 +91,7 @@
 		</div>
 
 
-		<div class="row cajita" >
+		<div class="row cajita"   >
 		
 			<div class="col-md-10 offset-1" id="divFormModificar" th:fragment="selectedAnimal" >
 			
@@ -256,10 +261,11 @@
 			</div>
 			
 		</div>
-		<div th:if="${message}" th:text="${message}"
-						th:class="${'alert ' + alertClass}" ></div>
+			<div th:if="${message}" th:text="${message}"
+							th:class="${'alert ' + alertClass}" ></div>
 		</form>
 	</div>
+	</main>
 
 </body>
 </html>
