@@ -23,7 +23,12 @@ public class AuthUserController { //GlobalControllerAdvice
 	public void sendAuthUserToView(Model model) {
 		model.addAttribute("authUser", this.getAuthUser());
 		
+		   System.out.println(this.getAuthUser());
+		 
+		
 	}
+	
+	
 	
 	public Usuario getAuthUser() { //devuelve el usuario logeado
 		Usuario usuario = null;
