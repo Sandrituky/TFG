@@ -79,23 +79,23 @@ public class AnimalController {
 				try {
 
 					animalesRepo.save(animal);
-					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.").addFlashAttribute("result","success");;
 				} catch (Exception e) {
 					redirectAttributes.addFlashAttribute("message",
-							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
+							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");;
 				}
 			} else if (animal.checkFnac(animal.getFnac()) == false) {
-				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida").addFlashAttribute("result","danger");;
 
 			} else {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
+						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");;
 			}
 
 		}else if(!FuncionesImagenes.hasRightSize(file)) {
-			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).");
+			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");;
 		}else {
-			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen");
+			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen").addFlashAttribute("result","danger");;
 		}
 
 		return new RedirectView("altaAnimal");
@@ -153,7 +153,7 @@ public class AnimalController {
 		if (animal.isPresent()) {
 			model.addAttribute("selectedAnimal", animal.get());
 	} else { 
-		redirectAttributes.addFlashAttribute("message","No se pudo encontrar el animal"); //Esto nunca debería pasar en condiciones normales
+		redirectAttributes.addFlashAttribute("message","No se pudo encontrar el animal").addFlashAttribute("result","danger"); //Esto nunca debería pasar en condiciones normales
 	}
 		
 		
@@ -170,23 +170,24 @@ public class AnimalController {
 				try {
 
 					animalesRepo.save(animal);
-					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.").addFlashAttribute("result","success");
 				} catch (Exception e) {
 					redirectAttributes.addFlashAttribute("message",
-							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
+							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
+					
 				}
 			} else if (animal.checkFnac(animal.getFnac()) == false) {
-				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida").addFlashAttribute("result","danger");
 
 			} else {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
+						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
 			}
 			
 		}else if(!FuncionesImagenes.hasRightSize(file)) {
-			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).");
+			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");
 		}else {
-			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen");
+			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen").addFlashAttribute("result","danger");
 		}
 		
 	

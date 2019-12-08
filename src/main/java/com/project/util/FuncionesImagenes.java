@@ -24,9 +24,6 @@ public class FuncionesImagenes {
 	private static long maxFileSize=8192000;
 	private static long maxRequestSize= 8192000;
 	
-	@Autowired
-	private IAnimalRepository animalesRepo;
-
 	public static boolean isValidImage(MultipartFile file) throws IOException {
 
 		String extensionImagen = FilenameUtils.getExtension(file.getOriginalFilename());

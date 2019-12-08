@@ -14,7 +14,8 @@
 				</b><h2 class="text-center"><b>Registrar Animal</b></h2>
 				<hr>
 			</div>
-
+<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + result}"></div>
 
 	<div class="caja">
 
@@ -176,11 +177,6 @@
 								id="botonAlta">Guardar</button>
 						</div>
 					</div>
-
-					<div th:if="${message}" th:text="${message}"
-						th:class="${'alert ' + alertClass}"></div>
-
-
 
 
 				</form>

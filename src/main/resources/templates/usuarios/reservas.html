@@ -6,21 +6,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<main role="main" layout:fragment="content" class="vertical-align my-7">
+	<main role="main" layout:fragment="content" class="my-7">
+
+<div class="titulo">
+			</b><h2 class="text-center"><b>Mis animales reservados</b></h2>
+			<hr>
+		</div>
 
 	<div class="container caja">
-
-		<div class="row">
-			<div class="col-md-6 offset-3">
-				<h2 class="text-center">Mis reservas</h2>
-				<hr>
-			</div>
-		</div>
-	
-
-
-
-
 
 					<div class="row">
 						<th:block th:each="animal : ${animales}">

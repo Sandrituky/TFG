@@ -17,6 +17,9 @@
 			</h2>
 			<hr>
 		</div>
+		
+		<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + result}"></div>
 
 		<div id="caja" class=" caja">
 
@@ -285,8 +288,7 @@
 					</div>
 
 				</div>
-				<div th:if="${message}" th:text="${message}"
-					th:class="${'alert ' + alertClass}"></div>
+				
 			</form>
 		</div>
 	</main>

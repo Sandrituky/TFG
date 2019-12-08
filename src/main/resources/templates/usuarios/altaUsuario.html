@@ -10,16 +10,14 @@
 
 </head>
 <body>
-<main role="main" layout:fragment="content" class="vertical-align my-7">
+	<main role="main" layout:fragment="content" class="my-7">
 
-	<div class="container caja">
-
-		<div class="row">
-			<div class="col-md-6 offset-3">
-				<h2 class="text-center">Registrarse</h2>
-				<hr>
-			</div>
+<div class="titulo">
+			</b><h2 class="text-center"><b>Registrarse</b></h2>
+			<hr>
 		</div>
+
+	<div class="caja" style="font-weight:400 ">
 
 		<form th:action="@{/usuarios/altaUsuario-submit}"
 			th:object="${usuario}" method="post" class="was-validated">
@@ -30,7 +28,7 @@
 						id="email" placeholder="Email" required >
 				</div>
 
-				<div class="form-group col-md-4">
+				<div class=hghghgh"form-group col-md-4">
 					<label for="password1">Contraseña</label> <input
 						type="password" class="form-control" th:field="*{password}"
 						id="password1" minlength=8 maxlength=20 required

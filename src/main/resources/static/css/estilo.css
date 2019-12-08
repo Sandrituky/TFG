@@ -27,6 +27,13 @@ footer.page-footer{
  
  }
  
+ #mensaje{
+  margin:20px auto;
+  min-width:55%;
+    max-width:55%;
+    text-align:center;
+ }
+ 
  .titulo{
  margin:20px auto;
   min-width:55%;
@@ -44,7 +51,7 @@ footer.page-footer{
 	border-radius: 10px;
 	min-height: 50%;
 	min-height: 50vh;
-	margin: auto;
+	margin: 20px auto;
 	padding: 20px 30px 20px 30px;
 
 

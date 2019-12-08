@@ -19,3 +19,7 @@ function check(input) { // comprueba que las contraseñas coincidan
 
 
 
+
+setTimeout(function() {
+    $('#mensaje').fadeOut('slow');
+}, 2000); // <-- time in milliseconds
