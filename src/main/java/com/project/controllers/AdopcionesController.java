@@ -93,7 +93,7 @@ public class AdopcionesController {
 		return new RedirectView("../"); 
 	}
 	
-	@GetMapping("/bajaAnimal")
+	@GetMapping("/manageAnimal")
 	public String pagBaja(Model model) {
 		
 
@@ -105,10 +105,10 @@ public class AdopcionesController {
 		model.addAttribute("estados", opcionesEstado);
 
 
-		return "animales/bajaAnimal";
+		return "animales/manageAnimal";
 	}
 	
-	@PostMapping("/bajaAnimal-submit")
+	@PostMapping("/manageAnimal-submit")
 	public String cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
 			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model, RedirectAttributes redirectAttributes) {
 		
@@ -131,7 +131,7 @@ public class AdopcionesController {
 						"Se ha producido un error.");
 			}
 		
-		return "animales/bajaAnimal";
+		return "animales/manageAnimal";
 	}
 	
 

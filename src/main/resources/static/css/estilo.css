@@ -26,10 +26,16 @@ footer.page-footer{
  background-color:rgba(0,0,0,0.8);
  
  }
+ 
+ .titulo{
+ margin:20px auto;
+  min-width:55%;
+    max-width:55%;
+ }
 
 .caja {
-    min-width:75%;
-    max-width:85%;
+    min-width:55%;
+    max-width:55%;
     background-color:#eeeeee;
     text-align: left;
     background-repeat:no-repeat;
@@ -38,7 +44,7 @@ footer.page-footer{
 	border-radius: 10px;
 	min-height: 50%;
 	min-height: 50vh;
-	margin: 20px 0px;
+	margin: auto;
 	padding: 20px 30px 20px 30px;
 
 

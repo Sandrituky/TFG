@@ -1,5 +1,6 @@
 package com.project.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,22 +15,20 @@ import org.springframework.ui.Model;
 import com.project.model.Animal;
 import com.project.model.Provincia;
 import com.project.model.Tipo;
-import com.project.model.Usuario;
 import com.project.model.Sexo;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
+import com.project.util.FuncionesImagenes;
 
-import java.util.Arrays;
-import java.util.Base64;
+
 import java.util.List;
 import java.util.Optional;
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.util.UUID;
+
 
 @Controller
 @RequestMapping("/animales")
@@ -73,64 +72,30 @@ public class AnimalController {
 	@PostMapping("/altaAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView pageAddSubmit(Animal animal, @RequestParam("file") MultipartFile file, Model model,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		// RedirectView redirecciona a la pagina que le digas
 
-		Boolean result = false;
-
-		// TRATAMIENTO DE SUBIDA DE IMAGEN
-
-		// Guardamos la extension de la imagen y comprobamos que sea alguna de las
-		// especificadas
-		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
-		extensionImagen = extensionImagen.toLowerCase();
-		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
-		
-		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
-			
-			byte[] imageByte=Base64.getEncoder().encode(file.getBytes());
-
-			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
-
-			// la ruta ahora es "imagenes/animales" justo despues de la raiz
-			//String path = "C:\\Users\\svalerop\\Documents\\workspace-sts-3.9.10.RELEASE\\tfg_svp\\imagenes\\animales\\"+nombreImagen;
-			String workingDir = System.getProperty("user.dir");
-			String path= workingDir +"\\imagenes\\animales\\"+nombreImagen;
-
-
-			try {
-				// Guardamos la imagen en base64 en un archivo
-				new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-			
-			result=true;
-
-			// Debemos asignar la variable foto del animal al nombre de la imagen subida.
-			animal.setFoto(nombreImagen);
-
-			// Y finalmente guardamos el objeto animal en la BD
-
-			if ((animal.checkFnac(animal.getFnac()) == true) && result) {
+		if(FuncionesImagenes.isValidImage(file) && FuncionesImagenes.hasRightSize(file)) {
+			animal.setFoto(file);
+			if (((animal.checkFnac(animal.getFnac()) == true))) {
 				try {
+
 					animalesRepo.save(animal);
 					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
 				} catch (Exception e) {
-					result = false;
 					redirectAttributes.addFlashAttribute("message",
 							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
 				}
 			} else if (animal.checkFnac(animal.getFnac()) == false) {
 				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
 
-			} else if (!result) {
-				redirectAttributes.addFlashAttribute("message", "La extensión del archivo no es correcta");
-
 			} else {
 				redirectAttributes.addFlashAttribute("message",
 						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
 			}
 
+		}else if(!FuncionesImagenes.hasRightSize(file)) {
+			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).");
+		}else {
+			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen");
 		}
 
 		return new RedirectView("altaAnimal");
@@ -198,64 +163,33 @@ public class AnimalController {
 	@PostMapping("/modAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView updateAnimal(Animal animal, @RequestParam("file") MultipartFile file, Model model,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		// RedirectView redirecciona a la pagina que le digas
-		
-		
-		Boolean result = false;
 
-		// TRATAMIENTO DE SUBIDA DE IMAGEN
-
-		// Guardamos la extension de la imagen
-		String extensionImagen = file.getOriginalFilename().split("\\.")[1];
-		extensionImagen = extensionImagen.toLowerCase();
-		String[] extensionesValidas = new String[] { "jpg", "png", "jpeg", "gif", "bmp" };
-		
-		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
-
-			byte[] imageByte=Base64.getEncoder().encode(file.getBytes());
-
-			String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
-
-
-			String workingDir = System.getProperty("user.dir");
-			String path= workingDir +"\\imagenes\\animales\\"+nombreImagen;
-
-			try {
-				new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-			
-			result=true;
-
-			animal.setFoto(nombreImagen);
-
-			// Y finalmente guardamos el objeto animal en la BD
-			if ((animal.checkFnac(animal.getFnac()) == true) && result && (animalesRepo.existsById(animal.getId()))) {
+		if(FuncionesImagenes.isValidImage(file) && FuncionesImagenes.hasRightSize(file)) {
+			animal.setFoto(file);
+			if (((animal.checkFnac(animal.getFnac()) == true))) {
 				try {
-					animalesRepo.save(animal);
-					redirectAttributes.addFlashAttribute("message", "El animal se ha actualizado correctamente.");
-				} catch (Exception e) {
-					result = false;
-					redirectAttributes.addFlashAttribute("message",
-							"Se produjo un error al actualizar. Por favor, inténtelo de nuevo.");
-				}
-			} else if(!animalesRepo.existsById(animal.getId())) {
-				redirectAttributes.addFlashAttribute("message", "Se ha producido un error al actualizar el animal"); //esto ocurre cuando trucas la ID desde F12
-				
-			}else if (animal.checkFnac(animal.getFnac()) == false) {
-				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
 
-			} else if (!result) {
-				redirectAttributes.addFlashAttribute("message", "La extensión del archivo no es correcta");
+					animalesRepo.save(animal);
+					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.");
+				} catch (Exception e) {
+					redirectAttributes.addFlashAttribute("message",
+							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
+				}
+			} else if (animal.checkFnac(animal.getFnac()) == false) {
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida");
 
 			} else {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al actualizar el animal. Por favor, inténtelo de nuevo.");
+						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.");
 			}
-
+			
+		}else if(!FuncionesImagenes.hasRightSize(file)) {
+			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).");
+		}else {
+			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen");
 		}
 		
+	
 		
 
 		return new RedirectView("modAnimal");
@@ -346,5 +280,7 @@ public class AnimalController {
 	}
 
 	// ________________________________________-
+	
+	
 
 }

@@ -24,6 +24,7 @@ public interface IAnimalRepository extends JpaRepository<Animal, Integer> {
 	
 	Animal findAnimalById(int id);
 	
+	Animal findAnimalByFoto(String foto);
 	
 	List <Animal> findAllAnimalesByEstado(Estado estado);
 	

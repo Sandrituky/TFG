@@ -1,8 +1,12 @@
 package com.project.model;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.UUID;
 import java.time.Period;
 
 import javax.persistence.CascadeType;
@@ -14,6 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
@@ -81,14 +88,14 @@ public class Animal {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "USUARIO_ID", nullable = true, foreignKey = @ForeignKey(name = "FK_animal_usuario"))
 	private Usuario owner;
-	
+
 	@Column(name = "FECHA_ALTA")
 	private LocalDateTime fechaAlta;
-	
-	@Transient //no está mapeado en la BD
+
+	@Transient // no está mapeado en la BD
 	private String emojiTipo;
-	
-	@Transient //no está mapeado en la BD
+
+	@Transient // no está mapeado en la BD
 	private String emojiSexo;
 
 	// CONSTRUCTOR
@@ -109,8 +116,8 @@ public class Animal {
 		this.estado = Estado.EN_ADOPCION;
 		this.owner = null;
 		this.fechaAlta = LocalDateTime.now();
-		this.emojiTipo="";
-		this.emojiSexo="";
+		this.emojiTipo = "";
+		this.emojiSexo = "";
 	}
 
 	// CONSTRUCTOR
@@ -132,14 +139,12 @@ public class Animal {
 		this.estado = estado;
 		this.owner = owner;
 		this.fechaAlta = fechaAlta;
-		this.emojiTipo=emojiTipo;
-		this.emojiSexo=emojiSexo;
-		
+		this.emojiTipo = emojiTipo;
+		this.emojiSexo = emojiSexo;
+
 	}
 
 	// GETTERS & SETTERS
-
-
 
 	public int getId() {
 		return id;
@@ -177,8 +182,28 @@ public class Animal {
 		return foto;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	/*
+	 * public void setFoto(String foto) { this.foto = foto; }
+	 */
+	public void setFoto(MultipartFile file) throws IOException {
+
+		byte[] imageByte = Base64.getEncoder().encode(file.getBytes());
+		String extensionImagen = FilenameUtils.getExtension(file.getOriginalFilename());
+		//String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
+		String nombreImagen = this.getFechaAlta() + "." + extensionImagen;
+
+		String workingDir = System.getProperty("user.dir");
+		String path = workingDir + "\\imagenes\\animales\\" + nombreImagen;
+
+		try {
+			// Guardamos la imagen en base64 en un archivo
+			new FileOutputStream(path).write(Base64.getDecoder().decode(imageByte));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		this.foto = nombreImagen;
+
 	}
 
 	public Esterilizado getEsterilizado() {
@@ -252,24 +277,25 @@ public class Animal {
 		return "afidfdh";
 	}
 
-	public void setFnac(String fnac) { //convierte String en LocalDate
+	public void setFnac(String fnac) { // convierte String en LocalDate
 		this.fnac = LocalDate.parse(fnac);
 	}
 
-	public String getFnac() { //Convierte LocalDate en String
+	public String getFnac() { // Convierte LocalDate en String
 		return fnac.toString();
 	}
-	
-	public static boolean checkFnac(String fnac) { //comprueba que el animal tenga entre 0 y 40 años
-		LocalDate fecha = LocalDate.parse(fnac);		
+
+	public boolean checkFnac(String fnac) { // comprueba que el animal tenga entre 0 y 40 años
+		LocalDate fecha = LocalDate.parse(fnac);
 		LocalDate currentDate = LocalDate.now();
-		
+
 		int edad = Period.between(fecha, currentDate).getYears();
-		
-		if ((edad<41) && (fecha.isBefore(currentDate))) {  
+
+		if ((edad < 41) && (fecha.isBefore(currentDate))) {
 			return true;
-    }else return false;
-		
+		} else
+			return false;
+
 	}
 
 	public Sexo getSexo() {
@@ -295,56 +321,53 @@ public class Animal {
 	public void setOwner(Usuario owner) {
 		this.owner = owner;
 	}
-	
-	
+
 	@Transient
-	public void setEmojiTipo(String emojiTipo) { //convierte unicode en aliases
+	public void setEmojiTipo(String emojiTipo) { // convierte unicode en aliases
 		this.emojiTipo = EmojiParser.parseToAliases(emojiTipo);
 
 	}
-	
-	
+
 	@Transient
-	public String getEmojiTipo() { //convierte aliases en unicode
-		//String emoji = EmojiParser.parseToUnicode(emojiTipo);
-		//return emoji;
+	public String getEmojiTipo() { // convierte aliases en unicode
+		// String emoji = EmojiParser.parseToUnicode(emojiTipo);
+		// return emoji;
 		if (this.tipo == Tipo.PERRO) {
 			return EmojiParser.parseToUnicode(":dog2:");
-		}else if (this.tipo == Tipo.GATO) {
+		} else if (this.tipo == Tipo.GATO) {
 			return EmojiParser.parseToUnicode(":cat2:");
 		}
-		 return "";
+		return "";
 	}
-	
-	
-	//Aqui no hace falta usar EmojiParser porque ♂️ y ♀️ son unicode muy antiguos...
+
+	// Aqui no hace falta usar EmojiParser porque ♂️ y ♀️ son unicode muy
+	// antiguos...
 	@Transient
-	public void setEmojiSexo(String emojiSexo) { 
+	public void setEmojiSexo(String emojiSexo) {
 		this.emojiSexo = emojiSexo;
 	}
-	
+
 	@Transient
-	public String getEmojiSexo() { 
-		//return emojiSexo;
+	public String getEmojiSexo() {
+		// return emojiSexo;
 		if (this.sexo == Sexo.MACHO) {
 			return "\u2642";
-		}else if (this.sexo == Sexo.HEMBRA) {
+		} else if (this.sexo == Sexo.HEMBRA) {
 			return "\u2640";
 		}
-		 return "";
+		return "";
 	}
-	
-	
-	public void setFechaAlta(String fechaAlta) { //convierte String en LocalDate
+
+	public void setFechaAlta(String fechaAlta) { // convierte String en LocalDate
 		this.fechaAlta = LocalDateTime.parse(fechaAlta);
 	}
 
-	public String getFechaAlta() { //Convierte LocalDate en String
+	public String getFechaAlta() { // Convierte LocalDate en String
 		return fechaAlta.toString();
 	}
-	
+
 	public String getIntervaloPublicacion() {
-		LocalDate fechaAltaDate = fechaAlta.toLocalDate(); 
+		LocalDate fechaAltaDate = fechaAlta.toLocalDate();
 		Period periodo = Period.between(fechaAltaDate, LocalDate.now());
 		int anios = periodo.getYears();
 		int meses = periodo.getMonths();
@@ -368,10 +391,10 @@ public class Animal {
 			}
 		} else if (dias == 1) {
 			return "Ayer";
-		}else if (dias == 0) {
-				return "Hoy";
+		} else if (dias == 0) {
+			return "Hoy";
 		} else if (meses < 1) {
-			return "Hace "+ dias + " días";
+			return "Hace " + dias + " días";
 		} else if (meses == 1) {
 			return "Hace " + meses + " mes";
 		} else if (meses < 12) {
@@ -379,15 +402,5 @@ public class Animal {
 		}
 		return "afidfdh";
 	}
-	
-
-	
-
-	
-
-
-	
-	
-
 
 }
