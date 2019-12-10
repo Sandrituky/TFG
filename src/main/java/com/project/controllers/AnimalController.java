@@ -20,7 +20,6 @@ import com.project.model.Estado;
 import com.project.model.Esterilizado;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
-import com.project.repositories.IUsuarioRepository;
 import com.project.util.FuncionesImagenes;
 
 
@@ -39,9 +38,6 @@ public class AnimalController {
 
 	@Autowired
 	private IProvinciaRepository provinciasRepo;
-
-	@Autowired
-	private IUsuarioRepository usuariosRepo;
 
 	@GetMapping("/altaAnimal") // pagina de alta Animal
 	public String pagAlta(Model model) {
@@ -93,9 +89,9 @@ public class AnimalController {
 			}
 
 		}else if(!FuncionesImagenes.hasRightSize(file)) {
-			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");;
+			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");
 		}else {
-			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen").addFlashAttribute("result","danger");;
+			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen").addFlashAttribute("result","danger");
 		}
 
 		return new RedirectView("altaAnimal");

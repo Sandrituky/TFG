@@ -40,9 +40,10 @@ footer.page-footer{
     max-width:55%;
  }
 
+
 .caja {
-    min-width:55%;
-    max-width:55%;
+    min-width:75%;
+    max-width:75%;
     background-color:#eeeeee;
     text-align: left;
     background-repeat:no-repeat;
@@ -53,10 +54,8 @@ footer.page-footer{
 	min-height: 50vh;
 	margin: 20px auto;
 	padding: 20px 30px 20px 30px;
-
-
-
 }
+
 
 .vertical-align {
   display: flex;

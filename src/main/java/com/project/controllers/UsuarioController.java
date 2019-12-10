@@ -65,8 +65,8 @@ public class UsuarioController {
 		
 		try {
 		
-		if ((user.checkDNI(user.getDni())==true)&&(user.checkTelefono(user.getTelefono()) == true)&&(user.checkCP(user.getCp()) == true)
-				&&(user.checkFnac(user.getFnac()) == true) && (user.checkMayorEdad(user.getFnac())==true)) {
+		if ((Usuario.checkDNI(user.getDni())==true)&&(Usuario.checkTelefono(user.getTelefono()) == true)&&(Usuario.checkCP(user.getCp()) == true)
+				&&(Usuario.checkFnac(user.getFnac()) == true) && (Usuario.checkMayorEdad(user.getFnac())==true)) {
 			
 
 			Rol rol = rolRepo.findByRol("USER");			
@@ -75,21 +75,21 @@ public class UsuarioController {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			usuariosRepo.save(user);
 			
-			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!").addFlashAttribute("res","success");
-		}else if(user.checkTelefono(user.getTelefono()) == false){
-			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("res","danger");
-		}else if(user.checkDNI(user.getDni())==false) {
-			redirectAttributes.addFlashAttribute("message","DNI inválido").addFlashAttribute("res","danger");
-		}else if(user.checkCP(user.getCp()) == false) {
-			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("res","danger");
-		}else if(user.checkFnac(user.getFnac()) == false) {
-			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida").addFlashAttribute("res","danger");
-		}else if (user.checkMayorEdad(user.getFnac())==false) {
-			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar").addFlashAttribute("res","danger");
+			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!").addFlashAttribute("resu","success");
+		}else if(Usuario.checkTelefono(user.getTelefono()) == false){
+			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("resu","danger");
+		}else if(Usuario.checkDNI(user.getDni())==false) {
+			redirectAttributes.addFlashAttribute("message","DNI inválido").addFlashAttribute("resu","danger");
+		}else if(Usuario.checkCP(user.getCp()) == false) {
+			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("resu","danger");
+		}else if(Usuario.checkFnac(user.getFnac()) == false) {
+			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida").addFlashAttribute("resu","danger");
+		}else if (Usuario.checkMayorEdad(user.getFnac())==false) {
+			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar").addFlashAttribute("resu","danger");
 		}
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("res","danger");
+						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("resu","danger");
 			}
 		
 		return new RedirectView("/index");
