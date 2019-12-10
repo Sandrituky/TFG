@@ -75,24 +75,24 @@ public class UsuarioController {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			usuariosRepo.save(user);
 			
-			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!");
+			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!").addFlashAttribute("res","success");
 		}else if(user.checkTelefono(user.getTelefono()) == false){
-			redirectAttributes.addFlashAttribute("message","Teléfono inválido");
+			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("res","danger");
 		}else if(user.checkDNI(user.getDni())==false) {
-			redirectAttributes.addFlashAttribute("message","DNI inválido");
+			redirectAttributes.addFlashAttribute("message","DNI inválido").addFlashAttribute("res","danger");
 		}else if(user.checkCP(user.getCp()) == false) {
-			redirectAttributes.addFlashAttribute("message","Código postal inválido");
+			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("res","danger");
 		}else if(user.checkFnac(user.getFnac()) == false) {
-			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida");
+			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida").addFlashAttribute("res","danger");
 		}else if (user.checkMayorEdad(user.getFnac())==false) {
-			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar");
+			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar").addFlashAttribute("res","danger");
 		}
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.");
+						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("res","danger");
 			}
 		
-		return new RedirectView("altaUsuario");
+		return new RedirectView("/index");
 		
 	}
 	

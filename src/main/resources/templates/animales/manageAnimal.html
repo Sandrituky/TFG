@@ -12,9 +12,12 @@
 
 
 		<div class="titulo">
-			</b><h2 class="text-center"><b>Gestionar adopción</b></h2>
+			</b><h2 class="text-center"><b>Gestor de adopciones</b></h2>
 			<hr>
 		</div>
+		
+			<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + resul}"></div>
 
 		<div class="caja">
 
@@ -22,9 +25,16 @@
 
 				<div class="col-md-12 offset-0">
 
-					<table class="table table-striped table-dark">
-
-						<tbody th:each="animal : ${animales}">
+					<table class="table ">
+					<thead class="thead-dark">
+					    <tr>
+					      <th colspan="2">Animal</th>
+					      <th scope="col">Solicitante</th>
+					      <th colspan="2">Gestionar</th>
+					    </tr>
+					  </thead>
+						<tbody th:each="animal : ${animales}" class="thead-light" >
+						
 
 							<form th:action="@{/animales/manageAnimal-submit}"
 								th:object="${animal}" method="post">
@@ -37,15 +47,15 @@
 											<div class="estiloSexo" th:text="${animal.emojiSexo}"></div>
 										</div></td>
 
-									<td class="text-left"
+									<td class="text-left" 
 										th:text="${'Nombre: ' + animal.getNombre()}"></td>
 
-									<td rowspan="4"
+									<td class="nombreAdoptante" rowspan="4" width="20%"
 										th:text="${animal.owner.nombre} + ' ' + ${animal.owner.apellidos}"></td>
 
 									<td rowspan="4"><select class="form-control"
 										th:name="selectEstado" th:id="selectEstado" required>
-											<option value="" selected="selected">Cambiar estado</option>
+											<option value="" selected="selected">¿Dar en adopción?</option>
 											<th:block th:each="i : ${estados}">
 												<th:block th:if="${i != animal.estado}">
 													<option th:value="${i}" th:text="${i.getAccion()}"></option>

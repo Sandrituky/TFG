@@ -189,10 +189,8 @@ public class Animal {
 
 		byte[] imageByte = Base64.getEncoder().encode(file.getBytes());
 		String extensionImagen = FilenameUtils.getExtension(file.getOriginalFilename());
-		//String nombreImagen = UUID.randomUUID().toString() + "." + extensionImagen;
 		String nombreImagen = this.getFechaAlta().replace(":", ".");
 		nombreImagen = nombreImagen.replace("T", "__") + "."+extensionImagen;
-		//String nombreImagen = this.getFechaAlta() + "." + extensionImagen;
 
 		String workingDir = System.getProperty("user.dir");
 		String path = workingDir + "\\imagenes\\animales\\" + nombreImagen;

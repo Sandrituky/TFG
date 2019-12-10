@@ -1,21 +1,15 @@
 package com.project.util;
 
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
-import javax.naming.SizeLimitExceededException;
+
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.project.model.Animal;
-import com.project.repositories.IAnimalRepository;
 
 
 public class FuncionesImagenes {
@@ -32,15 +26,12 @@ public class FuncionesImagenes {
 
 		if (Arrays.asList(extensionesValidas).contains(extensionImagen)) {
 			
-
 			if (ImageIO.read(file.getInputStream()) != null) {
 				
 				return true;
 				
 			} else return false;
 			
-
-
 		} else return false;
 		
 
@@ -54,6 +45,7 @@ public class FuncionesImagenes {
 		}else return false;
 			
 	}
+}
 	
 /*public String setPhotoName(MultipartFile file) throws IOException {
 		
@@ -80,7 +72,7 @@ public class FuncionesImagenes {
 
 
 	
-}
+
 
 
 

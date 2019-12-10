@@ -29,7 +29,6 @@ public class AuthUserController { //GlobalControllerAdvice
 	}
 	
 	
-	
 	public Usuario getAuthUser() { //devuelve el usuario logeado
 		Usuario usuario = null;
 		

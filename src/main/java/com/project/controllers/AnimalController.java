@@ -79,17 +79,17 @@ public class AnimalController {
 				try {
 
 					animalesRepo.save(animal);
-					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.").addFlashAttribute("result","success");;
+					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.").addFlashAttribute("result","success");
 				} catch (Exception e) {
 					redirectAttributes.addFlashAttribute("message",
-							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");;
+							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
 				}
 			} else if (animal.checkFnac(animal.getFnac()) == false) {
-				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida").addFlashAttribute("result","danger");;
+				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida").addFlashAttribute("result","danger");
 
 			} else {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");;
+						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
 			}
 
 		}else if(!FuncionesImagenes.hasRightSize(file)) {
@@ -163,18 +163,22 @@ public class AnimalController {
 	@PostMapping("/modAnimal-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView updateAnimal(Animal animal, @RequestParam("file") MultipartFile file, Model model,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-
-		if(FuncionesImagenes.isValidImage(file) && FuncionesImagenes.hasRightSize(file)) {
-			animal.setFoto(file);
+		
 			if (((animal.checkFnac(animal.getFnac()) == true))) {
-				try {
-
+				
+				if(FuncionesImagenes.isValidImage(file) && FuncionesImagenes.hasRightSize(file)) {
+					animal.setFoto(file);	
 					animalesRepo.save(animal);
-					redirectAttributes.addFlashAttribute("message", "El animal se ha registrado correctamente.").addFlashAttribute("result","success");
-				} catch (Exception e) {
-					redirectAttributes.addFlashAttribute("message",
-							"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
-					
+					redirectAttributes.addFlashAttribute("message", "El animal se ha actualizado correctamente.").addFlashAttribute("result","success");
+				}else if(!FuncionesImagenes.isValidImage(file)) {
+					redirectAttributes.addFlashAttribute("message","El archivo no es una imagen").addFlashAttribute("result","danger");
+				}else if(!FuncionesImagenes.hasRightSize(file)) {
+					redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");
+				}else if(file.getSize()==0) {
+					animalesRepo.save(animal);
+					redirectAttributes.addFlashAttribute("message", "El animal se ha actualizado correctamente.").addFlashAttribute("result","success");
+				}else {
+					redirectAttributes.addFlashAttribute("message","Parece que el archivo no es realmente una imagen.").addFlashAttribute("result","danger");
 				}
 			} else if (animal.checkFnac(animal.getFnac()) == false) {
 				redirectAttributes.addFlashAttribute("message", "Fecha de nacimiento inválida").addFlashAttribute("result","danger");
@@ -184,14 +188,6 @@ public class AnimalController {
 						"Se produjo un error al registrar el animal. Por favor, inténtelo de nuevo.").addFlashAttribute("result","danger");
 			}
 			
-		}else if(!FuncionesImagenes.hasRightSize(file)) {
-			redirectAttributes.addFlashAttribute("message","La imagen excede el limite permitido (8MB).").addFlashAttribute("result","danger");
-		}else {
-			redirectAttributes.addFlashAttribute("message","Se produjo un problema con la imagen").addFlashAttribute("result","danger");
-		}
-		
-	
-		
 
 		return new RedirectView("modAnimal");
 

@@ -56,20 +56,20 @@ public class AdopcionesController {
 		int numReservas = animalesRepo.countByOwnerAndEstado(usuario, Estado.RESERVADO);
 		
 		
-
 		if (currentAnimal.getOwner() == null && currentAnimal.getEstado() == Estado.EN_ADOPCION && numReservas < 3) {
 			currentAnimal.setOwner(usuario);
 			currentAnimal.setEstado(Estado.RESERVADO);
 			animalesRepo.save(currentAnimal);
-		}else if(numReservas>=3) {
 			redirectAttributes.addFlashAttribute("message",
-					"Como máximo puedes reservar 3 animales");
+					"Has reservado a "+currentAnimal.getNombre()).addFlashAttribute("resul","success");
+		}else if(numReservas>=3) {
+			redirectAttributes.addFlashAttribute("message", "Como máximo puedes reservar hasta 3 animales.").addFlashAttribute("resul","danger");
 		}else {
 			redirectAttributes.addFlashAttribute("message",
-					"Éste animal no está disponible para su reserva.");
+					"Éste animal no está disponible para su reserva.").addFlashAttribute("resul","danger");
 		}
 		
-		return new RedirectView("../"); 
+		return new RedirectView("/usuarios/reservas"); 
 	}
 	
 	@PostMapping("/cancelarReserva-submit") //Cancelar reserva (done by Usuario)
@@ -85,12 +85,12 @@ public class AdopcionesController {
 			currentAnimal.setOwner(null);
 			currentAnimal.setEstado(Estado.EN_ADOPCION);
 			animalesRepo.save(currentAnimal);
+			redirectAttributes.addFlashAttribute("message","Has cancelado la reserva de "+currentAnimal.getNombre()).addFlashAttribute("resul","success");
 		}else {
-			redirectAttributes.addFlashAttribute("message",
-					"Se ha producido un error.");
+			redirectAttributes.addFlashAttribute("message","Se ha producido un error.");
 		}
 		
-		return new RedirectView("../"); 
+		return new RedirectView("/usuarios/reservas"); 
 	}
 	
 	@GetMapping("/manageAnimal")
@@ -109,29 +109,29 @@ public class AdopcionesController {
 	}
 	
 	@PostMapping("/manageAnimal-submit")
-	public String cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
+	public RedirectView cambiarEstadoAnimal(Animal animal,@RequestParam(name = "id", required = false) int idAnimal, 
 			@RequestParam(name = "selectEstado", required = false) Estado estado ,Model model, RedirectAttributes redirectAttributes) {
 		
 
     Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
 	
-		if (estado == Estado.ADOPTADO) { 
+		if (currentAnimal.getEstado()==Estado.RESERVADO && estado == Estado.ADOPTADO) { 
 			currentAnimal.setOwner(currentAnimal.getOwner());
 			currentAnimal.setEstado(Estado.ADOPTADO);
 			animalesRepo.save(currentAnimal);
+			redirectAttributes.addFlashAttribute("message","Has concedido la adopción de "+currentAnimal.getNombre()+ " a "+currentAnimal.getOwner().getNombre()+" "+currentAnimal.getOwner().getApellidos()).addFlashAttribute("resul","success");
 			
-			
-		 }else if (estado == Estado.EN_ADOPCION) {
+		 }else if (currentAnimal.getEstado() == Estado.RESERVADO && estado == Estado.EN_ADOPCION) {
+			 redirectAttributes.addFlashAttribute("message","Has rechazado la adopción de "+currentAnimal.getNombre()+ " a "+currentAnimal.getOwner().getNombre()+ " "+currentAnimal.getOwner().getApellidos()).addFlashAttribute("resul","warning");
 			 currentAnimal.setOwner(null);
 			 currentAnimal.setEstado(Estado.EN_ADOPCION);
 			 animalesRepo.save(currentAnimal);
-			 				
+			  				
 			}else {
-				redirectAttributes.addFlashAttribute("message",
-						"Se ha producido un error.");
+				redirectAttributes.addFlashAttribute("message","Se ha producido un error.").addFlashAttribute("resul","danger");
 			}
 		
-		return "animales/manageAnimal";
+		return new RedirectView("/animales/manageAnimal"); 
 	}
 	
 

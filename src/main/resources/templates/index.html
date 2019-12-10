@@ -12,20 +12,21 @@
 </head>
 <body>
 
-	<main layout:fragment="content" th:replace="fragments/listAllAdoptableAnimals.html :: listAllAnimales" class="container">
+	<main layout:fragment="content">
 
+<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + resul}"></div>	
 
-		<div class="alert alert-danger mt-4" th:if="${result == 'error'}">Los
+		<div id="mensaje" class="alert alert-danger mt-4" th:if="${result == 'error'}">Los
 			datos de acceso no son válidos.</div>
-		<div class="alert alert-success mt-4" th:if="${result == 'login'}">Te
+		<div id="mensaje" class="alert alert-success mt-4" th:if="${result == 'login'}">Te
 			has autenticado correctamente.</div>
-		<div class="alert alert-warning mt-4" th:if="${result == 'logout'}">Has
+		<div id="mensaje" class="alert alert-warning mt-4" th:if="${result == 'logout'}">Has
 			cerrado sesión correctamente.</div>
 
-		<div th:if="${message}" th:text="${message}"
-			th:class="${'alert ' + alertClass}">gfdg</div>
+	
 
-		
+		<div class="caja" th:replace="fragments/listAllAdoptableAnimals.html :: listAllAnimales"></div>
 		
 		
 

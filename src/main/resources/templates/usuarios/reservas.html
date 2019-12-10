@@ -8,10 +8,16 @@
 <body>
 	<main role="main" layout:fragment="content" class="my-7">
 
+
+
 <div class="titulo">
 			</b><h2 class="text-center"><b>Mis animales reservados</b></h2>
 			<hr>
 		</div>
+		
+		
+<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + resul}"></div>
 
 	<div class="container caja">
 

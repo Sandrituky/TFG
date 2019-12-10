@@ -17,6 +17,9 @@
 			<hr>
 		</div>
 
+<div id="mensaje" th:if="${message}" th:text="${message}"
+					th:class="${'alert mt-4 alert-' + res}"></div>
+
 	<div class="caja" style="font-weight:400 ">
 
 		<form th:action="@{/usuarios/altaUsuario-submit}"

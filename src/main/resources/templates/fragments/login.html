@@ -9,7 +9,7 @@
 		<ul class="navbar-nav mr-auto">
 		<li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="menu-usuarios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span style="color:purple; font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
+          <th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span class="green-text" style="font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" th:href="@{/usuarios/reservas}">Mis reservas</a>
@@ -35,7 +35,7 @@
 		
 		<form th:action="@{/login}" method="post"
 			class="form-inline my-2 my-lg-0">
-			<a th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
+			<a class="light-blue-text" th:href="@{/usuarios/altaUsuario}">¿Aún no estás registrado?</a>
 			
 			<input class="form-control mr-sm-2" type="text" name="loginEmail" 
 				placeholder="Usuario" aria-label="Usuario"> 

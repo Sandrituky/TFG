@@ -5,12 +5,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>App</title>
 </head>
-<div layout:fragment="content" class="container">
+
+
+<main layout:fragment="content">
+
+<div class="caja cajaError">
 	<h3>Ha ocurrido un error</h3>
 	<ul>
 	  <li>Puede que la página a la que intentas acceder no exista</li>
 	  <li>No tienes suficientes permisos para ver esta página</li>
 	</ul>	
 	<a th:href="@{/}">Volver a inicio</a>
-</div>
+	
+	
+	</div>
+	
+</main>
+
+
+
 </html>

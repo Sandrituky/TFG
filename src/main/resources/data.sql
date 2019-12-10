@@ -1,3 +1,5 @@
+REPLACE INTO usuario VALUES (1, 'Admin', '02006', 'C/ Nicaragua 16', '74419571N', 'admin@hotmail.com', '1994-11-01', 'Admin', '$2a$04$DxO1pQRJ2YAf.YCbaZWvhO6YFge7bEc/PHYUp7z24pN487.umJ4Si', 'Albacete', '664524979', 1, 2);
+	
 REPLACE INTO provincia VALUES
 	(1, 2, 'Albacete'),
 	(2, 3, 'Alicante'),
