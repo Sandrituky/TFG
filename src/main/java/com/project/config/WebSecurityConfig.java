@@ -25,10 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
+          .antMatchers("/favicon.ico").permitAll()
 	        .antMatchers(resources).permitAll()  
 	        .antMatchers("/","/index","/login").permitAll()
-	        .antMatchers("/usuarios/*").permitAll()
 	        .antMatchers("/usuarios/reservas").access("hasAuthority('USER')")
+	        .antMatchers("/usuarios/altaUsuario*").anonymous()
 	        .antMatchers("/animales/list**").permitAll()
 	        .antMatchers("/json/**").permitAll()
 	        .antMatchers("/animales/altaAnimal", "/animales/bajaAnimal", "/animales/modAnimal").access("hasAuthority('ADMIN')")

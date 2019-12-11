@@ -75,21 +75,21 @@ public class UsuarioController {
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			usuariosRepo.save(user);
 			
-			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!").addFlashAttribute("resu","success");
+			redirectAttributes.addFlashAttribute("message", "¡Te has registrado con éxito!").addFlashAttribute("resul","success");
 		}else if(Usuario.checkTelefono(user.getTelefono()) == false){
-			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("resu","danger");
+			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("resul","danger");
 		}else if(Usuario.checkDNI(user.getDni())==false) {
-			redirectAttributes.addFlashAttribute("message","DNI inválido").addFlashAttribute("resu","danger");
+			redirectAttributes.addFlashAttribute("message","DNI inválido").addFlashAttribute("resul","danger");
 		}else if(Usuario.checkCP(user.getCp()) == false) {
-			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("resu","danger");
+			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("resul","danger");
 		}else if(Usuario.checkFnac(user.getFnac()) == false) {
-			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida").addFlashAttribute("resu","danger");
+			redirectAttributes.addFlashAttribute("message","Fecha de nacimiento inválida").addFlashAttribute("resul","danger");
 		}else if (Usuario.checkMayorEdad(user.getFnac())==false) {
-			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar").addFlashAttribute("resu","danger");
+			redirectAttributes.addFlashAttribute("message","Debes ser mayor de edad para poder registrarte y adoptar").addFlashAttribute("resul","danger");
 		}
 			} catch (Exception e) {
 				redirectAttributes.addFlashAttribute("message",
-						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("resu","danger");
+						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("resul","danger");
 			}
 		
 		return new RedirectView("/index");
