@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -48,7 +49,7 @@ public class UsuarioController {
 	@Autowired
 	private AuthUserController authController;
 
-	@GetMapping("/altaUsuario") public String pageAdd(Model model) {
+	@GetMapping("/altaUsuario") public String addUser(Model model) {
 
 		Usuario user = new Usuario();
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
@@ -60,7 +61,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/altaUsuario-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
-	public RedirectView pageAddSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+	public RedirectView addUserSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 		// RedirectView redirecciona a la pagina que le digas
 		
 		try {
@@ -114,6 +115,42 @@ public class UsuarioController {
 
 		return "usuarios/reservas";
 		
+		
+	}
+	
+	@GetMapping("/modUsuario") public String modUser(Model model) {
+
+		Usuario user = authController.getAuthUser();
+		List<Provincia> listaProvincias = provinciasRepo.findAll();
+
+		model.addAttribute("usuario", user);
+		model.addAttribute("provincias", listaProvincias);
+
+		return "usuarios/modUsuario";
+	}
+	
+	@PostMapping("/modUsuario-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
+	public RedirectView modUserSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		// RedirectView redirecciona a la pagina que le digas
+		
+		try {
+		
+		if ((Usuario.checkTelefono(user.getTelefono()) == true)&&(Usuario.checkCP(user.getCp()) == true)) {
+
+			usuariosRepo.save(user);
+			
+			redirectAttributes.addFlashAttribute("message", "¡Tus datos se han actualizado con éxito!").addFlashAttribute("resul","success");
+		}else if(Usuario.checkTelefono(user.getTelefono()) == false){
+			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("resul","danger");
+		}else if(Usuario.checkCP(user.getCp()) == false) {
+			redirectAttributes.addFlashAttribute("message","Código postal inválido").addFlashAttribute("resul","danger");
+		}
+			} catch (Exception e) {
+				redirectAttributes.addFlashAttribute("message",
+						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("resul","danger");
+			}
+		
+		return new RedirectView("/index");
 		
 	}
 	

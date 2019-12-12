@@ -16,7 +16,9 @@
 			<h2 class="text-center"><b>Registrarse</b></h2>
 			<hr>
 		</div>
-
+		
+		<div th:if="${message}" th:text="${message}"
+				th:class="${'alert ' + alertClass}" ></div>
 
 	<div class="caja" style="font-weight:400 ">
 
@@ -106,8 +108,7 @@
 			
 			<button type="submit" class="btn btn-primary">Registrarse</button>
 
-			<div th:if="${message}" th:text="${message}"
-				th:class="${'alert ' + alertClass}" ></div>
+
 		</form>
 		</div>
 		</main>

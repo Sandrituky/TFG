@@ -217,6 +217,7 @@
 										<option th:each="i : ${provincias}" th:text="${i.provincia}"
 											th:value="${i.id}"
 											th:selected="${selectedAnimal.getProvincia().getId() == i.id}">
+											</option>
 									</select>
 
 									<!-- Si fuera un valor enum  <td><select th:field="*{provincia}">
