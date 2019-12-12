@@ -1,16 +1,21 @@
 package com.project.controllers;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
+import com.project.util.FuncionesObjetos;
 import com.project.model.Animal;
 import com.project.model.Estado;
 import com.project.model.Esterilizado;
@@ -22,6 +27,8 @@ import com.project.model.Tipo;
 import com.project.repositories.IAnimalRepository;
 import com.project.repositories.IProvinciaRepository;
 import com.project.repositories.IUsuarioRepository;
+import com.project.services.UserDetailsServiceImpl;
+import com.project.util.FuncionesObjetos;
 import com.project.repositories.IRolRepository;
 
 import java.io.IOException;
@@ -48,6 +55,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private AuthUserController authController;
+	
+	@Autowired
+	private UserDetailsServiceImpl manager; 
 
 	@GetMapping("/altaUsuario") public String addUser(Model model) {
 
@@ -120,10 +130,8 @@ public class UsuarioController {
 	
 	@GetMapping("/modUsuario") public String modUser(Model model) {
 
-		Usuario user = authController.getAuthUser();
+		
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
-
-		model.addAttribute("usuario", user);
 		model.addAttribute("provincias", listaProvincias);
 
 		return "usuarios/modUsuario";
@@ -131,15 +139,40 @@ public class UsuarioController {
 	
 	@PostMapping("/modUsuario-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
 	public RedirectView modUserSubmit(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
-		// RedirectView redirecciona a la pagina que le digas
+		
+		Usuario loggedUser=authController.getAuthUser();
+		boolean emailChanged = false;
+		
+		//detecta si el usuario ha cambiado su correo electronico
+		if(user.getEmail().equalsIgnoreCase(loggedUser.getEmail())) {
+			emailChanged=false;
+		}else if(!user.getEmail().equalsIgnoreCase(loggedUser.getEmail())) {
+			emailChanged=true;
+		}
+			
 		
 		try {
 		
-		if ((Usuario.checkTelefono(user.getTelefono()) == true)&&(Usuario.checkCP(user.getCp()) == true)) {
+		if ((Usuario.checkTelefono(user.getTelefono()) == true)&&(Usuario.checkCP(user.getCp()) == true)&&(user.getId()==loggedUser.getId())) {
 
-			usuariosRepo.save(user);
 			
+			FuncionesObjetos.copyNonNullProperties(user, loggedUser);
+			
+			usuariosRepo.save(loggedUser);
+			
+			
+			if(emailChanged == false) {
 			redirectAttributes.addFlashAttribute("message", "¡Tus datos se han actualizado con éxito!").addFlashAttribute("resul","success");
+			}else if(emailChanged == true) {
+				SecurityContextHolder.clearContext(); //fuerza el cierre de sesión
+				
+				//forzamos el inicio de sesión
+				UserDetails userDetails = manager.loadUserByUsername (loggedUser.getEmail());
+				Authentication auth = new UsernamePasswordAuthenticationToken (userDetails.getUsername(),userDetails.getPassword (),userDetails.getAuthorities ());
+				SecurityContextHolder.getContext().setAuthentication(auth);
+				redirectAttributes.addFlashAttribute("messageLong", "Tu cuenta de acceso ha cambiado a: "+loggedUser.getEmail()).addFlashAttribute("resul","success");
+			}
+			
 		}else if(Usuario.checkTelefono(user.getTelefono()) == false){
 			redirectAttributes.addFlashAttribute("message","Teléfono inválido").addFlashAttribute("resul","danger");
 		}else if(Usuario.checkCP(user.getCp()) == false) {

@@ -29,7 +29,7 @@ public class JsonController {
 		boolean isFound;
 
 		Usuario loggedUser = authController.getAuthUser();
-		if (loggedUser.getEmail().equalsIgnoreCase(email)) {
+		if (loggedUser != null && loggedUser.getEmail().equalsIgnoreCase(email)) {
 			isFound = false;
 		} else {
 			isFound = usuariosRepo.existsByEmail(email);
@@ -54,7 +54,7 @@ public class JsonController {
 		boolean isFound;
 
 		Usuario loggedUser = authController.getAuthUser();
-		if (loggedUser.getTelefono().equals(telefono)) {
+		if (loggedUser != null && loggedUser.getTelefono().equals(telefono)) {
 			isFound = false;
 		} else {
 			isFound = usuariosRepo.existsByTelefono(telefono);

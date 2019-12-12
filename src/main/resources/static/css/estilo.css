@@ -27,7 +27,7 @@ footer.page-footer{
  
  }
  
- #mensaje{
+ .msg{
   margin:20px auto;
   min-width:55%;
     max-width:55%;

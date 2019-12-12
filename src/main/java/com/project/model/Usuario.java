@@ -57,7 +57,7 @@ public class Usuario {
 	private LocalDate fnac;
 
 	// CLAVE FORANEA A TABLA PROVINCIA, 1-N
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne()
 	@JoinColumn(name = "PROVINCIA_ID", nullable = false, foreignKey = @ForeignKey(name = "FK_usuario_provincia"))
 	private Provincia provincia;
 
