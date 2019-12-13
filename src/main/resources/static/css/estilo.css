@@ -64,6 +64,41 @@ footer.page-footer{
   flex-direction: row;
 }
 
+.vertical-left-align {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: row;
+}
+
+.userInfo th{
+	text-align:left;
+	width:55%;
+}
+
+.userInfo td{
+	  padding-top:2%;
+  padding-bottom:2%;
+  padding-right:2%;   
+}
+
+.cajaTab {
+    min-width:75%;
+    max-width:75%;
+    background-color:#eeeeee;
+    text-align: left;
+    background-repeat:no-repeat;
+    overflow:auto;
+    font-size:12pt;
+	border-radius: 10px;
+	min-height: 50%;
+	min-height: 50vh;
+	margin: 20px auto;
+	padding: 0px 30px 20px 30px;
+}
+
+
+
 #loading{
   width: 28%;
 }

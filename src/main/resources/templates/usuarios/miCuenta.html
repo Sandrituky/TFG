@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{fragments/main_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Modificar usuario - Protectora</title>
+<script type="text/javascript" src="../../js/funciones.js">
+	
+</script>
+
+</head>
+<body>
+	<main role="main" layout:fragment="content" class="my-7">
+
+	<div class="cajaTab" style="font-weight:400 ">
+	<ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active show" id="home-tab-ex" data-toggle="tab" href="#home-ex" role="tab" aria-controls="home-ex"
+      aria-selected="true">Mis datos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+      aria-selected="false">Modificar datos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab-ex" data-toggle="tab" href="#contact-ex" role="tab" aria-controls="contact-ex"
+      aria-selected="false">Modificar cotraseña</a>
+  </li>
+</ul>
+<div class="tab-content pt-2" id="myTabContentEx">
+  <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
+    
+    <table class="userInfo">
+    <tr>
+    <th>Correo electrónico:</th>
+    <td th:text="${authUser.getEmail()}" ></td>
+    </tr>
+    <tr>
+    <th>DNI:</th>
+    <td th:text="${authUser.getDni()}"></td>
+    </tr>
+    <tr>
+    <th>Nombre:</th>
+    <td th:text="${authUser.getNombre()}"></td>
+    </tr>
+    <tr>
+    <th>Apellidos:</th>
+    <td th:text="${authUser.getApellidos()}"></td>
+    </tr>
+    <tr>
+    <th>Fecha de nacimiento:</th>
+    <td th:text="${authUser.getFnac()}"></td>
+    </tr>
+    <tr>
+    <th>Localización:</th>
+    <td th:text="${authUser.getPoblacion()+' ('+authUser.getProvincia().getProvincia()+')'}"></td>
+    </tr>
+    <tr>
+    <th>Código postal:</th>
+    <td th:text="${authUser.getCp()}"></td>
+    </tr>
+    <tr>
+    <th>Dirección:</th>
+    <td th:text="${authUser.getDireccion()}"></td>
+    </tr>
+    <tr>
+    <th>Teléfono:</th>
+    <td th:text="${authUser.getTelefono()}"></td>
+    </tr>
+    
+    </table>
+    
+  </div>
+  <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
+  
+    <form th:action="@{/usuarios/modUsuario-submit}"
+			th:object="${authUser}" method="post" class="was-validated">
+			
+			<div class="form-row">
+			
+				<div class="form-group col-md-4">
+					<label for="email">Correo electrónico</label>
+					<input type="text" class="form-control" name="email"
+						id="email" placeholder="Email" required th:value="${authUser.getEmail()}" >
+				</div>
+				
+				<div class="form-group col-md-4">
+					<label for="provincia.id">Provincia</label> 
+					<select id="provincia" name="provincia.id" required class="form-control">
+										<option th:each="i : ${provincias}" th:text="${i.provincia}"
+											th:value="${i.id}"
+											th:selected="${authUser.getProvincia().getId() == i.id}">
+											</option>
+									</select>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="inputPoblacion">Población</label> <input type="text"
+						name="poblacion" th:value="${authUser.getPoblacion()}" id="poblacion" class="form-control"
+						minlength=2 maxlength=50 placeholder="Población" required>
+				</div>
+
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-7">
+					<label for="adress">Dirección</label> <input type="text"
+						name="direccion" class="form-control" id="adress"
+						minlength=5 maxlength=150 required
+						th:value="${authUser.getDireccion()}"
+						placeholder="Tipo de vía, calle, nº, piso, puerta...">
+				</div>
+				<div class="form-group col-md-2">
+					<label for="inputCP">Código Postal</label> <input type="text"
+						name="cp" th:value="${authUser.getCp()}" class="form-control" id="CP" minlength=5
+						maxlength=5 placeholder="C.P." required pattern="^(?:0[1-9]|[1-4]\d|5[0-2])\d{3}$">
+				</div>
+				
+				<div class="form-group col-md-3">
+					<label for="telefono">Teléfono</label> <input type="text"
+						th:name="telefono" th:value="${authUser.getTelefono()}" class="form-control" id="telefono"
+						minlength=9 maxlength=13 placeholder="Fijo o móvil" required>
+				</div>
+				<input type="hidden" th:name="id" th:value="${authUser.getId()}"/>
+				
+			</div>
+
+			<button type="submit" class="btn btn-primary">Actualizar</button>
+
+
+		</form>
+  </div>
+  <div class="tab-pane fade" id="contact-ex" role="tabpanel" aria-labelledby="contact-tab-ex">
+ 
+  
+  <div id="changePass1">
+  <p>Vuelva a introducir su contraseña</p>
+  <form th:action="@{/usuarios/changePassword1-submit}"
+			th:object="${authUser}" method="post" class="was-validated">
+  			
+  	<div class="row">
+		<div class="col-md-10 offset-0">
+			<div class="form-group row vertical-left-align">
+
+			<label class="col-sm-2 col-form-label" for="nombre">Contraseña</label>
+					<div class="col-sm-5">
+						<input type="password" class="form-control" name="password"
+						id="password" minlength=8 maxlength=20 required placeholder="Contraseña">
+					</div>
+					
+					<div class="col-sm-1">
+					<button type="submit" class="btn btn-primary">Enviar</button>
+						</div>
+					
+
+						
+			</div>
+
+		</div>
+	</div>
+	</form>
+  </div>
+  
+  
+  <div id="changePass2" style="display:none">
+ <form th:action="@{/usuarios/changePassword2-submit}"
+			th:object="${authUser}" method="post" class="was-validated">
+	<div class="row">
+		<div class="col-md-10 offset-0">
+			<div class="form-group row">
+
+			<div class="form-group col-md-4">
+					<label for="password1">Contraseña nueva</label> <input
+						type="password" class="form-control" name="password1"
+						id="password1" minlength=8 maxlength=20 required
+						placeholder="Contraseña">
+				</div>
+				<div class="form-group col-md-4">
+					<label for="password2">Confirmar contraseña</label> <input
+						type="password" class="form-control" name="password2"
+						id="password2" minlength=8 maxlength=20 required
+						placeholder="Confirmar contraseña" oninput="check(this)">
+				</div>
+				<div class="form-group col-md-4">
+				<label ></label>
+					<button type="submit" class="btn btn-primary vertical-left-align">Cambiar contraseña</button>
+				</div>
+						
+			</div>
+
+		</div>
+	</div>
+	</form>
+  </div>
+  
+   <div id="mensajePassword" th:if="${message}" th:text="${message}"
+					th:class="${'msg alert mt-4 alert-' + resul}"></div>
+  </div>
+</div>
+
+		
+		</div>
+		</main>
+
+</body>
+</html>

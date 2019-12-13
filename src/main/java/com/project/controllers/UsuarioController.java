@@ -2,6 +2,7 @@ package com.project.controllers;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
@@ -128,13 +131,13 @@ public class UsuarioController {
 		
 	}
 	
-	@GetMapping("/modUsuario") public String modUser(Model model) {
+	@GetMapping("/miCuenta") public String modUser(Model model) {
 
 		
 		List<Provincia> listaProvincias = provinciasRepo.findAll();
 		model.addAttribute("provincias", listaProvincias);
 
-		return "usuarios/modUsuario";
+		return "usuarios/miCuenta";
 	}
 	
 	@PostMapping("/modUsuario-submit") // Lo que ocurre cuando pulsas el botón de guardar, viene del form
@@ -182,6 +185,53 @@ public class UsuarioController {
 				redirectAttributes.addFlashAttribute("message",
 						"Se produjo un error al registrarse. Por favor, inténtelo de nuevo.").addFlashAttribute("resul","danger");
 			}
+		
+		return new RedirectView("/index");
+		
+	}
+	
+	@PostMapping("/changePassword1-submit") 
+	@PreAuthorize("hasRole('READ_PRIVILEGE')")
+	public RedirectView changePass1(Usuario user, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		
+		Usuario loggedUser=authController.getAuthUser();
+			
+		if (passwordEncoder.matches(user.getPassword(), loggedUser.getPassword())) {
+			redirectAttributes.addFlashAttribute("message","Contraseña correcta").addFlashAttribute("resul","success");
+			
+		}else {
+			redirectAttributes.addFlashAttribute("message",
+					"La contraseña que has introduccido es incorrecta").addFlashAttribute("resul","danger");
+		}
+		
+		return new RedirectView("/usuarios/miCuenta");
+		
+	}
+	
+	@PostMapping("/changePassword2-submit") 
+	public RedirectView changePass2(@RequestParam("password1") String password1, @RequestParam("password2") String password2, Model model, RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
+		
+		Usuario loggedUser=authController.getAuthUser();
+			if(password1.equals(password2)) {
+				
+			
+		try {
+		
+		loggedUser.setPassword(passwordEncoder.encode(password1));
+		usuariosRepo.save(loggedUser);
+		
+		SecurityContextHolder.clearContext(); //fuerza el cierre de sesión
+		redirectAttributes.addFlashAttribute("messageLong",
+				"Se ha modificado la contraseña con éxito. Vuelva a iniciar sesión, por favor.").addFlashAttribute("resul","success");
+		model.addAttribute("modelAttribute", "success");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("message",
+					"No se ha podido cambiar la contraseña.").addFlashAttribute("resul","danger");
+		}
+		}else {
+			redirectAttributes.addFlashAttribute("message",
+					"No se ha podido cambiar la contraseña.").addFlashAttribute("resul","danger");
+		}
 		
 		return new RedirectView("/index");
 		

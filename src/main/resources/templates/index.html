@@ -15,16 +15,16 @@
 	<main layout:fragment="content">
 
 <div id="mensaje" th:if="${message}" th:text="${message}"
-					th:class="${'msg alert mt-4 alert-' + resul}"></div>	
+					th:class="${'msg alert mt-4 alert-' + resul}"></div>
 					
 	<div id="mensajeLong" th:if="${messageLong}" th:text="${messageLong}"
 					th:class="${'msg alert mt-4 alert-' + resul}"></div>	
 
-		<div id="mensaje" class="alert alert-danger mt-4" th:if="${result == 'error'}">Los
+		<div id="mensaje" class="msg alert alert-danger mt-4" th:if="${result == 'error'}">Los
 			datos de acceso no son válidos.</div>
-		<div id="mensaje" class="alert alert-success mt-4" th:if="${result == 'login'}">Te
+		<div id="mensaje" class="msg alert alert-success mt-4" th:if="${result == 'login'}">Te
 			has autenticado correctamente.</div>
-		<div id="mensaje" class="alert alert-warning mt-4" th:if="${result == 'logout'}">Has
+		<div id="mensaje" class="msg alert alert-warning mt-4" th:if="${result == 'logout'}">Has
 			cerrado sesión correctamente.</div>
 
 	

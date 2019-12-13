@@ -12,8 +12,8 @@
           <th:block  navbar-collapse collapse justify-content-between><span>!Hola</span><span class="green-text" style="font-weight:bold" th:text="${authUser.nombre}"></span>!</th:block>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" th:href="@{/usuarios/miCuenta}">Mi cuenta</a>	
           <a class="dropdown-item" th:href="@{/usuarios/reservas}">Mis reservas</a>
-          <a class="dropdown-item" th:href="@{/usuarios/modUsuario}">Modificar datos</a>	
         </div>
       </li>
       <button class="btn btn-md btn-danger m-0 px-3" type="submit">Cerrar sesión</button>

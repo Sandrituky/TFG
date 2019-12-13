@@ -28,3 +28,9 @@ setTimeout(function() {
 setTimeout(function() {
   $('#mensajeLong').fadeOut('slow');
 }, 5000); // <-- time in milliseconds
+
+setTimeout(function() {
+  $('#mensajePassword').fadeOut('slow');
+}, 2000); // <-- time in milliseconds
+
+

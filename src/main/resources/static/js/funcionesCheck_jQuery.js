@@ -343,5 +343,38 @@ function loadFormModificar() {
 	}, 100);
 }
 
+$(document).ready(function() {
+	if ($("#contact-tab-ex").length) { 
+		if ($("#mensajePassword").length) { 
+			 
+			
+			
+			$("#home-tab-ex").attr("aria-selected","false");
+			$("#home-tab-ex").removeClass("active");
+			$("#home-tab-ex").removeClass("show");
+			$("#home-ex").removeClass("active");
+			$("#home-ex").removeClass("show");
+			
+			
+			$("#contact-tab-ex").attr("aria-selected","true");
+			$("#contact-tab-ex").addClass("active");
+			$("#contact-tab-ex").addClass("show");
+			$("#contact-ex").addClass("active");
+			$("#contact-ex").addClass("show");
+
+			
+			if ($("#mensajePassword").hasClass("alert-success")) { 
+
+			
+			
+			$("#changePass1").hide();
+			$("#changePass2").show();
+			
+			 }
+		}
+	}
+});
+
+
 
 
