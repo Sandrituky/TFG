@@ -65,7 +65,7 @@ public class AdopcionesController {
 		
 		Animal currentAnimal = animalesRepo.findAnimalById(animal.getId());
 		
-		if (currentAnimal.getOwner().getId() == usuario.getId() || currentAnimal.getEstado() == Estado.RESERVADO) {
+		if (currentAnimal.getOwner().getId() == usuario.getId() && currentAnimal.getEstado() == Estado.RESERVADO) {
 			currentAnimal.setOwner(null);
 			currentAnimal.setEstado(Estado.EN_ADOPCION);
 			animalesRepo.save(currentAnimal);
