@@ -13,7 +13,7 @@
 
 <link th:href="@{/css/materialdesignicons.min.css}" rel="stylesheet" href="../static/css/materialdesignicons.min.css" />
 	
-<link th:href="@{/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet" href="../static/plugins/bootstrap/css/bootstrap.min.css" />
+<link th:href="@{/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet" href="{{secure_asset('../static/plugins/bootstrap/css/bootstrap.min.css') }}" />
 
 <link th:href="@{/plugins/MDB-free/css/mdb.min.css}" rel="stylesheet" href="../static/plugins/MDB-free/css/mdb.min.css" />
 	
@@ -32,7 +32,7 @@
 
 <script th:src="@{/plugins/popper/popper.min.js}" href="../static/plugins/popper/popper.min.js"></script>
 
-<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}" href="../static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}" href="{{secure_asset('../static/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
 <script th:src="@{/plugins/MDB-Free/js/mdb.min.js}" href="../static/plugins/MDB-Free/js/mdb.min.js"></script>
 
