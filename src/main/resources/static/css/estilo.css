@@ -21,6 +21,14 @@ body{
   
 }
 
+.navbar-toggler.collapsed{
+    display: none;
+}
+
+.navbar{
+    banground-color: grey;
+}
+
 footer.page-footer{
  width: 100%;
  background-color:rgba(0,0,0,0.8);
