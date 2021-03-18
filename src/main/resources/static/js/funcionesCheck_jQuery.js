@@ -12,7 +12,7 @@ $(document).ready(function() {
 			inputEmail.addClass('loading');
 
 			$.ajax({
-				url : 'http://localhost:8080/json/checkemail/',
+				url : 'https://proyecto-tfg.herokuapp.com/json/checkemail/',
 				data : {
 					email : $(this).val()
 				},
@@ -64,7 +64,7 @@ $(document).ready(function() {
 		if (dni != '') {
 
 			$.ajax({
-				url : 'http://localhost:8080/json/checkdni/',
+				url : 'https://proyecto-tfg.herokuapp.com/json/checkdni/',
 				data : {
 					dni : $(this).val()
 				},
@@ -107,7 +107,7 @@ $(document).ready(function() {
 		if (telefono != '') {
 
 			$.ajax({
-				url : 'http://localhost:8080/json/checktelefono/',
+				url : 'https://proyecto-tfg.herokuapp.com/json/checktelefono/',
 				data : {
 					telefono : $(this).val()
 				},
