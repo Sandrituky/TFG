@@ -5,11 +5,11 @@ El objetivo principal del proyecto es el desarrollo de una aplicación web que s
 
 * Distinguir a dos tipos de usuario: administradores (de las protectoras) y usuarios finales (clientes), controlando los permisos y accesos que tiene cada uno.
 
-* Añadir animales (perros y gatos) al sistema (Admin) En un futuro se consideraría añadir más tipos de animales.
+* Añadir animales (perros y gatos) al sistema (Admin). En un futuro se consideraría añadir más tipos de animales.
 
 * Modificar los datos de un animal dado de alta en cualquier momento, incluso darlo de baja del sistema (Admin). 
 
-* Mostrar listados de los animales aplicando distintos filtros (Users, Admin)
+* Mostrar listados de los animales aplicando distintos filtros (Users, Admin).
 
 * Ofrecer la posibilidad de reservar un animal que esté en adopción a los usuarios, así como también la posibilidad de poder cancelarla (Users). 
 
