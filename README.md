@@ -1,7 +1,7 @@
 # TFG
 Si desea ver el resultado funcional de la página, acceda aquí: https://proyecto-tfg.herokuapp.com/
 
-![alt text](https://i.imgur.com/LK4QWYD.png)
+![Dogs and Cats in adoption](https://i.imgur.com/uRY1Tjo.png)
 
 El objetivo principal del proyecto es el desarrollo de una aplicación web que sirva como solución a las protectoras de animales domésticos a la hora de gestionar fácilmente la adopción de animales y poder darse a conocer. Esta aplicación cumple con las siguientes funciones: 
 
