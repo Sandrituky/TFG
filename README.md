@@ -1,10 +1,7 @@
 # TFG
 
-Este proyecto fue realizado como trabajo final de ASIR (I.E.S. Leonardo Da Vinci)
+Este proyecto fue realizado como trabajo final de ASIR (I.E.S. Leonardo Da Vinci) por Sandra Valero Ponte.
 
- 
-
- [aqui] ()
 
 * Si desea saber más sobre la implementación y desarrollo del proyecto, acceda a la [presentación](https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing)
 * Si desea ver y probar el resultado funcional de la página, acceda a la [página web](https://proyecto-tfg.herokuapp.com/)
