@@ -4,7 +4,9 @@ Este proyecto fue realizado como trabajo final de ASIR (I.E.S. Leonardo Da Vinci
 
  
 
-Si desea saber más sobre la implementación y desarrollo del proyecto, acceda [aqui] (https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing)
+ [aqui] ()
+
+* Si desea saber más sobre la implementación y desarrollo del proyecto, acceda [aquí](https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing) (>=1.0.1).
 
 ![Dogs and Cats in adoption](https://i.imgur.com/uRY1Tjo.png)
 
