@@ -3,7 +3,7 @@ Si desea ver el resultado funcional de la página, acceda aquí: https://proyect
 
 ![Dogs and Cats in adoption](https://i.imgur.com/uRY1Tjo.png)
 
-Si desea saber más sobre la implementación y desarrollo del proyecto, acceda aquí: https://docs.google.com/presentation/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/edit#slide=id.p1
+Si desea saber más sobre la implementación y desarrollo del proyecto, acceda aquí: https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing
 
 El objetivo principal del proyecto es el desarrollo de una aplicación web que sirva como solución a las protectoras de animales domésticos a la hora de gestionar fácilmente la adopción de animales y poder darse a conocer. Esta aplicación cumple con las siguientes funciones: 
 
