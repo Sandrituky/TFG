@@ -6,11 +6,11 @@ Este proyecto fue realizado como trabajo final de ASIR (I.E.S. Leonardo Da Vinci
 
  [aqui] ()
 
-* Si desea saber más sobre la implementación y desarrollo del proyecto, acceda [aquí](https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing) (>=1.0.1).
+* Si desea saber más sobre la implementación y desarrollo del proyecto, acceda a la [presentación](https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing)
 
 ![Dogs and Cats in adoption](https://i.imgur.com/uRY1Tjo.png)
 
-Si desea ver y probar el resultado funcional de la página, acceda aquí: https://proyecto-tfg.herokuapp.com/
+Si desea ver y probar el resultado funcional de la página, acceda a la página web [aquí](https://proyecto-tfg.herokuapp.com/)
 
 El objetivo principal del proyecto es el desarrollo de una aplicación web que sirva como solución a las protectoras de animales domésticos a la hora de gestionar fácilmente la adopción de animales y poder darse a conocer. Esta aplicación cumple con las siguientes funciones: 
 
