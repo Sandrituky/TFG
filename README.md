@@ -4,7 +4,7 @@ Este proyecto fue realizado como trabajo final de ASIR (I.E.S. Leonardo Da Vinci
 
 
 * Si desea saber más sobre la implementación y desarrollo del proyecto, acceda a la [presentación](https://drive.google.com/file/d/1JQRgGv0vatO1bLdfIpAx2Twlax7jcO06/view?usp=sharing)
-* Si desea ver y probar el resultado funcional de la página, acceda a la [página web](https://proyecto-tfg.herokuapp.com/)
+~~* Si desea ver y probar el resultado funcional de la página, acceda a la [página web](https://proyecto-tfg.herokuapp.com/)~~ (se acabó el hosting gratis, si sabes alguno, házmelo saber 😉)
 
 ![Dogs and Cats in adoption](https://i.imgur.com/uRY1Tjo.png)
 
